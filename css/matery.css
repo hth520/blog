@@ -241,7 +241,7 @@ mark {
 }
 
 .bg-color {
-    background-image: linear-gradient(to right, #4cbf30 0%, #0f9d58 100%);
+    background-image: linear-gradient(to right, #b7e1e4 0%, #5ab9c1 100%);
 }
 
 .text-color {
@@ -257,7 +257,7 @@ mark {
     position: fixed;
     bottom: 0;
     z-index: 300;
-    background: linear-gradient(to right, #4cbf30 0%, #0f9d58 100%);
+    background: linear-gradient(to right, #5fbbc3 0%, #b6e1e4 100%);
     opacity: 0.8;
 }
 
@@ -290,18 +290,36 @@ header nav .brand-span {
 }
 
 header .brand-logo .logo-img {
+    /* display: none; */
     height: 45px;
     vertical-align: middle;
     padding-bottom: 6px;
 }
+@media screen and (max-width:375px){
+    header .brand-logo .logo-img {
+        display: none;
+    }
+}
 
 header .brand-logo .logo-span {
+    color:#34495e;
+    font-weight:700;
     font-size: 1.6rem;
 }
 
 /*修改顶部 logo 的文字垂直对齐为 top，避免默认 middle 看起来偏下*/
 header .brand-logo .waves-effect {
     vertical-align: top;
+}
+.nav-menu .nav-item .waves-light  span{
+    color: #34495e;
+    font-weight: 700;
+}
+.nav-menu .nav-item .waves-light  i{
+    color: #34495e;
+}
+.modal-trigger i{
+    color: #34495e;
 }
 
 header .button-collapse i {
@@ -502,7 +520,7 @@ header .side-nav .social-link {
 
 .cover-social-link {
     position: relative;
-    top: 23vh;
+    top: 15vh;
     width: 100%;
     text-align: center;
 }
@@ -533,7 +551,7 @@ header .go-back i {
     position: relative;
     display: flex;
     align-items: center;
-    height: 60vh;
+    height: 80vh !important;
     padding: 0;
     border: 0;
     overflow: hidden;
@@ -564,7 +582,7 @@ header .go-back i {
     display: block;
     left: 0;
     top: 0;
-    content: "";
+    /* content: ""; */
 }
 
 .bg-cover .container {
@@ -584,13 +602,15 @@ header .go-back i {
     font-weight: 300;
     font-size: 1.25rem;
     line-height: 1.4em;
-    color: #eee;
+    color: #fff;
 }
 
 .bg-cover .post-title {
+    color: #000;
     margin: 0 auto;
     font-size: 2.5rem;
-    font-weight: 400;
+    font-weight: 500;
+    padding: 10px;
 }
 
 @-webkit-keyframes rainbow {
@@ -686,7 +706,7 @@ header .go-back i {
 }
 
 .index-card {
-    margin-top: -10px;
+    margin-top: -60px;
     padding-top: 20px;
 }
 
@@ -1843,7 +1863,7 @@ footer a {
 }
 
 footer .copy-right {
-    color: #dbdbdb;
+    color: #34495e;
 }
 
 /*搜索层样式*/
