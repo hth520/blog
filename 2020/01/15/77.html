@@ -4,9 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Vue 使用 formData 方式向后台发送数据, feico の 博客">
-    <meta name="description" content="Vue 使用 formData 方式向后台发送数据1. 基本使用方式template
-&amp;lt;input class=&#34;file&#34; name=&#34;file&#34; type=&#34;file&#34; accept=&#34;image/png,image/gif,im">
+    <meta name="keywords" content="Markdown 介绍与入门, feico の 博客">
+    <meta name="description" content="Markdown介绍与入门介绍Markdown是一种轻量级的标记语言，使用普通的文本编辑器，通过简单的标记语法，就可以实现漂亮的排版，被越来越多的写作爱好者、程序员所使用。Markdown自成格式，不依赖任何编辑器，且易于传播，其语法十分简">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Vue 使用 formData 方式向后台发送数据 | feico の 博客</title>
+    <title>Markdown 介绍与入门 | feico の 博客</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -247,12 +246,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://w.wallhaven.cc/full/13/wallhaven-1377m3.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://w.wallhaven.cc/full/vm/wallhaven-vmo53p.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Vue 使用 formData 方式向后台发送数据</h1>
+                    <h1 class="description center-align post-title">Markdown 介绍与入门</h1>
                 </div>
             </div>
         </div>
@@ -368,16 +367,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/formdata/">
-                                <span class="chip bg-color">formdata</span>
-                            </a>
-                        
-                            <a href="/tags/axios/">
-                                <span class="chip bg-color">axios</span>
-                            </a>
-                        
-                            <a href="/tags/vue/">
-                                <span class="chip bg-color">vue</span>
+                            <a href="/tags/markdown/">
+                                <span class="chip bg-color">markdown</span>
                             </a>
                         
                     </div>
@@ -388,8 +379,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Vue-js/" class="post-category">
-                                Vue.js
+                            <a href="/categories/Coding/" class="post-category">
+                                Coding
                             </a>
                         
                     </div>
@@ -401,7 +392,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-04-13
+                    2020-01-15
                 </div>
                 
 
@@ -425,37 +416,44 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Vue-使用-formData-方式向后台发送数据"><a href="#Vue-使用-formData-方式向后台发送数据" class="headerlink" title="Vue 使用 formData 方式向后台发送数据"></a>Vue 使用 formData 方式向后台发送数据</h1><h3 id="1-基本使用方式"><a href="#1-基本使用方式" class="headerlink" title="1. 基本使用方式"></a>1. 基本使用方式</h3><p><strong>template</strong></p>
-<pre class="language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>file<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>file<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>file<span class="token punctuation">"</span></span> <span class="token attr-name">accept</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>image/png,image/gif,image/jpeg<span class="token punctuation">"</span></span> <span class="token attr-name">@change</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>update<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span></code></pre>
-
-<p><strong>JavaScript</strong></p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token function">update</span> <span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">let</span> file <span class="token operator">=</span> e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>files<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
-    <span class="token comment">// console.log(file)</span>
-    <span class="token keyword">let</span> param <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FormData</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// 创建form对象</span>
-    param<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">'file'</span><span class="token punctuation">,</span> file<span class="token punctuation">,</span> file<span class="token punctuation">.</span>name<span class="token punctuation">)</span> <span class="token comment">// 通过append向form对象添加数据</span>
-    param<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">'id'</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$store<span class="token punctuation">.</span>state<span class="token punctuation">.</span>userId<span class="token punctuation">)</span> <span class="token comment">// 添加form表单中其他数据</span>
-      <span class="token comment">// withCredentials: true 使得后台可以接收表单数据  跨域请求</span>
-    <span class="token keyword">const</span> instance <span class="token operator">=</span> axios<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
-        <span class="token literal-property property">withCredentials</span><span class="token operator">:</span> <span class="token boolean">true</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-    <span class="token comment">// url为后台接口</span>
-    instance<span class="token punctuation">.</span><span class="token function">post</span><span class="token punctuation">(</span><span class="token string">'url'</span><span class="token punctuation">,</span> param<span class="token punctuation">)</span>
-        <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>succ<span class="token punctuation">)</span> <span class="token comment">// 成功返回信息 调用函数  函数需自己定义，此处后面省略</span>
-        <span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>serverError<span class="token punctuation">)</span> <span class="token comment">// 服务器错误 调用对应函数  函数需自己定义，此处后面省略</span>
-<span class="token punctuation">&#125;</span></code></pre>
-
-<h3 id="2-美化-input-file-按钮-（拓展）"><a href="#2-美化-input-file-按钮-（拓展）" class="headerlink" title="2. 美化 input file 按钮 （拓展）"></a>2. 美化 input file 按钮 （拓展）</h3><blockquote>
-<p>思路：</p>
-</blockquote>
-<ol>
-<li>简单粗暴地隐藏：opacity: 0;</li>
-<li>在 <code>&lt;input class=&quot;file&quot;&gt; </code>元素节点的位置上创建一个好看的元素节点,比如<code>img</code></li>
-<li>将 <code>&lt;input class=&quot;file&quot;&gt; </code>元素的z轴变高，使得其覆盖<code>&lt;img/&gt;</code> :z-index: 5;</li>
-<li>因为 <code>&lt;input class=&quot;file&quot;&gt; </code>是透明的，那么我们就只看见它同xy上的好看的<code>&lt;img /&gt;</code></li>
-<li>点击这个好看的<code>&lt;img /&gt;</code> 其实是点击了它上层的表单</li>
+                <h1 id="Markdown介绍与入门"><a href="#Markdown介绍与入门" class="headerlink" title="Markdown介绍与入门"></a>Markdown介绍与入门</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Markdown是一种轻量级的标记语言，使用普通的文本编辑器，通过简单的标记语法，就可以实现漂亮的排版，被越来越多的写作爱好者、程序员所使用。Markdown自成格式，不依赖任何编辑器，且易于传播，其语法十分简单，通过几分钟的简单学习，就可以实现基本的排版，然后专注于码字。</p>
+<p>Markdown现在十分流行，经常访问 <code>github</code> 的朋友一定会发现，几乎所有的开源代码里，都有一个<code>README.md </code>文件，这个 <code>md</code> 文件，就是使用Markdown标记语言编写的。</p>
+<h2 id="常用语法"><a href="#常用语法" class="headerlink" title="常用语法"></a>常用语法</h2><p><strong>1.标题</strong><br>　　标题是每篇文章都需要也是最常用的格式，在 Markdown 中，如果一段文字被定义为标题，只要在这段文字前加 # 号即可。Markdown总共支持六级标题，一级标题1个#，二级标题2个#，依此类推。<br>如下图，左边是编辑区界面，右边是预览界面，仅需在文字前加上几个#号（注意：markdown语法，一般要在标记符号后加一个空格）。</p>
+<p><strong>2.列表</strong><br>列表分为有序列表和无序列表。列表可通过缩进实现嵌套的列表。</p>
+<p>有序列表：在文字前加上 1. 2. 3.即可变为有序列表。<br>无序列表：在文字前加上一个- 或者*或者+。<br>如下图：</p>
+<p><strong>注意：</strong></p>
+<p>无序列表或有序列表标记和后面的文字之间要有一个空格隔开。<br>有序列表标记不是按照你写的数字进行显示的，而是根据当前有序列表标记所在位置显示的。<br>无序列表的项目符号是按照实心圆、空心圆、实心方格的层级关系递进的。<br>3.引用<br>如果你需要引用一小处别处的句子，就需要用上引用的格式。引用的标记符号是&gt;。<br>如下图：</p>
+<p>引用也可以嵌套多级，两个&gt;可以实现二级引用，三个&gt;可以实现三级引用。<br>如下图：</p>
+<p>4.插入图片和链接<br>链接与图片的语法很像。</p>
+<p>插入图片： <img src="">，在[]中写替代文字（假如因为某些原因图片加载不成功，就显示这些文字，可以为空），（）中写图片地址，可以是本地地址，也可以是网络地址，通常使用网络地址。<br>插入链接：<a href=""></a>，同上。<br>如下图：</p>
+<p>5.粗体与斜体<br>使用<code>**或者_表示粗体，*或者</code>表示斜体。<br>如下图：</p>
+<p>注意：前后的 * 或 _ 与要 加粗或倾斜 的字体之间不能有空格。</p>
+<p>6.分割线<br>使用—或**<em>或</em> * *可以实现分割线。<br>如下图：</p>
+<p>7.行内代码和代码块<br>行内代码：将小段文字或代码，放在一个<code>符号对中，就是行内代码的标记规则。 代码块， 使用“</code>表示代码块。<br>如下图：</p>
+<p>注意：`这个符号，在键盘上ESC键下面，切换到英文输入法即可打出。</p>
+<p>8.表格<br>相比前面几项标记，表格真是太复杂了T_T。</p>
+<p>——: 为右对齐。<br>:—— 为左对齐。<br>:——: 为居中对齐。<br>——- 为使用默认居中对齐。<br>如下图：</p>
+<p>但是如果你使用一些Markdown编辑器，通常可以用过鼠标操作插入表格，很简单。</p>
+<h2 id="次常用语法"><a href="#次常用语法" class="headerlink" title="次常用语法"></a>次常用语法</h2><ol>
+<li><p>目录<br>使用 [TOC] 可以自动生成目录，前提是你是按照标准Markdown语法写的。<br>注意：[TOC] 标记可能只能放在一级标题的前面，视不同的编译器而定。</p>
+</li>
+<li><p>反斜杠<br>使用 \ 表示反斜杠。在你不想显示Markdown标记时可以使用反斜杠。<br>如：当你输入<em>电子科技大学</em>的时候，默认会以斜体的形式呈现，你若本就想显示出<em>，就在</em>前面加上反斜杠\吧。</p>
+</li>
+<li><p>空格<br>Markdown语法会忽略首行开头的空格，如果要体现出首行开头空两个的效果，可以使用 全角符号下的空格 ，windows下使用 shift+空格 切换。</p>
+</li>
 </ol>
-<p>以上思路可以实现点击用户头像，<strong>通过表单上传更换头像</strong></p>
+<p>4.删除线<br>使用~~表示删除线</p>
+<p>这是一条删除线</p>
+<p>这是一条删除线</p>
+<p>注：有的编译器可能不支持（比如我正在使用的Markdown Pad2）。</p>
+<p>5.其他不常用的语法<br>小编用到的语法也很少，平时使用的就几个常用标记。其他语法如标签分类(Tags)、注脚、页内跳转等等，很少用到，各位同学需要的时候再自己百度吧。</p>
+<h2 id="高级语法"><a href="#高级语法" class="headerlink" title="高级语法"></a>高级语法</h2><p><strong>1.Latex公式</strong><br>Markdown语法支持插入大名鼎鼎的Latex，这简直就是神器啊。在Markdown中插入Latex公式需要编译器支持，用法也有很多，这里就不能介绍了，用到的朋友自行百度吧。</p>
+<p><strong>2.流程图</strong><br>Markdown还支持插入流程图，用法较为复杂。这里也不能做详细介绍了。</p>
+<h2 id="编辑器推荐"><a href="#编辑器推荐" class="headerlink" title="编辑器推荐"></a>编辑器推荐</h2><p><strong>在线Markdown编辑器</strong><br>    <strong>dillinger ：</strong>漂亮强大，支持 <code>md</code>, <code>html</code>, <code>pdf</code> 文件导出。支持 <code>dropbox</code>, <code>onedrive</code>，<code>google drive</code>, <code>github</code>. 来自国外，可能不够稳定。</p>
+<p><code>MaHua ：</code>小众软件推荐，界面有些简陋。</p>
+<p><strong>简书 ：</strong>一个很不错的博客平台，每几秒钟便会自动存入一个备份。可以直接从本地拖入照片生成链接，一直在不断优化。作为一个博客平台，需要注册账号后方能进行写作。<br>还有很多….</p>
+<p><strong>桌面Markdown编辑器</strong><br><code>Typora</code> ：美观、强大。推荐使用。支持Win、Linux、MAC。<br><code>MarkdownPad</code>：功能强大、界面丑陋。Windows平台，使用人数较多。<br><code>HarooPad</code>: 简洁、跨平台。</p>
+<p>Markdown简单、强大，强烈推荐！</p>
 
                 
             </div>
@@ -482,7 +480,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://hth520.github.io/2019/04/13/90413.html">https://hth520.github.io/2019/04/13/90413.html</a>
+                    <a href="https://hth520.github.io/2020/01/15/77.html">https://hth520.github.io/2020/01/15/77.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -520,16 +518,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/formdata/">
-                                    <span class="chip bg-color">formdata</span>
-                                </a>
-                            
-                                <a href="/tags/axios/">
-                                    <span class="chip bg-color">axios</span>
-                                </a>
-                            
-                                <a href="/tags/vue/">
-                                    <span class="chip bg-color">vue</span>
+                                <a href="/tags/markdown/">
+                                    <span class="chip bg-color">markdown</span>
                                 </a>
                             
                         </div>
@@ -700,7 +690,7 @@
         repo: 'hth520.github.io',
         owner: 'hth520',
         admin: ["hth520"],
-        id: '2019-04-13T00-00-00',
+        id: '2020-01-15T00-00-00',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -734,6 +724,58 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
+                <a href="/2020/01/20/80.html">
+                    <div class="card-image">
+                        
+                        <img src="https://w.wallhaven.cc/full/z8/wallhaven-z82jeg.png" class="responsive-img" alt="markdown 表情大全">
+                        
+                        <span class="card-title">markdown 表情大全</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-01-20
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%B7%A5%E5%85%B7/" class="post-category">
+                                    工具
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/markdown/">
+                        <span class="chip bg-color">markdown</span>
+                    </a>
+                    
+                    <a href="/tags/emoji/">
+                        <span class="chip bg-color">emoji</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
                 <a href="/2019/04/16/90416.html">
                     <div class="card-image">
                         
@@ -749,9 +791,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2019-04-16
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-04-16
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -773,58 +815,6 @@
                     
                     <a href="/tags/javascript/">
                         <span class="chip bg-color">javascript</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2019/03/24/90324.html">
-                    <div class="card-image">
-                        
-                        <img src="https://w.wallhaven.cc/full/j3/wallhaven-j31omy.jpg" class="responsive-img" alt="vue2-给组件绑定原生事件">
-                        
-                        <span class="card-title">vue2-给组件绑定原生事件</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2019-03-24
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Vue-js/" class="post-category">
-                                    Vue.js
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E5%89%8D%E7%AB%AF/">
-                        <span class="chip bg-color">前端</span>
-                    </a>
-                    
-                    <a href="/tags/Vue/">
-                        <span class="chip bg-color">Vue</span>
                     </a>
                     
                 </div>

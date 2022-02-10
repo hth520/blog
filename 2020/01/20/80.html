@@ -4,9 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Vue 使用 formData 方式向后台发送数据, feico の 博客">
-    <meta name="description" content="Vue 使用 formData 方式向后台发送数据1. 基本使用方式template
-&amp;lt;input class=&#34;file&#34; name=&#34;file&#34; type=&#34;file&#34; accept=&#34;image/png,image/gif,im">
+    <meta name="keywords" content="markdown 表情大全, feico の 博客">
+    <meta name="description" content="markdown 表情大全markdown表情该文是搜集的网络资源整理，为了写博客需要用到一些有趣的表情，特此记录将对应emoji表情的符号码复制后输入你的markdown文本即可显示emoji表情。如​:blush:​，显示为😊
+人物
+">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +19,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Vue 使用 formData 方式向后台发送数据 | feico の 博客</title>
+    <title>markdown 表情大全 | feico の 博客</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -247,12 +248,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://w.wallhaven.cc/full/13/wallhaven-1377m3.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://w.wallhaven.cc/full/z8/wallhaven-z82jeg.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Vue 使用 formData 方式向后台发送数据</h1>
+                    <h1 class="description center-align post-title">markdown 表情大全</h1>
                 </div>
             </div>
         </div>
@@ -368,16 +369,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/formdata/">
-                                <span class="chip bg-color">formdata</span>
+                            <a href="/tags/markdown/">
+                                <span class="chip bg-color">markdown</span>
                             </a>
                         
-                            <a href="/tags/axios/">
-                                <span class="chip bg-color">axios</span>
-                            </a>
-                        
-                            <a href="/tags/vue/">
-                                <span class="chip bg-color">vue</span>
+                            <a href="/tags/emoji/">
+                                <span class="chip bg-color">emoji</span>
                             </a>
                         
                     </div>
@@ -388,8 +385,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Vue-js/" class="post-category">
-                                Vue.js
+                            <a href="/categories/%E5%B7%A5%E5%85%B7/" class="post-category">
+                                工具
                             </a>
                         
                     </div>
@@ -401,7 +398,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-04-13
+                    2020-01-20
                 </div>
                 
 
@@ -425,37 +422,507 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Vue-使用-formData-方式向后台发送数据"><a href="#Vue-使用-formData-方式向后台发送数据" class="headerlink" title="Vue 使用 formData 方式向后台发送数据"></a>Vue 使用 formData 方式向后台发送数据</h1><h3 id="1-基本使用方式"><a href="#1-基本使用方式" class="headerlink" title="1. 基本使用方式"></a>1. 基本使用方式</h3><p><strong>template</strong></p>
-<pre class="language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>file<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>file<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>file<span class="token punctuation">"</span></span> <span class="token attr-name">accept</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>image/png,image/gif,image/jpeg<span class="token punctuation">"</span></span> <span class="token attr-name">@change</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>update<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span></code></pre>
-
-<p><strong>JavaScript</strong></p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token function">update</span> <span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">let</span> file <span class="token operator">=</span> e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>files<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
-    <span class="token comment">// console.log(file)</span>
-    <span class="token keyword">let</span> param <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FormData</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// 创建form对象</span>
-    param<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">'file'</span><span class="token punctuation">,</span> file<span class="token punctuation">,</span> file<span class="token punctuation">.</span>name<span class="token punctuation">)</span> <span class="token comment">// 通过append向form对象添加数据</span>
-    param<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">'id'</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$store<span class="token punctuation">.</span>state<span class="token punctuation">.</span>userId<span class="token punctuation">)</span> <span class="token comment">// 添加form表单中其他数据</span>
-      <span class="token comment">// withCredentials: true 使得后台可以接收表单数据  跨域请求</span>
-    <span class="token keyword">const</span> instance <span class="token operator">=</span> axios<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
-        <span class="token literal-property property">withCredentials</span><span class="token operator">:</span> <span class="token boolean">true</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-    <span class="token comment">// url为后台接口</span>
-    instance<span class="token punctuation">.</span><span class="token function">post</span><span class="token punctuation">(</span><span class="token string">'url'</span><span class="token punctuation">,</span> param<span class="token punctuation">)</span>
-        <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>succ<span class="token punctuation">)</span> <span class="token comment">// 成功返回信息 调用函数  函数需自己定义，此处后面省略</span>
-        <span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>serverError<span class="token punctuation">)</span> <span class="token comment">// 服务器错误 调用对应函数  函数需自己定义，此处后面省略</span>
-<span class="token punctuation">&#125;</span></code></pre>
-
-<h3 id="2-美化-input-file-按钮-（拓展）"><a href="#2-美化-input-file-按钮-（拓展）" class="headerlink" title="2. 美化 input file 按钮 （拓展）"></a>2. 美化 input file 按钮 （拓展）</h3><blockquote>
-<p>思路：</p>
-</blockquote>
-<ol>
-<li>简单粗暴地隐藏：opacity: 0;</li>
-<li>在 <code>&lt;input class=&quot;file&quot;&gt; </code>元素节点的位置上创建一个好看的元素节点,比如<code>img</code></li>
-<li>将 <code>&lt;input class=&quot;file&quot;&gt; </code>元素的z轴变高，使得其覆盖<code>&lt;img/&gt;</code> :z-index: 5;</li>
-<li>因为 <code>&lt;input class=&quot;file&quot;&gt; </code>是透明的，那么我们就只看见它同xy上的好看的<code>&lt;img /&gt;</code></li>
-<li>点击这个好看的<code>&lt;img /&gt;</code> 其实是点击了它上层的表单</li>
-</ol>
-<p>以上思路可以实现点击用户头像，<strong>通过表单上传更换头像</strong></p>
+                <h1 id="markdown-表情大全"><a href="#markdown-表情大全" class="headerlink" title="markdown 表情大全"></a>markdown 表情大全</h1><h2 id="markdown表情"><a href="#markdown表情" class="headerlink" title="markdown表情"></a>markdown表情</h2><p>该文是搜集的网络资源整理，为了写博客需要用到一些有趣的表情，特此记录<br>将对应emoji表情的符号码复制后输入你的markdown文本即可显示emoji表情。<br>如​<code>:blush:​</code>，显示为😊</p>
+<h3 id="人物"><a href="#人物" class="headerlink" title="人物"></a>人物</h3><table>
+<thead>
+<tr>
+<th align="center">syntax</th>
+<th align="center">preview</th>
+<th align="center">syntax</th>
+<th align="center">preview</th>
+<th align="center">syntax</th>
+<th align="center">preview</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>:bowtie:</code></td>
+<td align="center">:bowtie:</td>
+<td align="center"><code>:smile:</code></td>
+<td align="center">:smile:</td>
+<td align="center"><code>:laughing:</code></td>
+<td align="center">:laughing:</td>
+</tr>
+<tr>
+<td align="center"><code>:blush:</code></td>
+<td align="center">😊</td>
+<td align="center"><code>:smiley:</code></td>
+<td align="center">😃</td>
+<td align="center"><code>:relaxed:</code></td>
+<td align="center">☺️</td>
+</tr>
+<tr>
+<td align="center"><code>:smirk:</code></td>
+<td align="center">😏</td>
+<td align="center"><code>:heart_eyes:</code></td>
+<td align="center">😍</td>
+<td align="center"><code>:kissing_heart:</code></td>
+<td align="center">😘</td>
+</tr>
+<tr>
+<td align="center"><code>:kissing_closed_eyes:</code></td>
+<td align="center">😚</td>
+<td align="center"><code>:flushed:</code></td>
+<td align="center">😳</td>
+<td align="center"><code>:relieved:</code></td>
+<td align="center">😌</td>
+</tr>
+<tr>
+<td align="center"><code>:satisfied:</code></td>
+<td align="center">😆</td>
+<td align="center"><code>:grin:</code></td>
+<td align="center">😁</td>
+<td align="center"><code>:wink:</code></td>
+<td align="center">😉</td>
+</tr>
+<tr>
+<td align="center"><code>:stuck_out_tongue_winking_eye:</code></td>
+<td align="center">😜</td>
+<td align="center"><code>:stuck_out_tongue_closed_eyes:</code></td>
+<td align="center">😝</td>
+<td align="center"><code>:grinning:</code></td>
+<td align="center">😀</td>
+</tr>
+<tr>
+<td align="center"><code>:kissing:</code></td>
+<td align="center">😗</td>
+<td align="center"><code>:kissing_smiling_eyes:</code></td>
+<td align="center">😙</td>
+<td align="center"><code>:stuck_out_tongue:</code></td>
+<td align="center">😛</td>
+</tr>
+<tr>
+<td align="center"><code>:sleeping:</code></td>
+<td align="center">😴</td>
+<td align="center"><code>:worried:</code></td>
+<td align="center">😟</td>
+<td align="center"><code>:frowning:</code></td>
+<td align="center">😦</td>
+</tr>
+<tr>
+<td align="center"><code>:anguished:</code></td>
+<td align="center">😧</td>
+<td align="center"><code>:open_mouth:</code></td>
+<td align="center">😮</td>
+<td align="center"><code>:grimacing:</code></td>
+<td align="center">😬</td>
+</tr>
+<tr>
+<td align="center"><code>:confused:</code></td>
+<td align="center">😕</td>
+<td align="center"><code>:hushed:</code></td>
+<td align="center">😯</td>
+<td align="center"><code>:expressionless:</code></td>
+<td align="center">😑</td>
+</tr>
+<tr>
+<td align="center"><code>:unamused:</code></td>
+<td align="center">😒</td>
+<td align="center"><code>:sweat_smile:</code></td>
+<td align="center">😅</td>
+<td align="center"><code>:sweat:</code></td>
+<td align="center">😓</td>
+</tr>
+<tr>
+<td align="center"><code>:disappointed_relieved:</code></td>
+<td align="center">😥</td>
+<td align="center"><code>:weary:</code></td>
+<td align="center">😩</td>
+<td align="center"><code>:pensive:</code></td>
+<td align="center">😔</td>
+</tr>
+<tr>
+<td align="center"><code>:disappointed:</code></td>
+<td align="center">😞</td>
+<td align="center"><code>:confounded:</code></td>
+<td align="center">😖</td>
+<td align="center"><code>:fearful:</code></td>
+<td align="center">😨</td>
+</tr>
+<tr>
+<td align="center"><code>:cold_sweat:</code></td>
+<td align="center">😰</td>
+<td align="center"><code>:persevere:</code></td>
+<td align="center">😣</td>
+<td align="center"><code>:cry:</code></td>
+<td align="center">😢</td>
+</tr>
+<tr>
+<td align="center"><code>:sob:</code></td>
+<td align="center">😭</td>
+<td align="center"><code>:joy:</code></td>
+<td align="center">😂</td>
+<td align="center"><code>:astonished:</code></td>
+<td align="center">😲</td>
+</tr>
+<tr>
+<td align="center"><code>:scream:</code></td>
+<td align="center">😱</td>
+<td align="center"><code>:neckbeard:</code></td>
+<td align="center">:neckbeard:</td>
+<td align="center"><code>:tired_face:</code></td>
+<td align="center">😫</td>
+</tr>
+<tr>
+<td align="center"><code>:angry:</code></td>
+<td align="center">😠</td>
+<td align="center"><code>:rage:</code></td>
+<td align="center">😡</td>
+<td align="center"><code>:triumph:</code></td>
+<td align="center">😤</td>
+</tr>
+<tr>
+<td align="center"><code>:sleepy:</code></td>
+<td align="center">😪</td>
+<td align="center"><code>:yum:</code></td>
+<td align="center">😋</td>
+<td align="center"><code>:mask:</code></td>
+<td align="center">😷</td>
+</tr>
+<tr>
+<td align="center"><code>:sunglasses:</code></td>
+<td align="center">😎</td>
+<td align="center"><code>:dizzy_face:</code></td>
+<td align="center">😵</td>
+<td align="center"><code>:imp:</code></td>
+<td align="center">👿</td>
+</tr>
+<tr>
+<td align="center"><code>:smiling_imp:</code></td>
+<td align="center">😈</td>
+<td align="center"><code>:neutral_face:</code></td>
+<td align="center">😐</td>
+<td align="center"><code>:no_mouth:</code></td>
+<td align="center">😶</td>
+</tr>
+<tr>
+<td align="center"><code>:innocent:</code></td>
+<td align="center">😇</td>
+<td align="center"><code>:alien:</code></td>
+<td align="center">👽</td>
+<td align="center"><code>:yellow_heart:</code></td>
+<td align="center">💛</td>
+</tr>
+<tr>
+<td align="center"><code>:blue_heart:</code></td>
+<td align="center">💙</td>
+<td align="center"><code>:purple_heart:</code></td>
+<td align="center">💜</td>
+<td align="center"><code>:heart:</code></td>
+<td align="center">❤️</td>
+</tr>
+<tr>
+<td align="center"><code>:green_heart:</code></td>
+<td align="center">💚</td>
+<td align="center"><code>:broken_heart:</code></td>
+<td align="center">💔</td>
+<td align="center"><code>:heartbeat:</code></td>
+<td align="center">💓</td>
+</tr>
+<tr>
+<td align="center"><code>:heartpulse:</code></td>
+<td align="center">💗</td>
+<td align="center"><code>:two_hearts:</code></td>
+<td align="center">💕</td>
+<td align="center"><code>:revolving_hearts:</code></td>
+<td align="center">💞</td>
+</tr>
+<tr>
+<td align="center"><code>:cupid:</code></td>
+<td align="center">💘</td>
+<td align="center"><code>:sparkling_heart:</code></td>
+<td align="center">💖</td>
+<td align="center"><code>:sparkles:</code></td>
+<td align="center">✨</td>
+</tr>
+<tr>
+<td align="center"><code>:star:</code></td>
+<td align="center">⭐</td>
+<td align="center"><code>:star2:</code></td>
+<td align="center">🌟</td>
+<td align="center"><code>:dizzy:</code></td>
+<td align="center">💫</td>
+</tr>
+<tr>
+<td align="center"><code>:boom:</code></td>
+<td align="center">💥</td>
+<td align="center"><code>:collision:</code></td>
+<td align="center">💥</td>
+<td align="center"><code>:anger:</code></td>
+<td align="center">💢</td>
+</tr>
+<tr>
+<td align="center"><code>:exclamation:</code></td>
+<td align="center">❗</td>
+<td align="center"><code>:question:</code></td>
+<td align="center">❓</td>
+<td align="center"><code>:grey_exclamation:</code></td>
+<td align="center">❕</td>
+</tr>
+<tr>
+<td align="center"><code>:grey_question:</code></td>
+<td align="center">❔</td>
+<td align="center"><code>:zzz:</code></td>
+<td align="center">💤</td>
+<td align="center"><code>:dash:</code></td>
+<td align="center">💨</td>
+</tr>
+<tr>
+<td align="center"><code>:sweat_drops:</code></td>
+<td align="center">💦</td>
+<td align="center"><code>:notes:</code></td>
+<td align="center">🎶</td>
+<td align="center"><code>:musical_note:</code></td>
+<td align="center">🎵</td>
+</tr>
+<tr>
+<td align="center"><code>:fire:</code></td>
+<td align="center">🔥</td>
+<td align="center"><code>:hankey:</code></td>
+<td align="center">💩</td>
+<td align="center"><code>:poop:</code></td>
+<td align="center">💩</td>
+</tr>
+<tr>
+<td align="center"><code>::</code></td>
+<td align="center">💩</td>
+<td align="center"><code>:+1:</code></td>
+<td align="center">👍</td>
+<td align="center"><code>:thumbsup:</code></td>
+<td align="center">👍</td>
+</tr>
+<tr>
+<td align="center"><code>:-1:</code></td>
+<td align="center">👎</td>
+<td align="center"><code>:thumbsdown:</code></td>
+<td align="center">👎</td>
+<td align="center"><code>:ok_hand:</code></td>
+<td align="center">👌</td>
+</tr>
+<tr>
+<td align="center"><code>:punch:</code></td>
+<td align="center">👊</td>
+<td align="center"><code>:facepunch:</code></td>
+<td align="center">👊</td>
+<td align="center"><code>:fist:</code></td>
+<td align="center">✊</td>
+</tr>
+<tr>
+<td align="center"><code>:v:</code></td>
+<td align="center">✌️</td>
+<td align="center"><code>:wave:</code></td>
+<td align="center">👋</td>
+<td align="center"><code>:hand:</code></td>
+<td align="center">✋</td>
+</tr>
+<tr>
+<td align="center"><code>:raised_hand:</code></td>
+<td align="center">✋</td>
+<td align="center"><code>:open_hands:</code></td>
+<td align="center">👐</td>
+<td align="center"><code>:point_up:</code></td>
+<td align="center">☝️</td>
+</tr>
+<tr>
+<td align="center"><code>:point_down:</code></td>
+<td align="center">👇</td>
+<td align="center"><code>:point_left:</code></td>
+<td align="center">👈</td>
+<td align="center"><code>:point_right:</code></td>
+<td align="center">👉</td>
+</tr>
+<tr>
+<td align="center"><code>:raised_hands:</code></td>
+<td align="center">🙌</td>
+<td align="center"><code>:pray:</code></td>
+<td align="center">🙏</td>
+<td align="center"><code>:point_up_2:</code></td>
+<td align="center">👆</td>
+</tr>
+<tr>
+<td align="center"><code>:clap:</code></td>
+<td align="center">👏</td>
+<td align="center"><code>:muscle:</code></td>
+<td align="center">💪</td>
+<td align="center"><code>:metal:</code></td>
+<td align="center">🤘</td>
+</tr>
+<tr>
+<td align="center"><code>:fu:</code></td>
+<td align="center">🖕</td>
+<td align="center"><code>:walking:</code></td>
+<td align="center">🚶</td>
+<td align="center"><code>:runner:</code></td>
+<td align="center">🏃</td>
+</tr>
+<tr>
+<td align="center"><code>:running:</code></td>
+<td align="center">🏃</td>
+<td align="center"><code>:couple:</code></td>
+<td align="center">👫</td>
+<td align="center"><code>:family:</code></td>
+<td align="center">👪</td>
+</tr>
+<tr>
+<td align="center"><code>:two_men_holding_hands:</code></td>
+<td align="center">👬</td>
+<td align="center"><code>:two_women_holding_hands:</code></td>
+<td align="center">👭</td>
+<td align="center"><code>:dancer:</code></td>
+<td align="center">💃</td>
+</tr>
+<tr>
+<td align="center"><code>:dancers:</code></td>
+<td align="center">👯</td>
+<td align="center"><code>:ok_woman:</code></td>
+<td align="center">🙆</td>
+<td align="center"><code>:no_good:</code></td>
+<td align="center">🙅</td>
+</tr>
+<tr>
+<td align="center"><code>:information_desk_person:</code></td>
+<td align="center">💁</td>
+<td align="center"><code>:raising_hand:</code></td>
+<td align="center">🙋</td>
+<td align="center"><code>:bride_with_veil:</code></td>
+<td align="center">👰</td>
+</tr>
+<tr>
+<td align="center"><code>:person_with_pouting_face:</code></td>
+<td align="center">🙎</td>
+<td align="center"><code>:person_frowning:</code></td>
+<td align="center">🙍</td>
+<td align="center"><code>:bow:</code></td>
+<td align="center">🙇</td>
+</tr>
+<tr>
+<td align="center"><code>:couplekiss:</code></td>
+<td align="center">💏</td>
+<td align="center"><code>:couple_with_heart:</code></td>
+<td align="center">💑</td>
+<td align="center"><code>:massage:</code></td>
+<td align="center">💆</td>
+</tr>
+<tr>
+<td align="center"><code>:haircut:</code></td>
+<td align="center">💇</td>
+<td align="center"><code>:nail_care:</code></td>
+<td align="center">💅</td>
+<td align="center"><code>:boy:</code></td>
+<td align="center">👦</td>
+</tr>
+<tr>
+<td align="center"><code>:girl:</code></td>
+<td align="center">👧</td>
+<td align="center"><code>:woman:</code></td>
+<td align="center">👩</td>
+<td align="center"><code>:man:</code></td>
+<td align="center">👨</td>
+</tr>
+<tr>
+<td align="center"><code>:baby:</code></td>
+<td align="center">👶</td>
+<td align="center"><code>:older_woman:</code></td>
+<td align="center">👵</td>
+<td align="center"><code>:older_man:</code></td>
+<td align="center">👴</td>
+</tr>
+<tr>
+<td align="center"><code>:person_with_blond_hair:</code></td>
+<td align="center">👱</td>
+<td align="center"><code>:man_with_gua_pi_mao:</code></td>
+<td align="center">👲</td>
+<td align="center"><code>:man_with_turban:</code></td>
+<td align="center">:man_with_turban:</td>
+</tr>
+<tr>
+<td align="center"><code>:construction_worker:</code></td>
+<td align="center">👷</td>
+<td align="center"><code>:cop:</code></td>
+<td align="center">👮</td>
+<td align="center"><code>:angel:</code></td>
+<td align="center">:angel:</td>
+</tr>
+<tr>
+<td align="center"><code>:princess:</code></td>
+<td align="center">👸</td>
+<td align="center"><code>:smiley_cat:</code></td>
+<td align="center">😺</td>
+<td align="center"><code>:smile_cat:</code></td>
+<td align="center">:smile_cat:</td>
+</tr>
+<tr>
+<td align="center"><code>:heart_eyes_cat:</code></td>
+<td align="center">😻</td>
+<td align="center"><code>:kissing_cat:</code></td>
+<td align="center">😽</td>
+<td align="center"><code>:smirk_cat:</code></td>
+<td align="center">:smirk_cat:</td>
+</tr>
+<tr>
+<td align="center"><code>:scream_cat:</code></td>
+<td align="center">🙀</td>
+<td align="center"><code>:crying_cat_face:</code></td>
+<td align="center">😿</td>
+<td align="center"><code>:joy_cat:</code></td>
+<td align="center">:joy_cat:</td>
+</tr>
+<tr>
+<td align="center"><code>:pouting_cat:</code></td>
+<td align="center">😾</td>
+<td align="center"><code>:japanese_ogre:</code></td>
+<td align="center">👹</td>
+<td align="center"><code>:japanese_goblin:</code></td>
+<td align="center">👺</td>
+</tr>
+<tr>
+<td align="center"><code>:see_no_evil:</code></td>
+<td align="center">🙈</td>
+<td align="center"><code>:hear_no_evil:</code></td>
+<td align="center">🙉</td>
+<td align="center"><code>:speak_no_evil:</code></td>
+<td align="center">🙊</td>
+</tr>
+<tr>
+<td align="center"><code>:guardsman:</code></td>
+<td align="center">💂</td>
+<td align="center"><code>:skull:</code></td>
+<td align="center">💀</td>
+<td align="center"><code>:feet:</code></td>
+<td align="center">🐾</td>
+</tr>
+<tr>
+<td align="center"><code>:lips:</code></td>
+<td align="center">👄</td>
+<td align="center"><code>:kiss:</code></td>
+<td align="center">💋</td>
+<td align="center"><code>:droplet:</code></td>
+<td align="center">💧</td>
+</tr>
+<tr>
+<td align="center"><code>:ear:</code></td>
+<td align="center">👂</td>
+<td align="center"><code>:eyes:</code></td>
+<td align="center">👀</td>
+<td align="center"><code>:nose:</code></td>
+<td align="center">👃</td>
+</tr>
+<tr>
+<td align="center"><code>:tongue:</code></td>
+<td align="center">👅</td>
+<td align="center"><code>:love_letter:</code></td>
+<td align="center">💌</td>
+<td align="center"><code>:bust_in_silhouette:</code></td>
+<td align="center">👤</td>
+</tr>
+<tr>
+<td align="center"><code>:busts_in_silhouette:</code></td>
+<td align="center">👥</td>
+<td align="center"><code>:speech_balloon:</code></td>
+<td align="center">💬</td>
+<td align="center"><code>:thought_balloon:</code></td>
+<td align="center">💭</td>
+</tr>
+</tbody></table>
 
                 
             </div>
@@ -482,7 +949,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://hth520.github.io/2019/04/13/90413.html">https://hth520.github.io/2019/04/13/90413.html</a>
+                    <a href="https://hth520.github.io/2020/01/20/80.html">https://hth520.github.io/2020/01/20/80.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -520,16 +987,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/formdata/">
-                                    <span class="chip bg-color">formdata</span>
+                                <a href="/tags/markdown/">
+                                    <span class="chip bg-color">markdown</span>
                                 </a>
                             
-                                <a href="/tags/axios/">
-                                    <span class="chip bg-color">axios</span>
-                                </a>
-                            
-                                <a href="/tags/vue/">
-                                    <span class="chip bg-color">vue</span>
+                                <a href="/tags/emoji/">
+                                    <span class="chip bg-color">emoji</span>
                                 </a>
                             
                         </div>
@@ -700,7 +1163,7 @@
         repo: 'hth520.github.io',
         owner: 'hth520',
         admin: ["hth520"],
-        id: '2019-04-13T00-00-00',
+        id: '2020-01-20T00-00-00',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -734,12 +1197,12 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2019/04/16/90416.html">
+                <a href="/2021/03/14/135600.html">
                     <div class="card-image">
                         
-                        <img src="https://w.wallhaven.cc/full/g8/wallhaven-g8j19e.png" class="responsive-img" alt="学习 ES6 基础">
+                        <img src="https://s4.ax1x.com/2022/02/09/H8EhFg.png" class="responsive-img" alt="学习 React 基础">
                         
-                        <span class="card-title">学习 ES6 基础</span>
+                        <span class="card-title">学习 React 基础</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -750,66 +1213,14 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2019-04-16
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-03-14
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/ECMAScript/" class="post-category">
-                                    ECMAScript
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/es6/">
-                        <span class="chip bg-color">es6</span>
-                    </a>
-                    
-                    <a href="/tags/javascript/">
-                        <span class="chip bg-color">javascript</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2019/03/24/90324.html">
-                    <div class="card-image">
-                        
-                        <img src="https://w.wallhaven.cc/full/j3/wallhaven-j31omy.jpg" class="responsive-img" alt="vue2-给组件绑定原生事件">
-                        
-                        <span class="card-title">vue2-给组件绑定原生事件</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2019-03-24
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Vue-js/" class="post-category">
-                                    Vue.js
+                            <a href="/categories/React-js/" class="post-category">
+                                    React.js
                                 </a>
                             
                             
@@ -823,8 +1234,56 @@
                         <span class="chip bg-color">前端</span>
                     </a>
                     
-                    <a href="/tags/Vue/">
-                        <span class="chip bg-color">Vue</span>
+                    <a href="/tags/React/">
+                        <span class="chip bg-color">React</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/01/15/77.html">
+                    <div class="card-image">
+                        
+                        <img src="https://w.wallhaven.cc/full/vm/wallhaven-vmo53p.jpg" class="responsive-img" alt="Markdown 介绍与入门">
+                        
+                        <span class="card-title">Markdown 介绍与入门</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-01-15
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Coding/" class="post-category">
+                                    Coding
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/markdown/">
+                        <span class="chip bg-color">markdown</span>
                     </a>
                     
                 </div>

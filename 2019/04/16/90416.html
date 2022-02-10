@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="学习 ES6 基础, feico の 博客">
-    <meta name="description" content="一、块级作用域1. var首先看看ES5中得变量声明方式
+    <meta name="description" content="学习 ES6 基础一、块级作用域1. var首先看看ES5中得变量声明方式
 if (true) &amp;#123;
     var a = 2
 &amp;#125;
@@ -13,8 +13,7 @@ console.log(a) // 2
 
 以上代码等同于
 var a
-if (true) &amp;#123;
- ">
+if (true)">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -255,7 +254,7 @@ if (true) &amp;#123;
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://w.wallhaven.cc/full/g8/wallhaven-g8j19e.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -429,7 +428,7 @@ if (true) &amp;#123;
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="一、块级作用域"><a href="#一、块级作用域" class="headerlink" title="一、块级作用域"></a>一、块级作用域</h1><h2 id="1-var"><a href="#1-var" class="headerlink" title="1. var"></a>1. var</h2><p>首先看看ES5中得变量声明方式</p>
+                <h1 id="学习-ES6-基础"><a href="#学习-ES6-基础" class="headerlink" title="学习 ES6 基础"></a>学习 ES6 基础</h1><h2 id="一、块级作用域"><a href="#一、块级作用域" class="headerlink" title="一、块级作用域"></a>一、块级作用域</h2><h3 id="1-var"><a href="#1-var" class="headerlink" title="1. var"></a>1. var</h3><p>首先看看ES5中得变量声明方式</p>
 <pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token number">2</span>
 <span class="token punctuation">&#125;</span>
@@ -449,7 +448,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <li>通过var声明的变量，无论在何处声明，均为<strong>全局作用域</strong></li>
 </ol>
 </blockquote>
-<h2 id="2-let-和-const"><a href="#2-let-和-const" class="headerlink" title="2.let 和 const"></a>2.let 和 const</h2><p>再来看看<code>ES6</code>中的<code>let</code>和<code>const</code></p>
+<h3 id="2-let-和-const"><a href="#2-let-和-const" class="headerlink" title="2.let 和 const"></a>2.let 和 const</h3><p>再来看看<code>ES6</code>中的<code>let</code>和<code>const</code></p>
 <h3 id="let"><a href="#let" class="headerlink" title="let"></a><code>let</code></h3><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">let</span> b <span class="token operator">=</span> <span class="token number">2</span>
 <span class="token punctuation">&#125;</span>
@@ -488,18 +487,18 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <p>cosnt仅仅是保证这个地址不改变，至于地址对应的数据，是可以进行改变的</p>
 <p>基本类型值在内存中占据固定大小的空间 因此被保存在栈内存中。比如 const a = 1 ; 这时候其直接保存在栈里面</p>
 </blockquote>
-<h1 id="二、字符串"><a href="#二、字符串" class="headerlink" title="二、字符串"></a>二、字符串</h1><h2 id="1-字符串拼接"><a href="#1-字符串拼接" class="headerlink" title="1. 字符串拼接"></a>1. 字符串拼接</h2><h3 id="ES5中字符串拼接"><a href="#ES5中字符串拼接" class="headerlink" title="ES5中字符串拼接"></a>ES5中字符串拼接</h3><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// ES5 </span>
+<h2 id="二、字符串"><a href="#二、字符串" class="headerlink" title="二、字符串"></a>二、字符串</h2><h3 id="1-字符串拼接"><a href="#1-字符串拼接" class="headerlink" title="1. 字符串拼接"></a>1. 字符串拼接</h3><h4 id="ES5中字符串拼接"><a href="#ES5中字符串拼接" class="headerlink" title="ES5中字符串拼接"></a>ES5中字符串拼接</h4><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// ES5 </span>
 <span class="token keyword">var</span> name <span class="token operator">=</span> <span class="token string">'Hunter'</span>
 console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'hello '</span> <span class="token operator">+</span> name<span class="token punctuation">)</span></code></pre>
 
-<h3 id="ES6中字符串拼接"><a href="#ES6中字符串拼接" class="headerlink" title="ES6中字符串拼接"></a>ES6中字符串拼接</h3><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// ES6</span>
+<h4 id="ES6中字符串拼接"><a href="#ES6中字符串拼接" class="headerlink" title="ES6中字符串拼接"></a>ES6中字符串拼接</h4><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// ES6</span>
 <span class="token keyword">let</span> name <span class="token operator">=</span> <span class="token string">'Hunter'</span>
 console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">hello </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>name<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span> <span class="token comment">// hello Hunter</span></code></pre>
 
 <p><strong>注意</strong>：用 <code>$&#123;&#125;</code>来拼接字符串，注意此时要使用 ``` `（反单引号）; 如下所示： 单引号将无法将其转义</p>
 <pre class="language-javascript" data-language="javascript"><code class="language-javascript">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'hello $&#123;name&#125;'</span><span class="token punctuation">)</span> <span class="token comment">// hello $&#123;name&#125;</span></code></pre>
 
-<h3 id="ES6的字符串换行"><a href="#ES6的字符串换行" class="headerlink" title="ES6的字符串换行"></a>ES6的字符串换行</h3><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// ES5</span>
+<h4 id="ES6的字符串换行"><a href="#ES6的字符串换行" class="headerlink" title="ES6的字符串换行"></a>ES6的字符串换行</h4><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// ES5</span>
     <span class="token keyword">var</span> template <span class="token operator">=</span> <span class="token string">"&lt;div> \
                         &lt;span>hello world&lt;/span> \
                     &lt;/div>"</span>
@@ -511,7 +510,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <blockquote>
 <p>ES5中需要用反斜杠来进行多行字符串拼接，ES6直接使用 ``` `(反单引号）</p>
 </blockquote>
-<h2 id="2-字符串方法"><a href="#2-字符串方法" class="headerlink" title="2. 字符串方法"></a>2. 字符串方法</h2><h3 id="padStart-和-padEnd"><a href="#padStart-和-padEnd" class="headerlink" title="padStart() 和 padEnd()"></a>padStart() 和 padEnd()</h3><blockquote>
+<h3 id="2-字符串方法"><a href="#2-字符串方法" class="headerlink" title="2. 字符串方法"></a>2. 字符串方法</h3><h4 id="padStart-和-padEnd"><a href="#padStart-和-padEnd" class="headerlink" title="padStart() 和 padEnd()"></a>padStart() 和 padEnd()</h4><blockquote>
 <p>ES6 引入了字符串补全长度的功能，如果某个字符串不够指定长度，会在头部或者尾部补全。</p>
 <p><code>padStart()</code> 用于<strong>头部补全</strong>；</p>
 <p><code>padEnd()</code> 用于<strong>尾部补全</strong>。</p>
@@ -530,15 +529,15 @@ console<span class="token punctuation">.</span><span class="token function">log<
 </blockquote>
 <p>看看其中的<code>hours.padStart(2,0)</code> , 表示当小时不够两位数时，在前面补0，如<code>8</code>，补充成 <code>08</code></p>
 <p>后面遇到更多的字符串函数会补充</p>
-<h1 id="三、变量的解构赋值"><a href="#三、变量的解构赋值" class="headerlink" title="三、变量的解构赋值"></a>三、变量的解构赋值</h1><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// ES5</span>
+<h2 id="三、变量的解构赋值"><a href="#三、变量的解构赋值" class="headerlink" title="三、变量的解构赋值"></a>三、变量的解构赋值</h2><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// ES5</span>
 <span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
 <span class="token keyword">let</span> b <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
 <span class="token keyword">let</span> c <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span></code></pre>
 
-<h2 id="1-ES6数组解构赋值"><a href="#1-ES6数组解构赋值" class="headerlink" title="1.ES6数组解构赋值"></a>1.ES6数组解构赋值</h2><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> <span class="token punctuation">[</span>a<span class="token punctuation">,</span>b<span class="token punctuation">,</span>c<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<h3 id="1-ES6数组解构赋值"><a href="#1-ES6数组解构赋值" class="headerlink" title="1.ES6数组解构赋值"></a>1.ES6数组解构赋值</h3><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> <span class="token punctuation">[</span>a<span class="token punctuation">,</span>b<span class="token punctuation">,</span>c<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>a<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>b<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>c<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span> <span class="token comment">// 1 2 3</span></code></pre>
 
-<h3 id="默认值"><a href="#默认值" class="headerlink" title="默认值"></a>默认值</h3><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> <span class="token punctuation">[</span>d <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> e<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token keyword">undefined</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<h4 id="默认值"><a href="#默认值" class="headerlink" title="默认值"></a>默认值</h4><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> <span class="token punctuation">[</span>d <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> e<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token keyword">undefined</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>d<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>e<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span> <span class="token comment">// 2 3</span></code></pre>
 
 <blockquote>
@@ -547,7 +546,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> <span class="token punctuation">[</span>f <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> g <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>f<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>g<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span> <span class="token comment">// null 4</span></code></pre>
 
-<h2 id="2-对象解构赋值"><a href="#2-对象解构赋值" class="headerlink" title="2.对象解构赋值"></a>2.对象解构赋值</h2><blockquote>
+<h3 id="2-对象解构赋值"><a href="#2-对象解构赋值" class="headerlink" title="2.对象解构赋值"></a>2.对象解构赋值</h3><blockquote>
 <p>数组按照顺序解构 对象按照key值进行解构</p>
 </blockquote>
 <pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> <span class="token punctuation">&#123;</span>foo<span class="token punctuation">,</span> bar<span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token literal-property property">foo</span><span class="token operator">:</span> <span class="token string">'hi'</span><span class="token punctuation">,</span> <span class="token literal-property property">bar</span><span class="token operator">:</span> <span class="token string">'hello'</span><span class="token punctuation">&#125;</span> <span class="token comment">//可以调换位置</span>
@@ -561,8 +560,10 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <span class="token punctuation">(</span><span class="token punctuation">&#123;</span> soso <span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">soso</span><span class="token operator">:</span> <span class="token string">"hi"</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//得加上圆括号 ()</span>
 console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>soso<span class="token punctuation">)</span> <span class="token comment">// hi</span></code></pre>
 
-<h2 id="3-字符串的解构赋值"><a href="#3-字符串的解构赋值" class="headerlink" title="3.字符串的解构赋值"></a>3.字符串的解构赋值</h2><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> <span class="token punctuation">[</span>h<span class="token punctuation">,</span>i<span class="token punctuation">,</span>j<span class="token punctuation">,</span>k<span class="token punctuation">,</span>l<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'hello'</span><span class="token punctuation">;</span>
+<h3 id="3-字符串的解构赋值"><a href="#3-字符串的解构赋值" class="headerlink" title="3.字符串的解构赋值"></a>3.字符串的解构赋值</h3><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> <span class="token punctuation">[</span>h<span class="token punctuation">,</span>i<span class="token punctuation">,</span>j<span class="token punctuation">,</span>k<span class="token punctuation">,</span>l<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'hello'</span><span class="token punctuation">;</span>
 console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>h<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>i<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>j<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>k<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>l<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span></code></pre>
+
+
                 
             </div>
             <hr/>
@@ -836,12 +837,12 @@ console<span class="token punctuation">.</span><span class="token function">log<
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/03/14/135600.html">
+                <a href="/2020/01/15/77.html">
                     <div class="card-image">
                         
-                        <img src="https://s4.ax1x.com/2022/02/09/H8EhFg.png" class="responsive-img" alt="学习 React 基础">
+                        <img src="https://w.wallhaven.cc/full/vm/wallhaven-vmo53p.jpg" class="responsive-img" alt="Markdown 介绍与入门">
                         
-                        <span class="card-title">学习 React 基础</span>
+                        <span class="card-title">Markdown 介绍与入门</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -852,14 +853,14 @@ console<span class="token punctuation">.</span><span class="token function">log<
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-03-14
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-01-15
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/React-js/" class="post-category">
-                                    React.js
+                            <a href="/categories/Coding/" class="post-category">
+                                    Coding
                                 </a>
                             
                             
@@ -869,12 +870,8 @@ console<span class="token punctuation">.</span><span class="token function">log<
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%89%8D%E7%AB%AF/">
-                        <span class="chip bg-color">前端</span>
-                    </a>
-                    
-                    <a href="/tags/React/">
-                        <span class="chip bg-color">React</span>
+                    <a href="/tags/markdown/">
+                        <span class="chip bg-color">markdown</span>
                     </a>
                     
                 </div>
@@ -891,8 +888,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
                 <a href="/2019/04/13/90413.html">
                     <div class="card-image">
                         
-                        
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Vue 使用 formData 方式向后台发送数据">
+                        <img src="https://w.wallhaven.cc/full/13/wallhaven-1377m3.png" class="responsive-img" alt="Vue 使用 formData 方式向后台发送数据">
                         
                         <span class="card-title">Vue 使用 formData 方式向后台发送数据</span>
                     </div>
