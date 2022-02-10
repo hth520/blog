@@ -4,9 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="了解XSS和CSRF攻击, feico の 博客">
-    <meta name="description" content="XSS 和 CSRF 介绍在 Web 安全领域中，XSS 和 CSRF 是最常见的攻击方式。那么本文就带你认识一下 XSS 和 CSRF 的攻防问题。
-XSS概念：XSS , 全称：Cross Site Scripting ，译为跨域脚本攻">
+    <meta name="keywords" content="Vue 使用 formData 方式向后台发送数据, feico の 博客">
+    <meta name="description" content="1. 基本使用方式template
+&amp;lt;input class=&#34;file&#34; name=&#34;file&#34; type=&#34;file&#34; accept=&#34;image/png,image/gif,image/jpeg&#34; @change=&#34;update">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +18,7 @@ XSS概念：XSS , 全称：Cross Site Scripting ，译为跨域脚本攻">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>了解XSS和CSRF攻击 | feico の 博客</title>
+    <title>Vue 使用 formData 方式向后台发送数据 | feico の 博客</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -247,12 +247,12 @@ XSS概念：XSS , 全称：Cross Site Scripting ，译为跨域脚本攻">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://s4.ax1x.com/2022/01/26/7qB34J.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">了解XSS和CSRF攻击</h1>
+                    <h1 class="description center-align post-title">Vue 使用 formData 方式向后台发送数据</h1>
                 </div>
             </div>
         </div>
@@ -368,12 +368,16 @@ XSS概念：XSS , 全称：Cross Site Scripting ，译为跨域脚本攻">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/">
-                                <span class="chip bg-color">浏览器</span>
+                            <a href="/tags/formdata/">
+                                <span class="chip bg-color">formdata</span>
                             </a>
                         
-                            <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">
-                                <span class="chip bg-color">网络安全</span>
+                            <a href="/tags/axios/">
+                                <span class="chip bg-color">axios</span>
+                            </a>
+                        
+                            <a href="/tags/vue/">
+                                <span class="chip bg-color">vue</span>
                             </a>
                         
                     </div>
@@ -384,8 +388,8 @@ XSS概念：XSS , 全称：Cross Site Scripting ，译为跨域脚本攻">
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB/" class="post-category">
-                                网络攻击
+                            <a href="/categories/Vue-js/" class="post-category">
+                                Vue.js
                             </a>
                         
                     </div>
@@ -397,7 +401,7 @@ XSS概念：XSS , 全称：Cross Site Scripting ，译为跨域脚本攻">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-08-26
+                    2019-04-13
                 </div>
                 
 
@@ -421,34 +425,37 @@ XSS概念：XSS , 全称：Cross Site Scripting ，译为跨域脚本攻">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="XSS-和-CSRF-介绍"><a href="#XSS-和-CSRF-介绍" class="headerlink" title="XSS 和 CSRF 介绍"></a>XSS 和 CSRF 介绍</h1><p>在 Web 安全领域中，XSS 和 CSRF 是最常见的攻击方式。那么本文就带你认识一下 XSS 和 CSRF 的攻防问题。</p>
-<h2 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h2><h3 id="概念："><a href="#概念：" class="headerlink" title="概念："></a>概念：</h3><p>XSS , 全称：<code>Cross Site Scripting</code> ，译为<strong>跨域脚本攻击</strong>。</p>
-<h3 id="原理："><a href="#原理：" class="headerlink" title="原理："></a>原理：</h3><p>不需要你做任何的登录验证，它会通过合法的操作 (比如在<code>url</code>中输入、在评论框中输入)，向用户的页面注入脚本 (可能是 <code>js</code>、<code>html</code>代码块等)。</p>
-<h3 id="防范："><a href="#防范：" class="headerlink" title="防范："></a>防范：</h3><p>1.编码：对于用户输入进行编码。</p>
-<p>2.过滤：移除用户输入和事件相关的属性。(过滤 <code>script</code>、<code>style</code>、<code>iframe</code>等节点)</p>
-<p>3.校正：使用<code>DOM Parse</code>转换，校正不配对的 <code>DOM</code>标签。</p>
-<p>4.使用 <code>HttpOnly</code>。</p>
-<h3 id="分类："><a href="#分类：" class="headerlink" title="分类："></a>分类：</h3><ul>
-<li>反射性 (非持久)：点击链接，执行脚本</li>
-<li>存储型 (持久)：恶意输入保存数据库，其他用户访问，执行脚本</li>
-<li>基于 <code>DOM</code>：而已修改 <code>DOM</code> 结构，基于客户端</li>
-</ul>
-<h2 id="CSRF-攻击"><a href="#CSRF-攻击" class="headerlink" title="CSRF 攻击"></a>CSRF 攻击</h2><h3 id="概念：-1"><a href="#概念：-1" class="headerlink" title="概念："></a>概念：</h3><p>CSRF , 全称：<code>Cross-site request forgery</code> ，译为<strong>跨站请求伪造</strong>。</p>
-<h3 id="原理：-1"><a href="#原理：-1" class="headerlink" title="原理："></a>原理：</h3><ol>
-<li><p>登录受信任的网站 A ，并在本地生成  <code>Cookie</code>。(如果用户没有登录网站 A,那么网站 B 在诱导的时候，请求网站 A 的 <code>api</code> 接口时，会提示你登录)。</p>
-</li>
-<li><p>在不登出 A  的情况下，访问危险网站 B (其实是利用了 网站 A 的漏洞)。</p>
-</li>
+                <h3 id="1-基本使用方式"><a href="#1-基本使用方式" class="headerlink" title="1. 基本使用方式"></a>1. 基本使用方式</h3><p><strong>template</strong></p>
+<pre class="language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>file<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>file<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>file<span class="token punctuation">"</span></span> <span class="token attr-name">accept</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>image/png,image/gif,image/jpeg<span class="token punctuation">"</span></span> <span class="token attr-name">@change</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>update<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span></code></pre>
+
+<p><strong>JavaScript</strong></p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token function">update</span> <span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">let</span> file <span class="token operator">=</span> e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>files<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+    <span class="token comment">// console.log(file)</span>
+    <span class="token keyword">let</span> param <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FormData</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// 创建form对象</span>
+    param<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">'file'</span><span class="token punctuation">,</span> file<span class="token punctuation">,</span> file<span class="token punctuation">.</span>name<span class="token punctuation">)</span> <span class="token comment">// 通过append向form对象添加数据</span>
+    param<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">'id'</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$store<span class="token punctuation">.</span>state<span class="token punctuation">.</span>userId<span class="token punctuation">)</span> <span class="token comment">// 添加form表单中其他数据</span>
+      <span class="token comment">// withCredentials: true 使得后台可以接收表单数据  跨域请求</span>
+    <span class="token keyword">const</span> instance <span class="token operator">=</span> axios<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+        <span class="token literal-property property">withCredentials</span><span class="token operator">:</span> <span class="token boolean">true</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token comment">// url为后台接口</span>
+    instance<span class="token punctuation">.</span><span class="token function">post</span><span class="token punctuation">(</span><span class="token string">'url'</span><span class="token punctuation">,</span> param<span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>succ<span class="token punctuation">)</span> <span class="token comment">// 成功返回信息 调用函数  函数需自己定义，此处后面省略</span>
+        <span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>serverError<span class="token punctuation">)</span> <span class="token comment">// 服务器错误 调用对应函数  函数需自己定义，此处后面省略</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<h3 id="2-美化-input-file-按钮-（拓展）"><a href="#2-美化-input-file-按钮-（拓展）" class="headerlink" title="2. 美化 input file 按钮 （拓展）"></a>2. 美化 input file 按钮 （拓展）</h3><blockquote>
+<p>思路：</p>
+</blockquote>
+<ol>
+<li>简单粗暴地隐藏：opacity: 0;</li>
+<li>在 <code>&lt;input class=&quot;file&quot;&gt; </code>元素节点的位置上创建一个好看的元素节点,比如<code>img</code></li>
+<li>将 <code>&lt;input class=&quot;file&quot;&gt; </code>元素的z轴变高，使得其覆盖<code>&lt;img/&gt;</code> :z-index: 5;</li>
+<li>因为 <code>&lt;input class=&quot;file&quot;&gt; </code>是透明的，那么我们就只看见它同xy上的好看的<code>&lt;img /&gt;</code></li>
+<li>点击这个好看的<code>&lt;img /&gt;</code> 其实是点击了它上层的表单</li>
 </ol>
-<h3 id="防范：-1"><a href="#防范：-1" class="headerlink" title="防范："></a>防范：</h3><ol>
-<li><code>token</code> 验证；</li>
-<li>隐藏令牌，把 <code>token</code>隐藏在 <code>http</code> 请求的 <code>head</code> 中。</li>
-<li><code>referer</code> 验证，验证页面来源。</li>
-</ol>
-<h2 id="两者区别"><a href="#两者区别" class="headerlink" title="两者区别"></a>两者区别</h2><ol>
-<li>CSRF：需要用户先登录网站 A ，获取 <code>cookie</code>。XSS：不需要登录而是通过注入脚本等方式。</li>
-<li>CSRF：是利用网站 A 本身的漏洞，去请求网站 A 的 <code>api</code>。XSS:是向网站 A 注入 <code>JS</code>代码，然后执行 <code>JS</code>里的代码，篡改网站 A 的内容。</li>
-</ol>
+<p>以上思路可以实现点击用户头像，<strong>通过表单上传更换头像</strong></p>
 
                 
             </div>
@@ -475,7 +482,7 @@ XSS概念：XSS , 全称：Cross Site Scripting ，译为跨域脚本攻">
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://hth520.github.io/2021/08/26/31410.html">https://hth520.github.io/2021/08/26/31410.html</a>
+                    <a href="https://hth520.github.io/2019/04/13/90413.html">https://hth520.github.io/2019/04/13/90413.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -513,12 +520,16 @@ XSS概念：XSS , 全称：Cross Site Scripting ，译为跨域脚本攻">
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/">
-                                    <span class="chip bg-color">浏览器</span>
+                                <a href="/tags/formdata/">
+                                    <span class="chip bg-color">formdata</span>
                                 </a>
                             
-                                <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">
-                                    <span class="chip bg-color">网络安全</span>
+                                <a href="/tags/axios/">
+                                    <span class="chip bg-color">axios</span>
+                                </a>
+                            
+                                <a href="/tags/vue/">
+                                    <span class="chip bg-color">vue</span>
                                 </a>
                             
                         </div>
@@ -689,7 +700,7 @@ XSS概念：XSS , 全称：Cross Site Scripting ，译为跨域脚本攻">
         repo: 'hth520.github.io',
         owner: 'hth520',
         admin: ["hth520"],
-        id: '2021-08-26T14-03-56',
+        id: '2019-04-13T00-00-00',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -719,17 +730,17 @@ XSS概念：XSS , 全称：Cross Site Scripting ，译为跨域脚本攻">
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/08/26/31410.html">
+                <a href="/2019/04/16/90416.html">
                     <div class="card-image">
                         
-                        <img src="https://s4.ax1x.com/2022/01/26/7qB34J.png" class="responsive-img" alt="了解XSS和CSRF攻击">
                         
-                        <span class="card-title">了解XSS和CSRF攻击</span>
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="学习 ES6 基础">
+                        
+                        <span class="card-title">学习 ES6 基础</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -739,31 +750,30 @@ XSS概念：XSS , 全称：Cross Site Scripting ，译为跨域脚本攻">
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-26
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2019-04-16
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB/" class="post-category">
-                                    网络攻击
+                            <a href="/categories/ECMAScript/" class="post-category">
+                                    ECMAScript
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/">
-                        <span class="chip bg-color">浏览器</span>
+                    <a href="/tags/es6/">
+                        <span class="chip bg-color">es6</span>
                     </a>
                     
-                    <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">
-                        <span class="chip bg-color">网络安全</span>
+                    <a href="/tags/javascript/">
+                        <span class="chip bg-color">javascript</span>
                     </a>
                     
                 </div>
@@ -777,12 +787,13 @@ XSS概念：XSS , 全称：Cross Site Scripting ，译为跨域脚本攻">
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/08/21/27130.html">
+                <a href="/2019/03/24/90324.html">
                     <div class="card-image">
                         
-                        <img src="https://s4.ax1x.com/2022/01/24/7TrH6f.jpg" class="responsive-img" alt="学习 Vue3 基础">
                         
-                        <span class="card-title">学习 Vue3 基础</span>
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="vue2-给组件绑定原生事件">
+                        
+                        <span class="card-title">vue2-给组件绑定原生事件</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -793,7 +804,7 @@ XSS概念：XSS , 全称：Cross Site Scripting ，译为跨域脚本攻">
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-21
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-03-24
                             </span>
                         <span class="publish-author">
                             

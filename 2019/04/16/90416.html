@@ -4,9 +4,17 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="了解XSS和CSRF攻击, feico の 博客">
-    <meta name="description" content="XSS 和 CSRF 介绍在 Web 安全领域中，XSS 和 CSRF 是最常见的攻击方式。那么本文就带你认识一下 XSS 和 CSRF 的攻防问题。
-XSS概念：XSS , 全称：Cross Site Scripting ，译为跨域脚本攻">
+    <meta name="keywords" content="学习 ES6 基础, feico の 博客">
+    <meta name="description" content="一、块级作用域1. var首先看看ES5中得变量声明方式
+if (true) &amp;#123;
+    var a = 2
+&amp;#125;
+console.log(a) // 2
+
+以上代码等同于
+var a
+if (true) &amp;#123;
+ ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +26,7 @@ XSS概念：XSS , 全称：Cross Site Scripting ，译为跨域脚本攻">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>了解XSS和CSRF攻击 | feico の 博客</title>
+    <title>学习 ES6 基础 | feico の 博客</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -247,12 +255,12 @@ XSS概念：XSS , 全称：Cross Site Scripting ，译为跨域脚本攻">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://s4.ax1x.com/2022/01/26/7qB34J.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">了解XSS和CSRF攻击</h1>
+                    <h1 class="description center-align post-title">学习 ES6 基础</h1>
                 </div>
             </div>
         </div>
@@ -368,12 +376,12 @@ XSS概念：XSS , 全称：Cross Site Scripting ，译为跨域脚本攻">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/">
-                                <span class="chip bg-color">浏览器</span>
+                            <a href="/tags/es6/">
+                                <span class="chip bg-color">es6</span>
                             </a>
                         
-                            <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">
-                                <span class="chip bg-color">网络安全</span>
+                            <a href="/tags/javascript/">
+                                <span class="chip bg-color">javascript</span>
                             </a>
                         
                     </div>
@@ -384,8 +392,8 @@ XSS概念：XSS , 全称：Cross Site Scripting ，译为跨域脚本攻">
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB/" class="post-category">
-                                网络攻击
+                            <a href="/categories/ECMAScript/" class="post-category">
+                                ECMAScript
                             </a>
                         
                     </div>
@@ -397,7 +405,7 @@ XSS概念：XSS , 全称：Cross Site Scripting ，译为跨域脚本攻">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-08-26
+                    2019-04-16
                 </div>
                 
 
@@ -421,35 +429,140 @@ XSS概念：XSS , 全称：Cross Site Scripting ，译为跨域脚本攻">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="XSS-和-CSRF-介绍"><a href="#XSS-和-CSRF-介绍" class="headerlink" title="XSS 和 CSRF 介绍"></a>XSS 和 CSRF 介绍</h1><p>在 Web 安全领域中，XSS 和 CSRF 是最常见的攻击方式。那么本文就带你认识一下 XSS 和 CSRF 的攻防问题。</p>
-<h2 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h2><h3 id="概念："><a href="#概念：" class="headerlink" title="概念："></a>概念：</h3><p>XSS , 全称：<code>Cross Site Scripting</code> ，译为<strong>跨域脚本攻击</strong>。</p>
-<h3 id="原理："><a href="#原理：" class="headerlink" title="原理："></a>原理：</h3><p>不需要你做任何的登录验证，它会通过合法的操作 (比如在<code>url</code>中输入、在评论框中输入)，向用户的页面注入脚本 (可能是 <code>js</code>、<code>html</code>代码块等)。</p>
-<h3 id="防范："><a href="#防范：" class="headerlink" title="防范："></a>防范：</h3><p>1.编码：对于用户输入进行编码。</p>
-<p>2.过滤：移除用户输入和事件相关的属性。(过滤 <code>script</code>、<code>style</code>、<code>iframe</code>等节点)</p>
-<p>3.校正：使用<code>DOM Parse</code>转换，校正不配对的 <code>DOM</code>标签。</p>
-<p>4.使用 <code>HttpOnly</code>。</p>
-<h3 id="分类："><a href="#分类：" class="headerlink" title="分类："></a>分类：</h3><ul>
-<li>反射性 (非持久)：点击链接，执行脚本</li>
-<li>存储型 (持久)：恶意输入保存数据库，其他用户访问，执行脚本</li>
-<li>基于 <code>DOM</code>：而已修改 <code>DOM</code> 结构，基于客户端</li>
-</ul>
-<h2 id="CSRF-攻击"><a href="#CSRF-攻击" class="headerlink" title="CSRF 攻击"></a>CSRF 攻击</h2><h3 id="概念：-1"><a href="#概念：-1" class="headerlink" title="概念："></a>概念：</h3><p>CSRF , 全称：<code>Cross-site request forgery</code> ，译为<strong>跨站请求伪造</strong>。</p>
-<h3 id="原理：-1"><a href="#原理：-1" class="headerlink" title="原理："></a>原理：</h3><ol>
-<li><p>登录受信任的网站 A ，并在本地生成  <code>Cookie</code>。(如果用户没有登录网站 A,那么网站 B 在诱导的时候，请求网站 A 的 <code>api</code> 接口时，会提示你登录)。</p>
-</li>
-<li><p>在不登出 A  的情况下，访问危险网站 B (其实是利用了 网站 A 的漏洞)。</p>
-</li>
-</ol>
-<h3 id="防范：-1"><a href="#防范：-1" class="headerlink" title="防范："></a>防范：</h3><ol>
-<li><code>token</code> 验证；</li>
-<li>隐藏令牌，把 <code>token</code>隐藏在 <code>http</code> 请求的 <code>head</code> 中。</li>
-<li><code>referer</code> 验证，验证页面来源。</li>
-</ol>
-<h2 id="两者区别"><a href="#两者区别" class="headerlink" title="两者区别"></a>两者区别</h2><ol>
-<li>CSRF：需要用户先登录网站 A ，获取 <code>cookie</code>。XSS：不需要登录而是通过注入脚本等方式。</li>
-<li>CSRF：是利用网站 A 本身的漏洞，去请求网站 A 的 <code>api</code>。XSS:是向网站 A 注入 <code>JS</code>代码，然后执行 <code>JS</code>里的代码，篡改网站 A 的内容。</li>
-</ol>
+                <h1 id="一、块级作用域"><a href="#一、块级作用域" class="headerlink" title="一、块级作用域"></a>一、块级作用域</h1><h2 id="1-var"><a href="#1-var" class="headerlink" title="1. var"></a>1. var</h2><p>首先看看ES5中得变量声明方式</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token number">2</span>
+<span class="token punctuation">&#125;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token comment">// 2</span></code></pre>
 
+<p>以上代码等同于</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> a
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    a <span class="token operator">=</span> <span class="token number">2</span>
+<span class="token punctuation">&#125;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span></code></pre>
+
+<blockquote>
+<p>以上可知 ：</p>
+<ol>
+<li>在块内部定义变量 变量提升，到函数最顶部</li>
+<li>通过var声明的变量，无论在何处声明，均为<strong>全局作用域</strong></li>
+</ol>
+</blockquote>
+<h2 id="2-let-和-const"><a href="#2-let-和-const" class="headerlink" title="2.let 和 const"></a>2.let 和 const</h2><p>再来看看<code>ES6</code>中的<code>let</code>和<code>const</code></p>
+<h3 id="let"><a href="#let" class="headerlink" title="let"></a><code>let</code></h3><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">let</span> b <span class="token operator">=</span> <span class="token number">2</span>
+<span class="token punctuation">&#125;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span> <span class="token comment">// b is not defined</span></code></pre>
+
+<blockquote>
+<p>此时在{} 外部访问b 将会报错，因为 let 的作用域仅为 <code>&#123; &#125; </code>的内部，及<strong>块级作用域</strong></p>
+</blockquote>
+<h3 id="const"><a href="#const" class="headerlink" title="const"></a><code>const</code></h3><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">const</span> c <span class="token operator">=</span> <span class="token number">2</span>
+<span class="token punctuation">&#125;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span> <span class="token comment">// c is not defined</span></code></pre>
+
+<blockquote>
+<p>从上面可知 const 也是也仅为块级作用域</p>
+<p><strong>const的作用域与let作用域相同：只在声明所在的块级作用域内有效</strong></p>
+</blockquote>
+<p>让我们看看const 更多的特性：</p>
+<p><strong>const 表示常量：</strong></p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> d <span class="token operator">=</span> <span class="token number">2</span>
+d <span class="token operator">=</span> <span class="token number">3</span> <span class="token comment">// Assignment to constant variable.</span></code></pre>
+
+<blockquote>
+<p>此时，当 d 为 <strong>基本数据类型</strong>的时候，改变其值，将会报错！！！</p>
+</blockquote>
+<p><strong>但是它的常量仅仅表示的是地址常量 对象的成员可以改变值</strong></p>
+<p>看看下面的例子：</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> people <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'张三'</span><span class="token punctuation">,</span> <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token number">23</span><span class="token punctuation">&#125;</span>
+people<span class="token punctuation">.</span>age <span class="token operator">=</span> <span class="token number">25</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>people<span class="token punctuation">)</span> <span class="token comment">// &#123;name: "张三", age: 25&#125;</span></code></pre>
+
+<p>看看此时 <strong>people</strong>已经被改变了</p>
+<p><strong>why?</strong></p>
+<blockquote>
+<p>对象是复杂的数据类型 它的地址保存在 栈里面， 值保存在堆里面</p>
+<p>cosnt仅仅是保证这个地址不改变，至于地址对应的数据，是可以进行改变的</p>
+<p>基本类型值在内存中占据固定大小的空间 因此被保存在栈内存中。比如 const a = 1 ; 这时候其直接保存在栈里面</p>
+</blockquote>
+<h1 id="二、字符串"><a href="#二、字符串" class="headerlink" title="二、字符串"></a>二、字符串</h1><h2 id="1-字符串拼接"><a href="#1-字符串拼接" class="headerlink" title="1. 字符串拼接"></a>1. 字符串拼接</h2><h3 id="ES5中字符串拼接"><a href="#ES5中字符串拼接" class="headerlink" title="ES5中字符串拼接"></a>ES5中字符串拼接</h3><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// ES5 </span>
+<span class="token keyword">var</span> name <span class="token operator">=</span> <span class="token string">'Hunter'</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'hello '</span> <span class="token operator">+</span> name<span class="token punctuation">)</span></code></pre>
+
+<h3 id="ES6中字符串拼接"><a href="#ES6中字符串拼接" class="headerlink" title="ES6中字符串拼接"></a>ES6中字符串拼接</h3><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// ES6</span>
+<span class="token keyword">let</span> name <span class="token operator">=</span> <span class="token string">'Hunter'</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">hello </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>name<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span> <span class="token comment">// hello Hunter</span></code></pre>
+
+<p><strong>注意</strong>：用 <code>$&#123;&#125;</code>来拼接字符串，注意此时要使用 ``` `（反单引号）; 如下所示： 单引号将无法将其转义</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'hello $&#123;name&#125;'</span><span class="token punctuation">)</span> <span class="token comment">// hello $&#123;name&#125;</span></code></pre>
+
+<h3 id="ES6的字符串换行"><a href="#ES6的字符串换行" class="headerlink" title="ES6的字符串换行"></a>ES6的字符串换行</h3><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// ES5</span>
+    <span class="token keyword">var</span> template <span class="token operator">=</span> <span class="token string">"&lt;div> \
+                        &lt;span>hello world&lt;/span> \
+                    &lt;/div>"</span>
+<span class="token comment">// ES6</span>
+    <span class="token keyword">let</span> template2 <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">&lt;div> 
+                        &lt;span>hello world&lt;/span>
+                    &lt;/div></span><span class="token template-punctuation string">`</span></span></code></pre>
+
+<blockquote>
+<p>ES5中需要用反斜杠来进行多行字符串拼接，ES6直接使用 ``` `(反单引号）</p>
+</blockquote>
+<h2 id="2-字符串方法"><a href="#2-字符串方法" class="headerlink" title="2. 字符串方法"></a>2. 字符串方法</h2><h3 id="padStart-和-padEnd"><a href="#padStart-和-padEnd" class="headerlink" title="padStart() 和 padEnd()"></a>padStart() 和 padEnd()</h3><blockquote>
+<p>ES6 引入了字符串补全长度的功能，如果某个字符串不够指定长度，会在头部或者尾部补全。</p>
+<p><code>padStart()</code> 用于<strong>头部补全</strong>；</p>
+<p><code>padEnd()</code> 用于<strong>尾部补全</strong>。</p>
+</blockquote>
+<p>如下一个例子：<a target="_blank" rel="noopener" href="https://link.segmentfault.com/?enc=s/4vgLhRUyDoiV6EE9xmDg==.5gVHrKgFETCAcBlABIaC7y5JThUkPAsvADpfs5X6kXzoKxzVYMPeX+/Cv8BC0+go">例子来源</a></p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+       <span class="token keyword">const</span> now <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+       <span class="token keyword">const</span> hours <span class="token operator">=</span> now<span class="token punctuation">.</span><span class="token function">getHours</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+       <span class="token keyword">const</span> minutes <span class="token operator">=</span> now<span class="token punctuation">.</span><span class="token function">getMinutes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+       <span class="token keyword">const</span> seconds <span class="token operator">=</span> now<span class="token punctuation">.</span><span class="token function">getSeconds</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+       console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>hours<span class="token punctuation">.</span><span class="token function">padStart</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">:</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>minutes<span class="token punctuation">.</span><span class="token function">padStart</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">:</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>seconds<span class="token punctuation">.</span><span class="token function">padStart</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+   <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span></code></pre>
+
+<blockquote>
+<p>先不管箭头函数</p>
+</blockquote>
+<p>看看其中的<code>hours.padStart(2,0)</code> , 表示当小时不够两位数时，在前面补0，如<code>8</code>，补充成 <code>08</code></p>
+<p>后面遇到更多的字符串函数会补充</p>
+<h1 id="三、变量的解构赋值"><a href="#三、变量的解构赋值" class="headerlink" title="三、变量的解构赋值"></a>三、变量的解构赋值</h1><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// ES5</span>
+<span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> b <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> c <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span></code></pre>
+
+<h2 id="1-ES6数组解构赋值"><a href="#1-ES6数组解构赋值" class="headerlink" title="1.ES6数组解构赋值"></a>1.ES6数组解构赋值</h2><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> <span class="token punctuation">[</span>a<span class="token punctuation">,</span>b<span class="token punctuation">,</span>c<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>a<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>b<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>c<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span> <span class="token comment">// 1 2 3</span></code></pre>
+
+<h3 id="默认值"><a href="#默认值" class="headerlink" title="默认值"></a>默认值</h3><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> <span class="token punctuation">[</span>d <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> e<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token keyword">undefined</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>d<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>e<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span> <span class="token comment">// 2 3</span></code></pre>
+
+<blockquote>
+<p>当赋值为<code>undefined</code>时取默认值 当赋值为其他的有效值或者<code>null</code>时 取所赋值的值</p>
+</blockquote>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> <span class="token punctuation">[</span>f <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> g <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>f<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>g<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span> <span class="token comment">// null 4</span></code></pre>
+
+<h2 id="2-对象解构赋值"><a href="#2-对象解构赋值" class="headerlink" title="2.对象解构赋值"></a>2.对象解构赋值</h2><blockquote>
+<p>数组按照顺序解构 对象按照key值进行解构</p>
+</blockquote>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> <span class="token punctuation">&#123;</span>foo<span class="token punctuation">,</span> bar<span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token literal-property property">foo</span><span class="token operator">:</span> <span class="token string">'hi'</span><span class="token punctuation">,</span> <span class="token literal-property property">bar</span><span class="token operator">:</span> <span class="token string">'hello'</span><span class="token punctuation">&#125;</span> <span class="token comment">//可以调换位置</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>foo<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>bar<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span> <span class="token operator">*</span><span class="token comment">// hi hello</span></code></pre>
+
+<blockquote>
+<p>注意：先定义再解构需要在解构语句那块加上圆括号</p>
+</blockquote>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> soso<span class="token punctuation">;</span>
+<span class="token comment">// &#123; soso &#125; = &#123; soso: "hi"&#125;; // 错误</span>
+<span class="token punctuation">(</span><span class="token punctuation">&#123;</span> soso <span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">soso</span><span class="token operator">:</span> <span class="token string">"hi"</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//得加上圆括号 ()</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>soso<span class="token punctuation">)</span> <span class="token comment">// hi</span></code></pre>
+
+<h2 id="3-字符串的解构赋值"><a href="#3-字符串的解构赋值" class="headerlink" title="3.字符串的解构赋值"></a>3.字符串的解构赋值</h2><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> <span class="token punctuation">[</span>h<span class="token punctuation">,</span>i<span class="token punctuation">,</span>j<span class="token punctuation">,</span>k<span class="token punctuation">,</span>l<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'hello'</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>h<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>i<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>j<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>k<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>l<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span></code></pre>
                 
             </div>
             <hr/>
@@ -475,7 +588,7 @@ XSS概念：XSS , 全称：Cross Site Scripting ，译为跨域脚本攻">
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://hth520.github.io/2021/08/26/31410.html">https://hth520.github.io/2021/08/26/31410.html</a>
+                    <a href="https://hth520.github.io/2019/04/16/90416.html">https://hth520.github.io/2019/04/16/90416.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -513,12 +626,12 @@ XSS概念：XSS , 全称：Cross Site Scripting ，译为跨域脚本攻">
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/">
-                                    <span class="chip bg-color">浏览器</span>
+                                <a href="/tags/es6/">
+                                    <span class="chip bg-color">es6</span>
                                 </a>
                             
-                                <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">
-                                    <span class="chip bg-color">网络安全</span>
+                                <a href="/tags/javascript/">
+                                    <span class="chip bg-color">javascript</span>
                                 </a>
                             
                         </div>
@@ -689,7 +802,7 @@ XSS概念：XSS , 全称：Cross Site Scripting ，译为跨域脚本攻">
         repo: 'hth520.github.io',
         owner: 'hth520',
         admin: ["hth520"],
-        id: '2021-08-26T14-03-56',
+        id: '2019-04-16T00-00-00',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -719,17 +832,16 @@ XSS概念：XSS , 全称：Cross Site Scripting ，译为跨域脚本攻">
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/08/26/31410.html">
+                <a href="/2021/03/14/135600.html">
                     <div class="card-image">
                         
-                        <img src="https://s4.ax1x.com/2022/01/26/7qB34J.png" class="responsive-img" alt="了解XSS和CSRF攻击">
+                        <img src="https://s4.ax1x.com/2022/02/09/H8EhFg.png" class="responsive-img" alt="学习 React 基础">
                         
-                        <span class="card-title">了解XSS和CSRF攻击</span>
+                        <span class="card-title">学习 React 基础</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -739,31 +851,30 @@ XSS概念：XSS , 全称：Cross Site Scripting ，译为跨域脚本攻">
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-26
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-03-14
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB/" class="post-category">
-                                    网络攻击
+                            <a href="/categories/React-js/" class="post-category">
+                                    React.js
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/">
-                        <span class="chip bg-color">浏览器</span>
+                    <a href="/tags/%E5%89%8D%E7%AB%AF/">
+                        <span class="chip bg-color">前端</span>
                     </a>
                     
-                    <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">
-                        <span class="chip bg-color">网络安全</span>
+                    <a href="/tags/React/">
+                        <span class="chip bg-color">React</span>
                     </a>
                     
                 </div>
@@ -777,12 +888,13 @@ XSS概念：XSS , 全称：Cross Site Scripting ，译为跨域脚本攻">
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/08/21/27130.html">
+                <a href="/2019/04/13/90413.html">
                     <div class="card-image">
                         
-                        <img src="https://s4.ax1x.com/2022/01/24/7TrH6f.jpg" class="responsive-img" alt="学习 Vue3 基础">
                         
-                        <span class="card-title">学习 Vue3 基础</span>
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Vue 使用 formData 方式向后台发送数据">
+                        
+                        <span class="card-title">Vue 使用 formData 方式向后台发送数据</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -793,7 +905,7 @@ XSS概念：XSS , 全称：Cross Site Scripting ，译为跨域脚本攻">
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-21
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-04-13
                             </span>
                         <span class="publish-author">
                             
@@ -810,12 +922,16 @@ XSS概念：XSS , 全称：Cross Site Scripting ，译为跨域脚本攻">
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%89%8D%E7%AB%AF/">
-                        <span class="chip bg-color">前端</span>
+                    <a href="/tags/formdata/">
+                        <span class="chip bg-color">formdata</span>
                     </a>
                     
-                    <a href="/tags/Vue/">
-                        <span class="chip bg-color">Vue</span>
+                    <a href="/tags/axios/">
+                        <span class="chip bg-color">axios</span>
+                    </a>
+                    
+                    <a href="/tags/vue/">
+                        <span class="chip bg-color">vue</span>
                     </a>
                     
                 </div>

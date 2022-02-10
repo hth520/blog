@@ -1,0 +1,1575 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="学习 React 基础, feico の 博客">
+    <meta name="description" content="React 基本概述React 背景React 起源于 Facebook(Meta) 的内部项目（2011，News Feed），之后又被用来开发网站（2012，Instagram），并于 2013 年 5 月开源。
+React 是什么Re">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>学习 React 基础 | feico の 博客</title>
+    <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">feico の 博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">feico の 博客</div>
+        <div class="logo-desc">
+            
+            学如逆水行舟,不进则退;心似平原走马,易放难追
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://s4.ax1x.com/2022/02/09/H8EhFg.png')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">学习 React 基础</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%89%8D%E7%AB%AF/">
+                                <span class="chip bg-color">前端</span>
+                            </a>
+                        
+                            <a href="/tags/React/">
+                                <span class="chip bg-color">React</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/React-js/" class="post-category">
+                                React.js
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-03-14
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="React-基本概述"><a href="#React-基本概述" class="headerlink" title="React 基本概述"></a>React 基本概述</h2><h3 id="React-背景"><a href="#React-背景" class="headerlink" title="React 背景"></a>React 背景</h3><p><a target="_blank" rel="noopener" href="https://react.docschina.org/">React</a> 起源于 Facebook(Meta) 的内部项目（2011，News Feed），之后又被用来开发网站（2012，Instagram），并于 2013 年 5 月开源。</p>
+<h3 id="React-是什么"><a href="#React-是什么" class="headerlink" title="React 是什么"></a>React 是什么</h3><p><a target="_blank" rel="noopener" href="https://react.docschina.org/">React</a> 是一个用于构建<strong>用户界面</strong>的 JavaScript <strong>库</strong>。</p>
+<ul>
+<li>用户界面：HTML 界面。</li>
+<li>Library（库）和 Framework（框架）：库的特点是<strong>小而巧</strong>，针对特定问题的单一解决方案。框架的特点是<strong>大而全</strong>，提供了一整套的解决方案。</li>
+</ul>
+<h3 id="React-趋势"><a href="#React-趋势" class="headerlink" title="React 趋势"></a>React 趋势</h3><p>从 <a target="_blank" rel="noopener" href="https://www.npmtrends.com/angular-vs-react-vs-vue">NPM 下载量</a> 来看，React &gt; Vue &gt; Angular。</p>
+<h3 id="React-特点"><a href="#React-特点" class="headerlink" title="React 特点"></a>React 特点</h3><p><strong>声明式</strong></p>
+<p>只需要描述UI（HTML）看起来是什么样子，就像写 HTML 一样简单，React 内部负责渲染 UI，并在数据变化时自动更新 UI。</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> jsx <span class="token operator">=</span> <span class="token punctuation">(</span>
+    <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">'app'</span><span class="token operator">></span>
+        <span class="token operator">&lt;</span>h1<span class="token operator">></span>Hello World！<span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span>
+        <span class="token operator">&lt;</span>p<span class="token operator">></span>动态数据：<span class="token punctuation">&#123;</span>count<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+<span class="token punctuation">)</span></code></pre>
+
+<p><strong>组件化</strong></p>
+<p>把复杂的页面拆分成一个一个的单元，这些组成页面的基本单元就是组件，通过组合、复用组件来编写复杂界面的方式，就是组件化。</p>
+<p><strong>小结：</strong></p>
+<p>使用 React 除了可以开发 Web 应用，还可以使用 React Native 开发原生移动应用，甚至可以开发 VR（虚拟现实）应用（React 360）。</p>
+<p>相比较于 Vue，React 强调尽可能的利用 JS 语言自身的能力来编写 UI，而不是通过造轮子增强 HTML 的功能。</p>
+<h3 id="脚手架创建项目"><a href="#脚手架创建项目" class="headerlink" title="脚手架创建项目"></a>脚手架创建项目</h3><p><strong>脚手架意义</strong></p>
+<p>现代的 Web 应用要考虑的问题很多，除了编写业务代码之外，还要考虑代码规范、预编译、压缩合并、打包上线等工作，需要有一套完整的解决方案来辅助我们快速开发，而 <a target="_blank" rel="noopener" href="https://create-react-app.dev/">React 脚手架</a> 就是这么一套完整的解决方案，它零配置，开箱即用，让我们从繁杂的 Webpack 配置当中解脱出来，更关注于业务本身。</p>
+<p>使用 <a target="_blank" rel="noopener" href="https://create-react-app.dev/">create-react-app</a> 这个命令行工具，它是 React 官方团队出的一个构建 React 应用的脚手架工具。</p>
+<p><strong>方法一</strong></p>
+<ol>
+<li>全局安装<code>npm i -g create-react-app</code>或者<code>yarn global add create-react-app</code>。</li>
+<li>初始化项目<code>create-react-app my-app</code>，my-app 表示项目名称，可以修改。</li>
+<li>启动项目：<code>yarn start</code>or <code>npm start</code>。</li>
+</ol>
+<p>🙁 缺点：全局安装命令无法保证命令一直是最新版本。</p>
+<p><strong>方法二（推荐）</strong></p>
+<ol>
+<li>命令：<code>npx create-react-app react-basic</code>。</li>
+<li>启动项目：<code>yarn start</code> or <code>npm start</code>。</li>
+<li>npx 是 <code>npm@v5.2</code> 版本新添加的命令，用来简化 npm 工具包的使用流程。</li>
+</ol>
+<p>😄 优点：<code>npx</code> 会调用最新的 <code>create-react-app</code> 直接创建 React 项目。</p>
+<h3 id="渲染-Hello-World"><a href="#渲染-Hello-World" class="headerlink" title="渲染 Hello World"></a>渲染 Hello World</h3><img src="https://zhihur.com/resource/images/ifer_hello_world.png">
+
+<p><strong>步骤</strong></p>
+<ol>
+<li>删除 <code>src</code> 和 <code>public</code> 目录中的所有内容。</li>
+<li>新建 <code>public/index.html</code>。</li>
+<li>新建 <code>src/index.js</code> 文件。</li>
+<li>引入 React 核心库和涉及 DOM 操作的包。</li>
+<li>调用 <code>React.createElement()</code> 方法创建 React 元素。</li>
+<li>调用 <code>ReactDOM.render()</code> 方法渲染 React 元素到页面。</li>
+</ol>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><ol>
+<li>删除 <code>src</code> 和 <code>public</code> 目录中的所有内容。</li>
+<li>新建 <code>public/index.html</code>。</li>
+</ol>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token operator">&lt;</span><span class="token operator">!</span><span class="token constant">DOCTYPE</span> html<span class="token operator">></span>
+<span class="token operator">&lt;</span>html lang<span class="token operator">=</span><span class="token string">"en"</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>head<span class="token operator">></span>
+        <span class="token operator">&lt;</span>meta charset<span class="token operator">=</span><span class="token string">"UTF-8"</span> <span class="token operator">/</span><span class="token operator">></span>
+        <span class="token operator">&lt;</span>meta http<span class="token operator">-</span>equiv<span class="token operator">=</span><span class="token string">"X-UA-Compatible"</span> content<span class="token operator">=</span><span class="token string">"IE=edge"</span> <span class="token operator">/</span><span class="token operator">></span>
+        <span class="token operator">&lt;</span>meta name<span class="token operator">=</span><span class="token string">"viewport"</span> content<span class="token operator">=</span><span class="token string">"width=device-width, initial-scale=1.0"</span> <span class="token operator">/</span><span class="token operator">></span>
+        <span class="token operator">&lt;</span>title<span class="token operator">></span>Document<span class="token operator">&lt;</span><span class="token operator">/</span>title<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>head<span class="token operator">></span>
+
+    <span class="token operator">&lt;</span>body<span class="token operator">></span>
+        <span class="token operator">&lt;</span>div id<span class="token operator">=</span><span class="token string">"root"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>body<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>html<span class="token operator">></span></code></pre>
+
+<ol start="3">
+<li><p>新建 <code>src/index.js</code> 文件。</p>
+</li>
+<li><p>引入 React 核心库和涉及 DOM 操作的包。</p>
+</li>
+</ol>
+<p><code>src/index.js</code></p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token comment">// create-react-app 脚手架生成的项目中已经下载好了 react 和 react-dom，无需重复下载，直接使用即可</span>
+<span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">'react'</span>
+<span class="token keyword">import</span> ReactDOM <span class="token keyword">from</span> <span class="token string">'react-dom'</span></code></pre>
+
+<ol start="5">
+<li>调用 <code>React.createElement()</code> 方法创建 React 元素。</li>
+</ol>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token comment">// 标签名、标签属性、标签内容，返回的是一个 React 元素（虚拟 DOM）</span>
+<span class="token keyword">const</span> title <span class="token operator">=</span> React<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'h1'</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token string">'Hello World'</span><span class="token punctuation">)</span></code></pre>
+
+
+
+<ol start="6">
+<li>调用 <code>ReactDOM.render()</code> 方法渲染 React 元素到页面。</li>
+</ol>
+<pre class="language-js" data-language="js"><code class="language-js">ReactDOM<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span>title<span class="token punctuation">,</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'#root'</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+
+<h3 id="React-createElement-📝"><a href="#React-createElement-📝" class="headerlink" title="React.createElement() 📝"></a>React.createElement() 📝</h3><p>如何用 <code>React.createElement()</code> 创建出如下结构？</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">"wrap"</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>ul<span class="token operator">></span>
+        <span class="token operator">&lt;</span>li<span class="token operator">></span>React<span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+        <span class="token operator">&lt;</span>li<span class="token operator">></span>Vue<span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+        <span class="token operator">&lt;</span>li<span class="token operator">></span>Angular<span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span></code></pre>
+
+<p><strong>重点</strong></p>
+<pre class="language-js" data-language="js"><code class="language-js">React<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'标签名'</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> 标签上的属性<span class="token number">1</span>：值<span class="token number">1</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> 子元素<span class="token number">1</span><span class="token punctuation">,</span> 子元素<span class="token number">2</span><span class="token punctuation">)</span></code></pre>
+
+<p>如果有更复杂的就需要使用 JSX</p>
+<h3 id="JSX-基本介绍"><a href="#JSX-基本介绍" class="headerlink" title="JSX 基本介绍"></a>JSX 基本介绍</h3><p><code>React.createElement()</code> 创建 React 元素的问题：繁琐/不简洁；不直观，无法一眼看出所描述的结构；代码不容易维护！</p>
+<pre class="language-js" data-language="js"><code class="language-js">React<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span>
+    <span class="token string">'div'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#123;</span> <span class="token literal-property property">className</span><span class="token operator">:</span> <span class="token string">'wrap'</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    React<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'ul'</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> React<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'li'</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token string">'React'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> React<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'li'</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token string">'Vue'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> React<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'li'</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token string">'Angular'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span></code></pre>
+
+<p>对比下面 JSX 的写法</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">"wrap"</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>ul<span class="token operator">></span>
+        <span class="token operator">&lt;</span>li<span class="token operator">></span>React<span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+        <span class="token operator">&lt;</span>li<span class="token operator">></span>Vue<span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+        <span class="token operator">&lt;</span>li<span class="token operator">></span>Angular<span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span></code></pre>
+
+<p><strong>JSX 是什么</strong></p>
+<p>JSX 是 JavaScript XML 的简写，表示可以在 JavaScript 代码中写 XML（HTML） 格式的代码。</p>
+<p>优势：声明式语法更加直观，与 HTML 结构相同，降低了学习成本，提高了开发效率，JSX 是 React 的核心之一。</p>
+<p><strong>JSX 基本使用</strong></p>
+<ol>
+<li>使用 JSX 创建 React 元素</li>
+</ol>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> title <span class="token operator">=</span> <span class="token operator">&lt;</span>h1<span class="token operator">></span>Hello <span class="token constant">JSX</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span></code></pre>
+
+
+
+<ol start="2">
+<li>使用 <code>ReactDOM.render()</code> 方法渲染 React 元素到页面中</li>
+</ol>
+<pre class="language-js" data-language="js"><code class="language-js">ReactDOM<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span>title<span class="token punctuation">,</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'#root'</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+
+<p><strong>JSX 是如何工作的</strong></p>
+<p>🤔 换句话说，JSX 并不是标准的 ECMAScript 语法，为什么 React 脚手架中可以直接使用 JSX 呢？</p>
+<ul>
+<li>JSX 需要使用 Babel 编译成 <code>React.createElement()</code> 的形式，然后配合 React 才能在浏览器中使用，而 <code>create-react-app</code> 脚手架中已经内置了 Babel 及相关配置。</li>
+<li>编译 JSX 语法的包为：<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/@babel/preset-react">@babel/preset-react</a>，<a target="_blank" rel="noopener" href="https://www.babeljs.cn/repl#?browsers=defaults%2C%20not%20ie%2011%2C%20not%20ie_mob%2011&build=&builtIns=false&corejs=3.6&spec=false&loose=false&code_lz=DwCwjAfAEgpgNnA9gAgFIGUAawD04JA&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=env%2Creact%2Cstage-2&prettier=false&targets=&version=7.16.2&externalPlugins=&assumptions=%7B%7D">在线体验</a>。</li>
+</ul>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> r <span class="token operator">=</span> <span class="token punctuation">(</span>
+    <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">'wrap'</span><span class="token operator">></span>
+        <span class="token operator">&lt;</span>h1<span class="token operator">></span>Hello World<span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span>
+        <span class="token operator">&lt;</span>p<span class="token operator">></span>React<span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+<span class="token punctuation">)</span></code></pre>
+
+<ol>
+<li>必须有 1 个根节点，或者虚拟根节点 <code>&lt;&gt;&lt;/&gt;</code>、<code>&lt;React.Fragment&gt;&lt;/React.Fragment&gt;</code>。</li>
+<li>属性名一般是驼峰的写法且不能是 JS 中的关键字，例如 class 改成 className，label 的 for 属性改为 <code>htmlFor</code>，colspan 改为 <code>colSpan</code>。</li>
+<li>元素若没有子节点，可以使用单标签，但一定要闭合，例如 <code>&lt;span/&gt;</code>。</li>
+<li><code>React@16.14</code> 之前需要先引入 React 才能使用 JSX（这个也好理解，因为 JSX 最后还是要被转成 <code>React.createElement()</code> 的形式）。</li>
+<li>换行建议使用 <code>()</code> 进行包裹，防止换行的时候<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/2846283/what-are-the-rules-for-javascripts-automatic-semicolon-insertion-asi">自动插入分号</a>的 Bug。</li>
+</ol>
+<img src="https://zhihur.com/resource/images/ifer_bug.png">
+
+<p><strong>使用表达式</strong></p>
+<p><strong>单大括号</strong>中可以使用任意的表达式（可以产生结果的式子）。</p>
+<ul>
+<li>普通的简单数据类型。</li>
+</ul>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> name <span class="token operator">=</span> <span class="token string">'zs'</span>
+<span class="token keyword">const</span> age <span class="token operator">=</span> <span class="token number">18</span>
+<span class="token keyword">const</span> title <span class="token operator">=</span> <span class="token punctuation">(</span>
+    <span class="token operator">&lt;</span>h1<span class="token operator">></span>
+        姓名：<span class="token punctuation">&#123;</span>name<span class="token punctuation">&#125;</span><span class="token punctuation">,</span> 年龄：<span class="token punctuation">&#123;</span>age<span class="token punctuation">&#125;</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span>
+<span class="token punctuation">)</span></code></pre>
+
+
+
+<ul>
+<li>对象中的属性。</li>
+</ul>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> car <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    <span class="token literal-property property">brand</span><span class="token operator">:</span> <span class="token string">'玛莎拉蒂'</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">const</span> title <span class="token operator">=</span> <span class="token operator">&lt;</span>h1<span class="token operator">></span>汽车：<span class="token punctuation">&#123;</span>car<span class="token punctuation">.</span>brand<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span></code></pre>
+
+
+
+<ul>
+<li>数组中的某一项甚至整个数组。</li>
+</ul>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> friends <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'张三'</span><span class="token punctuation">,</span> <span class="token string">'李四'</span><span class="token punctuation">]</span>
+<span class="token keyword">const</span> title <span class="token operator">=</span> <span class="token operator">&lt;</span>h1<span class="token operator">></span>汽车：<span class="token punctuation">&#123;</span>friends<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span></code></pre>
+
+
+
+<ul>
+<li>可以调用方法。</li>
+</ul>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">sayHi</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token string">'你好'</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">const</span> title <span class="token operator">=</span> <span class="token operator">&lt;</span>h1<span class="token operator">></span>姓名：<span class="token punctuation">&#123;</span><span class="token function">sayHi</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span></code></pre>
+
+<ul>
+<li>JS 对象虽然也是表达式，但是不能直接嵌套在 <code>&#123;&#125;</code> 中，一般只会出现在 style 属性中。</li>
+<li>JSX 本身也是表达式。</li>
+</ul>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> span <span class="token operator">=</span> <span class="token operator">&lt;</span>span<span class="token operator">></span>我是一个span<span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">></span>
+<span class="token keyword">const</span> title <span class="token operator">=</span> <span class="token operator">&lt;</span>h1<span class="token operator">></span>盒子<span class="token punctuation">&#123;</span>span<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span></code></pre>
+
+<p><strong>小结</strong></p>
+<ul>
+<li>JSX 中可以包含任意的表达式（除了对象）。</li>
+<li>JSX 中不能放语句，例如 <code>if</code>、<code>switch</code>、<code>for</code>、<code>while</code> 等。</li>
+</ul>
+<h4 id="列表渲染"><a href="#列表渲染" class="headerlink" title="列表渲染"></a><strong>列表渲染</strong></h4><p><strong>小试牛刀</strong></p>
+<ul>
+<li>后端返回的数据。</li>
+</ul>
+<pre class="language-none"><code class="language-none">const arr &#x3D; [
+    &#123; id: 1, name: &#39;Vue&#39; &#125;,
+    &#123; id: 2, name: &#39;React&#39; &#125;,
+    &#123; id: 3, name: &#39;Angular&#39; &#125;,
+]</code></pre>
+
+
+
+<ul>
+<li>期望实现的效果。</li>
+</ul>
+<img src="https://zhihur.com/resource/images/ifer_list_jsx.png">
+
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>手动拼接如下。</p>
+<pre class="language-none"><code class="language-none">&lt;ul&gt;
+    &lt;li&gt;&#123;list[0].name&#125;&lt;&#x2F;li&gt;
+    &lt;li&gt;&#123;list[1].name&#125;&lt;&#x2F;li&gt;
+    &lt;li&gt;&#123;list[2].name&#125;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;</code></pre>
+
+
+
+<p>简化上面的代码：可以使用 <code>map()</code> 方法渲染一组数据。</p>
+<pre class="language-none"><code class="language-none">import ReactDOM from &#39;react-dom&#39;
+
+const list &#x3D; [
+    &#123; id: 1, name: &#39;Vue&#39; &#125;,
+    &#123; id: 2, name: &#39;React&#39; &#125;,
+    &#123; id: 3, name: &#39;Angular&#39; &#125;,
+]
+
+const arrJsx &#x3D; list.map((item) &#x3D;&gt; &lt;li key&#x3D;&#123;item.id&#125;&gt;&#123;item.name&#125;&lt;&#x2F;li&gt;)
+
+const loadData &#x3D; () &#x3D;&gt; &#123;
+    return &lt;ul&gt;&#123;arrJsx&#125;&lt;&#x2F;ul&gt;
+&#125;
+
+ReactDOM.render(loadData(), document.querySelector(&#39;#root&#39;))</code></pre>
+
+
+
+<h3 id="关于-key"><a href="#关于-key" class="headerlink" title="关于 key"></a>关于 key</h3><ol>
+<li>特点：key 值要保证唯一，尽量避免使用索引号，key 在最终的 HTML 结构中是看不见的。</li>
+<li>加在哪里：<code>map()</code> 遍历谁，就把 key 加在谁上。</li>
+<li>作用：React 内部用来进行<strong>性能优化</strong>时使用的，key 在最终的 HTML 结构中是看不见的。</li>
+</ol>
+<h3 id="渲染数据-📝"><a href="#渲染数据-📝" class="headerlink" title="渲染数据 📝"></a>渲染数据 📝</h3><pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> list <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">&#123;</span> <span class="token literal-property property">id</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'奔驰'</span><span class="token punctuation">,</span> <span class="token literal-property property">price</span><span class="token operator">:</span> <span class="token number">11000</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#123;</span> <span class="token literal-property property">id</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'宝马'</span><span class="token punctuation">,</span> <span class="token literal-property property">price</span><span class="token operator">:</span> <span class="token number">13000</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#123;</span> <span class="token literal-property property">id</span><span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'法拉利'</span><span class="token punctuation">,</span> <span class="token literal-property property">price</span><span class="token operator">:</span> <span class="token number">15000</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span></code></pre>
+
+<p>需求：根据上面数据生成下面结果。</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token operator">&lt;</span>ul<span class="token operator">></span>
+    <span class="token operator">&lt;</span>li<span class="token operator">></span>
+        <span class="token operator">&lt;</span>h3<span class="token operator">></span>车名：奔驰<span class="token operator">&lt;</span><span class="token operator">/</span>h3<span class="token operator">></span>
+        <span class="token operator">&lt;</span>p<span class="token operator">></span>价格：<span class="token number">11000</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+    <span class="token operator">&lt;</span>li<span class="token operator">></span>
+        <span class="token operator">&lt;</span>h3<span class="token operator">></span>车名：宝马<span class="token operator">&lt;</span><span class="token operator">/</span>h3<span class="token operator">></span>
+        <span class="token operator">&lt;</span>p<span class="token operator">></span>价格：<span class="token number">13000</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+    <span class="token operator">&lt;</span>li<span class="token operator">></span>
+        <span class="token operator">&lt;</span>h3<span class="token operator">></span>车名：法拉利<span class="token operator">&lt;</span><span class="token operator">/</span>h3<span class="token operator">></span>
+        <span class="token operator">&lt;</span>p<span class="token operator">></span>价格：<span class="token number">15000</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">></span></code></pre>
+
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> arr <span class="token operator">=</span> list<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">item</span><span class="token punctuation">)</span><span class="token operator">=></span><span class="token punctuation">(</span>
+    <span class="token operator">&lt;</span>ul<span class="token operator">></span>
+        <span class="token operator">&lt;</span>li key<span class="token operator">=</span><span class="token punctuation">&#123;</span>item<span class="token punctuation">.</span>id<span class="token punctuation">&#125;</span><span class="token operator">></span>
+          <span class="token operator">&lt;</span>h3<span class="token operator">></span><span class="token punctuation">&#123;</span>item<span class="token punctuation">.</span>name<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>h3<span class="token operator">></span>
+          <span class="token operator">&lt;</span>p<span class="token operator">></span><span class="token punctuation">&#123;</span>item<span class="token punctuation">.</span>price<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
+        <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">></span>
+<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+
+<h2 id="样式处理"><a href="#样式处理" class="headerlink" title="样式处理"></a>样式处理</h2><h3 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h3><p>掌握 React 中使用样式的两种方式。</p>
+<h3 id="行内样式"><a href="#行内样式" class="headerlink" title="行内样式"></a>行内样式</h3><ul>
+<li>语法</li>
+</ul>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token operator">&lt;</span>元素 style<span class="token operator">=</span><span class="token punctuation">&#123;</span> <span class="token punctuation">&#123;</span>css属性<span class="token number">1</span>：值<span class="token number">1</span><span class="token punctuation">,</span>css属性<span class="token number">2</span>：值<span class="token number">2</span><span class="token punctuation">&#125;</span> <span class="token punctuation">&#125;</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>元素<span class="token operator">></span></code></pre>
+
+<ul>
+<li>需求</li>
+</ul>
+<img src="https://zhihur.com/resource/images/react_style.png">
+
+<ul>
+<li>代码</li>
+</ul>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token operator">&lt;</span>div style<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">width</span><span class="token operator">:</span> <span class="token number">200</span><span class="token punctuation">,</span> <span class="token literal-property property">height</span><span class="token operator">:</span> <span class="token number">200</span><span class="token punctuation">,</span> <span class="token literal-property property">lineHeight</span><span class="token operator">:</span> <span class="token string">'200px'</span><span class="token punctuation">,</span> <span class="token literal-property property">backgroundColor</span><span class="token operator">:</span> <span class="token string">'black'</span><span class="token punctuation">,</span> <span class="token literal-property property">color</span><span class="token operator">:</span> <span class="token string">'white'</span><span class="token punctuation">,</span> <span class="token literal-property property">textAlign</span><span class="token operator">:</span> <span class="token string">'center'</span><span class="token punctuation">,</span> <span class="token literal-property property">fontSize</span><span class="token operator">:</span> <span class="token number">30</span> <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token operator">></span>React<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span></code></pre>
+
+
+
+<ul>
+<li><p>注意点</p>
+<p>a，为啥有两个<code>&#123;&#123; &#125;&#125;</code>，外层的 <code>&#123;&#125;</code> 表示要开始写 JS 表达式了，内层的 <code>&#123;&#125;</code> 表示是一个对象。</p>
+<p>b，属性名是小驼峰格式，例如 <code>background-color</code> 需要写成 <code>backgroundColor</code>。</p>
+<p>c，属性值是字符串，如果单位是 px，可以简写成数值。</p>
+</li>
+</ul>
+<h3 id="className"><a href="#className" class="headerlink" title="className"></a>className</h3><ul>
+<li>用 <code>className</code> 定义类名。</li>
+<li>在 <code>src</code> 目录中准备 <code>index.css</code> 文件，然后在 <code>index.js</code> 文件中通过 <code>import &#39;./index.css&#39;</code> 引入文件。</li>
+</ul>
+<p><code>index.css</code></p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token punctuation">.</span>title <span class="token punctuation">&#123;</span>
+    <span class="token literal-property property">width</span><span class="token operator">:</span> 200px<span class="token punctuation">;</span>
+    <span class="token literal-property property">height</span><span class="token operator">:</span> 200px<span class="token punctuation">;</span>
+    <span class="token literal-property property">color</span><span class="token operator">:</span> white<span class="token punctuation">;</span>
+    background<span class="token operator">-</span>color<span class="token operator">:</span> black<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p><code>index.js</code></p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">import</span> <span class="token string">'./index.css'</span>
+<span class="token punctuation">;</span><span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">'title'</span><span class="token operator">></span>Hello React<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span></code></pre>
+
+
+
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ul>
+<li>类名使用 <code>className</code>，<strong>推荐</strong>。</li>
+<li>行内样式，<code>&lt;div style=&#123;&#123; color: 'red' &#125;&#125;&gt;Hello&lt;/div&gt;</code>。</li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">feico</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://hth520.github.io/2021/03/14/135600.html">https://hth520.github.io/2021/03/14/135600.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">feico</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%89%8D%E7%AB%AF/">
+                                    <span class="chip bg-color">前端</span>
+                                </a>
+                            
+                                <a href="/tags/React/">
+                                    <span class="chip bg-color">React</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'b9a2beda19f54d2b3323',
+        clientSecret: 'e19a9a6d3f23ecc943c5c7fbee9444a8f66fc8b3',
+        repo: 'hth520.github.io',
+        owner: 'hth520',
+        admin: ["hth520"],
+        id: '2021-03-14T00-00-00',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2021/08/21/27130.html">
+                    <div class="card-image">
+                        
+                        <img src="https://s4.ax1x.com/2022/01/24/7TrH6f.jpg" class="responsive-img" alt="学习 Vue3 基础">
+                        
+                        <span class="card-title">学习 Vue3 基础</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-08-21
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Vue-js/" class="post-category">
+                                    Vue.js
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%89%8D%E7%AB%AF/">
+                        <span class="chip bg-color">前端</span>
+                    </a>
+                    
+                    <a href="/tags/Vue/">
+                        <span class="chip bg-color">Vue</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/04/16/90416.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="学习 ES6 基础">
+                        
+                        <span class="card-title">学习 ES6 基础</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-04-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/ECMAScript/" class="post-category">
+                                    ECMAScript
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/es6/">
+                        <span class="chip bg-color">es6</span>
+                    </a>
+                    
+                    <a href="/tags/javascript/">
+                        <span class="chip bg-color">javascript</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2022</span>
+            
+            <a href="/about" target="_blank">feico</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/hth520" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1257184579@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="https://juejin.cn/user/4143387266268231" class="tooltipped" target="_blank" data-tooltip="关注我的掘金账号" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">掘</i>
+    </a>
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1257184579" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1257184579" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="cOkdS5zLg4HMRQRv9uD0PmhE-MdYXbMMI" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
