@@ -1,0 +1,2100 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="React 组件, feico の 博客">
+    <meta name="description" content="React 组件概念组件就是页面中的一部分，是 React 的一等公民，使用 React 就是在用组件，而所谓的组件化开发就是采用分而治之的思想来管理繁杂的页面逻辑。
+
+
+特点独立、可复用、可组合。
+分类
+功能使用：UI 组件（AntD）和">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>React 组件 | feico の 博客</title>
+    <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">feico の 博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">feico の 博客</div>
+        <div class="logo-desc">
+            
+            学如逆水行舟,不进则退;心似平原走马,易放难追
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://s4.ax1x.com/2022/02/09/H8EhFg.png')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">React 组件</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%89%8D%E7%AB%AF/">
+                                <span class="chip bg-color">前端</span>
+                            </a>
+                        
+                            <a href="/tags/React/">
+                                <span class="chip bg-color">React</span>
+                            </a>
+                        
+                            <a href="/tags/%E7%BB%84%E4%BB%B6/">
+                                <span class="chip bg-color">组件</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/React-js/" class="post-category">
+                                React.js
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-04-20
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="React-组件"><a href="#React-组件" class="headerlink" title="React 组件"></a>React 组件</h1><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>组件就是页面中的一部分，是 React 的一等公民，使用 React 就是在用组件，而所谓的组件化开发就是采用分而治之的思想来管理繁杂的页面逻辑。</p>
+<img src="https://zhihur.com/resource/images/components.png"/>
+
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><p>独立、可复用、可组合。</p>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><ul>
+<li>功能使用：UI 组件（AntD）和业务组件（留言板）；普通组件（在一个组件中直接使用的组件）和路由组件（通过路由跳转访问到的组件）。</li>
+<li>创建方式：函数组件和类组件。</li>
+</ul>
+<h2 id="函数式组件"><a href="#函数式组件" class="headerlink" title="函数式组件"></a>函数式组件</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><ul>
+<li><p>概念</p>
+<p>通过函数创建出来的组件，又称简单组件或无状态组件（React16.8 以后函数式组件也可以拥有自己的状态），<strong>本质上来说就是一个 JS 函数</strong>。</p>
+</li>
+<li><p>步骤</p>
+<ol>
+<li><p>先定义。</p>
+<p>a，函数名称<strong>必须以大写字母开头</strong>。</p>
+<p>b，<strong>必须有返回值</strong>，返回值表示该组件的结构，如果不想渲染任何内容，可以 <code>return null</code>。</p>
+</li>
+<li><p>再使用。</p>
+<p>a，<code>&lt;函数名/&gt;</code>，单标签闭合。</p>
+<p>b，<code>&lt;函数名&gt;&lt;/函数名&gt;</code>，双标签。</p>
+</li>
+</ol>
+</li>
+<li><p>注意点</p>
+<p>函数式组件中的 this 指向是 undefined，因为 Babel 编译后的代码开启了严格模式，<a target="_blank" rel="noopener" href="https://www.babeljs.cn/repl#?browsers=defaults%2C%20not%20ie%2011%2C%20not%20ie_mob%2011&build=&builtIns=false&corejs=3.6&spec=false&loose=false&code_lz=GYVwdgxgLglg9mABAWQJ4GEC2AHAFASkQG8AoASACcBTKECpAHgAsBGAPkF_FQB1NB4fUBG_QG9yDAPSs2JAL5A&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=env%2Ces2015%2Creact%2Cstage-0&prettier=false&targets=&version=7.15.8&externalPlugins=">Babel 试一试</a>。</p>
+</li>
+</ul>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">import</span> ReactDOM <span class="token keyword">from</span> <span class="token string">'react-dom'</span>
+
+<span class="token keyword">function</span> <span class="token function">Hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token operator">&lt;</span>div<span class="token operator">></span>这是第一个函数组件<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">// const Hello = () => &lt;h1>这是一个函数组件！&lt;/h1>;</span>
+
+<span class="token comment">// 把函数的名字作为标签名进行渲染，可以使用单闭合，或双标签的形式</span>
+ReactDOM<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token operator">&lt;</span>Hello <span class="token operator">/</span><span class="token operator">></span><span class="token punctuation">,</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'root'</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+
+<p>React 解析 <code>&lt;Hello/&gt;</code> 标签，发现是大写开头的会被当做组件进行解析，解析的时候又发现其是一个函数式组件，随后会调用此函数，将返回的虚拟 DOM 转为真实 DOM，并渲染到页面中。</p>
+<h2 id="类组件"><a href="#类组件" class="headerlink" title="类组件"></a>类组件</h2><h3 id="介绍-1"><a href="#介绍-1" class="headerlink" title="介绍"></a>介绍</h3><p>a，使用 ES6 语法的 class 创建的组件，又称复杂组件或有状态组件。</p>
+<p>b，类名称也必须要大写字母开头。</p>
+<p>c，类组件应该继承 <code>React.Component</code> 父类，从而可以使用父类中提供的方法或者属性。</p>
+<p>d，类组件必须提供 <code>render()</code> 方法，此方法中的 this 指向此组件的实例对象，此方法中必须要有 return 返回值。</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">class</span> <span class="token class-name">Hello</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token operator">&lt;</span>div<span class="token operator">></span>这是第一个类组件<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+ReactDOM<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token operator">&lt;</span>Hello <span class="token operator">/</span><span class="token operator">></span><span class="token punctuation">,</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'root'</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+
+<p>了解 <code>ReactDOM.render()</code> 解析类式组件的过程：React 解析 <code>&lt;Hello/&gt;</code> 标签，发现是大写开头的会被当做组件进行解析，解析的时候又发现其是一个类组件，会自动的 new 出来该类的实例，并通过实例调用原型上的 <code>render()</code> 方法，将 <code>render()</code> 方法返回的虚拟 DOM 转为真实 DOM，并渲染到页面中。</p>
+<h2 id="提取组件"><a href="#提取组件" class="headerlink" title="提取组件"></a>提取组件</h2><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ol>
+<li>创建 App.js，创建组件（函数 或 类）。</li>
+<li>在 App.js 中通过 export default 默认导出该组件。</li>
+<li>在 index.js 中通过 import 默认导入 App 组件。</li>
+<li>渲染组件。</li>
+</ol>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><pre class="language-js" data-language="js"><code class="language-js">App<span class="token punctuation">.</span>jsx
+<span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> Component <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'react'</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">Component</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token operator">&lt;</span>div<span class="token operator">></span>Hello World<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+
+
+<pre class="language-js" data-language="js"><code class="language-js">index<span class="token punctuation">.</span>js
+<span class="token keyword">import</span> ReactDOM <span class="token keyword">from</span> <span class="token string">'react-dom'</span>
+<span class="token keyword">import</span> App <span class="token keyword">from</span> <span class="token string">'./App'</span>
+
+ReactDOM<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token operator">&lt;</span>App <span class="token operator">/</span><span class="token operator">></span><span class="token punctuation">,</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'#root'</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+
+<h2 id="组件的状态"><a href="#组件的状态" class="headerlink" title="组件的状态"></a>组件的状态</h2><h3 id="关于状态"><a href="#关于状态" class="headerlink" title="关于状态"></a>关于状态</h3><h4 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h4><p>状态就是用来描述事物在某一时刻的的数据，例如：9 月 23 号时书的库存数量；18 岁时人的身高等。</p>
+<h4 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h4><p>状态能被改变，改变了之后视图会有对应的变化。</p>
+<h4 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h4><ul>
+<li>保存数据。</li>
+<li>数据变化响应到视图（React 包内部的操作）。</li>
+</ul>
+<h3 id="有状态-无状态组件"><a href="#有状态-无状态组件" class="headerlink" title="有状态/无状态组件"></a>有状态/无状态组件</h3><ul>
+<li>有状态组件：能定义 state 的组件，类组件就是<strong>有状态组件</strong>。</li>
+<li>无状态组件：不能定义 state 的组件，函数组件一般叫做<strong>无状态组件</strong>。</li>
+</ul>
+<blockquote>
+<p>2019 年 02 月 06 日，React v16.8 中引入了 React Hooks，从而函数式组件也能定义自己的状态了。</p>
+</blockquote>
+<h3 id="无状态组件的应用场景"><a href="#无状态组件的应用场景" class="headerlink" title="无状态组件的应用场景"></a>无状态组件的应用场景</h3><ul>
+<li>组件本身就不需要有状态，例如渲染一段静态的内容。</li>
+<li>组件本身就没有状态，有可能只需要从外部传入的状态就够了。</li>
+</ul>
+<h2 id="类组件的状态"><a href="#类组件的状态" class="headerlink" title="类组件的状态"></a>类组件的状态</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>第一种方式：在 constructor 中通过 <code>this.state = &#123;&#125;</code>。</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>state <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">list</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+                <span class="token punctuation">&#123;</span> <span class="token literal-property property">id</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'明天会更好'</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+                <span class="token punctuation">&#123;</span> <span class="token literal-property property">id</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'今天'</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+            <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+
+
+<p>第二种方式：通过 state 来定义状态，<strong>state 对应的值必须是一个对象</strong>。</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span> <span class="token punctuation">&#123;</span>
+    state <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+        <span class="token literal-property property">list</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+            <span class="token punctuation">&#123;</span> <span class="token literal-property property">id</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'明天会更好'</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+            <span class="token punctuation">&#123;</span> <span class="token literal-property property">id</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'今天'</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token comment">// ...</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+
+
+<blockquote>
+<p>思考两种方式的差异？</p>
+</blockquote>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// ...</span>
+    <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>
+            <span class="token operator">&lt;</span><span class="token operator">></span>
+                <span class="token operator">&lt;</span>h1<span class="token operator">></span>歌曲数量：<span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>list<span class="token punctuation">.</span>length<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span>
+                <span class="token operator">&lt;</span>ul<span class="token operator">></span>
+                    <span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>list<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">item</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span>
+                        <span class="token operator">&lt;</span>li key<span class="token operator">=</span><span class="token punctuation">&#123;</span>item<span class="token punctuation">.</span>id<span class="token punctuation">&#125;</span><span class="token operator">></span><span class="token punctuation">&#123;</span>item<span class="token punctuation">.</span>name<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+                    <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">></span>
+            <span class="token operator">&lt;</span><span class="token operator">/</span><span class="token operator">></span>
+        <span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<h2 id="事件绑定"><a href="#事件绑定" class="headerlink" title="事件绑定"></a>事件绑定</h2><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><pre class="language-js" data-language="js"><code class="language-js"><span class="token operator">&lt;</span>元素 事件名<span class="token number">1</span><span class="token operator">=</span><span class="token punctuation">&#123;</span>事件处理函数<span class="token number">1</span><span class="token punctuation">&#125;</span> 事件名<span class="token number">2</span><span class="token operator">=</span><span class="token punctuation">&#123;</span>事件处理函数<span class="token number">2</span><span class="token punctuation">&#125;</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>元素<span class="token operator">></span></code></pre>
+
+
+
+<p>注意：React 事件名采用驼峰命名法，比如 onClick、onMouseEnter 等。</p>
+<h3 id="类组件中事件绑定"><a href="#类组件中事件绑定" class="headerlink" title="类组件中事件绑定"></a>类组件中事件绑定</h3><p>需求：点击按钮控制台打印 ‘Hello World’。</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>
+            <span class="token operator">&lt;</span>button
+                onClick<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+                    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Hello World'</span><span class="token punctuation">)</span>
+                <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span>
+            <span class="token operator">></span>
+                click
+            <span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span>
+        <span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+
+
+<p>也可以把事件处理函数进行提取。</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">handleClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Hello World'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token operator">&lt;</span>button onClick<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>handleClick<span class="token punctuation">&#125;</span><span class="token operator">></span>click<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+
+
+<h3 id="函数式组件中的事件绑定"><a href="#函数式组件中的事件绑定" class="headerlink" title="函数式组件中的事件绑定"></a>函数式组件中的事件绑定</h3><pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> <span class="token function-variable function">App</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">const</span> <span class="token function-variable function">handleClick</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Hello World'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">return</span> <span class="token operator">&lt;</span>button onClick<span class="token operator">=</span><span class="token punctuation">&#123;</span>handleClick<span class="token punctuation">&#125;</span><span class="token operator">></span>click<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<h3 id="获得事件对象"><a href="#获得事件对象" class="headerlink" title="获得事件对象"></a>获得事件对象</h3><p>通过形参 <code>e</code> 可以拿到事件对象，例如 <code>e.target</code> 就是触发事件的那个 DOM 元素。</p>
+<h2 id="解决-this-指向问题"><a href="#解决-this-指向问题" class="headerlink" title="解决 this 指向问题"></a>解决 this 指向问题</h2><h3 id="方法-1"><a href="#方法-1" class="headerlink" title="方法 1"></a>方法 1</h3><p>高阶函数：通过 this 来直接<strong>调用</strong> handleClick 并返回箭头函数。</p>
+<p>🧐 柯里化：通过函数调用继续返回函数的形式，实现多次接收参数最后统一处理的函数编码形式。</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span> <span class="token punctuation">&#123;</span>
+    state <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+        <span class="token literal-property property">count</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">handleClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">// 这里的 this 指向是什么？那就看是谁调用的！</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+            console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>count<span class="token punctuation">)</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>
+            <span class="token operator">&lt;</span>div<span class="token operator">></span>
+                <span class="token operator">&lt;</span>h2<span class="token operator">></span>计数器：<span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>count<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>h2<span class="token operator">></span>
+                <span class="token operator">&lt;</span>button onClick<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">handleClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token operator">></span><span class="token operator">+</span><span class="token number">1</span><span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span>
+            <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+        <span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+
+
+<h3 id="方法-2"><a href="#方法-2" class="headerlink" title="方法 2"></a>方法 2</h3><p>包裹一层箭头函数。</p>
+<p>箭头函数中的 this 指向“外部”，即 render 函数，而 render 函数中的 this 正是组件实例。</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">Component</span> <span class="token punctuation">&#123;</span>
+    state <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+        <span class="token literal-property property">count</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">handleClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>count<span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>
+            <span class="token operator">&lt;</span>div<span class="token operator">></span>
+                <span class="token operator">&lt;</span>h2<span class="token operator">></span>计数器：<span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>count<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>h2<span class="token operator">></span>
+                <span class="token operator">&lt;</span>button onClick<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">handleClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token operator">></span><span class="token operator">+</span><span class="token number">1</span><span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span>
+            <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+        <span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+
+
+<h3 id="方法-3"><a href="#方法-3" class="headerlink" title="方法 3"></a>方法 3</h3><p>使用 bind。</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">Component</span> <span class="token punctuation">&#123;</span>
+    state <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+        <span class="token literal-property property">count</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">handleClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>count<span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>
+            <span class="token operator">&lt;</span>div<span class="token operator">></span>
+                <span class="token operator">&lt;</span>h2<span class="token operator">></span>计数器：<span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>count<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>h2<span class="token operator">></span>
+                <span class="token operator">&lt;</span>button onClick<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">handleClick</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token operator">></span><span class="token operator">+</span><span class="token number">1</span><span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span>
+            <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+        <span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+
+
+<h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><p>🤔 关于 class 中的实例方法和原型方法？</p>
+<p>原型方法演示</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">handleClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">const</span> app1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">App</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">const</span> app2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">App</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment">// 通过打印也能发现 handleClick 确实是挂载到原型上的</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>app1<span class="token punctuation">)</span>
+<span class="token comment">// 每一个实例访问到的都是挂载到原型上的方法，所以等价</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>app1<span class="token punctuation">.</span>handleClick <span class="token operator">===</span> app2<span class="token punctuation">.</span>handleClick<span class="token punctuation">)</span></code></pre>
+
+
+
+<p>实例方法演示</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">&#123;</span>
+    <span class="token function-variable function">handleClick</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">const</span> app1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">App</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">const</span> app2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">App</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment">// 通过打印也能发现 handleClick 确实是挂载到实例上的</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>app1<span class="token punctuation">)</span>
+<span class="token comment">// 每一个实例访问到的都是挂载到自己上的方法，所以不等价</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>app1<span class="token punctuation">.</span>handleClick <span class="token operator">===</span> app2<span class="token punctuation">.</span>handleClick<span class="token punctuation">)</span></code></pre>
+
+
+
+<p>所以，要明白在 class 中直接写的方法和通过赋值语句添加的方法本质上不一样。</p>
+<p><strong>注意：在 constructor 中挂载的方法也是实例方法。</strong></p>
+<h3 id="方法-4"><a href="#方法-4" class="headerlink" title="方法 4"></a>方法 4</h3><p>通过赋值语句往<strong>实例</strong>上面添加一个箭头函数。</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">Component</span> <span class="token punctuation">&#123;</span>
+    state <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+        <span class="token literal-property property">count</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function-variable function">handleClick</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>count<span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>
+            <span class="token operator">&lt;</span>div<span class="token operator">></span>
+                <span class="token operator">&lt;</span>h2<span class="token operator">></span>计数器：<span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>count<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>h2<span class="token operator">></span>
+                <span class="token operator">&lt;</span>button onClick<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>handleClick<span class="token punctuation">&#125;</span><span class="token operator">></span><span class="token operator">+</span><span class="token number">1</span><span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span>
+            <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+        <span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+
+
+<p>证明“外层” this 确实是组件实例</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token punctuation">&#123;</span>
+    temp <span class="token operator">=</span> <span class="token keyword">this</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">const</span> app <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">App</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>app <span class="token operator">===</span> app<span class="token punctuation">.</span>temp<span class="token punctuation">)</span></code></pre>
+
+
+
+<h3 id="方法-5"><a href="#方法-5" class="headerlink" title="方法 5"></a>方法 5</h3><p>在构造函数中再创建一个实例方法，和原型方法公用一个函数体。</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>state <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">count</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token comment">// 1. 往实例自身上又挂载了一个 handleClick 函数</span>
+        <span class="token comment">// 2. 此函数的函数体是通过原型上 handleClick 函数生成的新函数</span>
+        <span class="token comment">// 3. 并把原型上 handleClick 函数中的 this 通过 bind 绑定为了 this，而这里构造函数中的 this 正是实例对象</span>
+        <span class="token comment">// 4. 其实点击的时候调用的是这个构造函数 handleClick（就近原则），而这个构造函数中的 handleClick 执行的是原型上的 handleClick 的函数体</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>handleClick <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">handleClick</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">handleClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>count<span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>
+            <span class="token operator">&lt;</span>div<span class="token operator">></span>
+                <span class="token operator">&lt;</span>h2<span class="token operator">></span>计数器：<span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>count<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>h2<span class="token operator">></span>
+                <span class="token operator">&lt;</span>button onClick<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>handleClick<span class="token punctuation">&#125;</span><span class="token operator">></span><span class="token operator">+</span><span class="token number">1</span><span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span>
+            <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+        <span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<h2 id="修改状态"><a href="#修改状态" class="headerlink" title="修改状态"></a>修改状态</h2><h3 id="错误写法"><a href="#错误写法" class="headerlink" title="错误写法"></a>错误写法</h3><pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>count <span class="token operator">+=</span> <span class="token number">1</span> <span class="token comment">// 数据确实也会变，但不是响应式的！</span></code></pre>
+
+
+
+<h3 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h3><ul>
+<li>语法：<code>this.setState(&#123; 要修改的部分数据 &#125;)</code>。</li>
+<li>作用：修改 state 并更新视图。</li>
+<li>来源：<code>setState()</code> 函数是通过继承而来的。</li>
+<li>注意：<code>setState()</code> 的操作是合并，不会影响没有操作到的数据。</li>
+</ul>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">count</span><span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>count <span class="token operator">+</span> <span class="token number">1</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span></code></pre>
+
+
+
+<h2 id="状态的不可变性"><a href="#状态的不可变性" class="headerlink" title="状态的不可变性"></a>状态的不可变性</h2><h3 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h3><p>也就是说不要<strong>直接修改</strong>原数据，而是要<strong>产生一份新数据</strong>，然后通过 <code>setState()</code> 用新的数据覆盖原数据，这么做的其中一个重要原因就是为了 SCU（shouldComponentUpdate），为了性能优化。</p>
+<h3 id="不建议写法"><a href="#不建议写法" class="headerlink" title="不建议写法"></a>不建议写法</h3><pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> Component <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'react'</span>
+<span class="token keyword">import</span> ReactDOM <span class="token keyword">from</span> <span class="token string">'react-dom'</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">Component</span> <span class="token punctuation">&#123;</span>
+    state <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+        <span class="token literal-property property">count</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">list</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">person</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'jack'</span><span class="token punctuation">,</span>
+            <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token number">18</span><span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function-variable function">changeCount</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>count<span class="token operator">++</span>
+        <span class="token comment">// 不要上面的写法，即便通过下面的操作也能做到更新视图</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">count</span><span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>count<span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function-variable function">changeList</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>list<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token string">'Hello React'</span><span class="token punctuation">)</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">list</span><span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>list<span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function-variable function">changePerson</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>person<span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">'ifer'</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>person<span class="token punctuation">.</span>age <span class="token operator">=</span> <span class="token number">19</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">person</span><span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>person<span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>
+            <span class="token operator">&lt;</span>div<span class="token operator">></span>
+                <span class="token operator">&lt;</span>h3<span class="token operator">></span>count<span class="token operator">&lt;</span><span class="token operator">/</span>h3<span class="token operator">></span>
+                <span class="token operator">&lt;</span>p<span class="token operator">></span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>count<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
+                <span class="token operator">&lt;</span>button onClick<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>changeCount<span class="token punctuation">&#125;</span><span class="token operator">></span>click<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span>
+                <span class="token operator">&lt;</span>hr <span class="token operator">/</span><span class="token operator">></span>
+                <span class="token operator">&lt;</span>h3<span class="token operator">></span>list<span class="token operator">&lt;</span><span class="token operator">/</span>h3<span class="token operator">></span>
+                <span class="token operator">&lt;</span>ul<span class="token operator">></span>
+                    <span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>list<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">item<span class="token punctuation">,</span> index</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span>
+                        <span class="token operator">&lt;</span>li key<span class="token operator">=</span><span class="token punctuation">&#123;</span>index<span class="token punctuation">&#125;</span><span class="token operator">></span><span class="token punctuation">&#123;</span>item<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+                    <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">></span>
+                <span class="token operator">&lt;</span>button onClick<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>changeList<span class="token punctuation">&#125;</span><span class="token operator">></span>click<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span>
+                <span class="token operator">&lt;</span>hr <span class="token operator">/</span><span class="token operator">></span>
+                <span class="token operator">&lt;</span>h3<span class="token operator">></span>person<span class="token operator">&lt;</span><span class="token operator">/</span>h3<span class="token operator">></span>
+                <span class="token operator">&lt;</span>p<span class="token operator">></span>
+                    <span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>person<span class="token punctuation">.</span>name<span class="token punctuation">&#125;</span> <span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>person<span class="token punctuation">.</span>age<span class="token punctuation">&#125;</span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
+                <span class="token operator">&lt;</span>button onClick<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>changePerson<span class="token punctuation">&#125;</span><span class="token operator">></span>click<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span>
+            <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+        <span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+ReactDOM<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token operator">&lt;</span>App <span class="token operator">/</span><span class="token operator">></span><span class="token punctuation">,</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'#root'</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+
+
+
+<h3 id="建议写法"><a href="#建议写法" class="headerlink" title="建议写法"></a>建议写法</h3><pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> Component <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'react'</span>
+<span class="token keyword">import</span> ReactDOM <span class="token keyword">from</span> <span class="token string">'react-dom'</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">Component</span> <span class="token punctuation">&#123;</span>
+    state <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+        <span class="token literal-property property">count</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">list</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">person</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'jack'</span><span class="token punctuation">,</span>
+            <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token number">18</span><span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function-variable function">changeCount</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">count</span><span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>count <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function-variable function">changeList</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">list</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token operator">...</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>list<span class="token punctuation">,</span> <span class="token string">'Hello React'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function-variable function">changePerson</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">person</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+                <span class="token operator">...</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>person<span class="token punctuation">,</span>
+                <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'ifer'</span><span class="token punctuation">,</span>
+                <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token number">19</span><span class="token punctuation">,</span>
+            <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>
+            <span class="token operator">&lt;</span>div<span class="token operator">></span>
+                <span class="token operator">&lt;</span>h3<span class="token operator">></span>count<span class="token operator">&lt;</span><span class="token operator">/</span>h3<span class="token operator">></span>
+                <span class="token operator">&lt;</span>p<span class="token operator">></span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>count<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
+                <span class="token operator">&lt;</span>button onClick<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>changeCount<span class="token punctuation">&#125;</span><span class="token operator">></span>click<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span>
+                <span class="token operator">&lt;</span>hr <span class="token operator">/</span><span class="token operator">></span>
+                <span class="token operator">&lt;</span>h3<span class="token operator">></span>list<span class="token operator">&lt;</span><span class="token operator">/</span>h3<span class="token operator">></span>
+                <span class="token operator">&lt;</span>ul<span class="token operator">></span>
+                    <span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>list<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">item<span class="token punctuation">,</span> index</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span>
+                        <span class="token operator">&lt;</span>li key<span class="token operator">=</span><span class="token punctuation">&#123;</span>index<span class="token punctuation">&#125;</span><span class="token operator">></span><span class="token punctuation">&#123;</span>item<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+                    <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">></span>
+                <span class="token operator">&lt;</span>button onClick<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>changeList<span class="token punctuation">&#125;</span><span class="token operator">></span>click<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span>
+                <span class="token operator">&lt;</span>hr <span class="token operator">/</span><span class="token operator">></span>
+                <span class="token operator">&lt;</span>h3<span class="token operator">></span>person<span class="token operator">&lt;</span><span class="token operator">/</span>h3<span class="token operator">></span>
+                <span class="token operator">&lt;</span>p<span class="token operator">></span>
+                    <span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>person<span class="token punctuation">.</span>name<span class="token punctuation">&#125;</span> <span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>person<span class="token punctuation">.</span>age<span class="token punctuation">&#125;</span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
+                <span class="token operator">&lt;</span>button onClick<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>changePerson<span class="token punctuation">&#125;</span><span class="token operator">></span>click<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span>
+            <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+        <span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+ReactDOM<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token operator">&lt;</span>App <span class="token operator">/</span><span class="token operator">></span><span class="token punctuation">,</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'#root'</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+
+<h2 id="受控表单组件"><a href="#受控表单组件" class="headerlink" title="受控表单组件"></a>受控表单组件</h2><img src="https://zhihur.com/resource/images/ifer_form.png">
+
+<h3 id="概念-2"><a href="#概念-2" class="headerlink" title="概念"></a>概念</h3><p>受控不受控一般是针对表单来说的，所谓受控表单组件，即表单元素的 value 值受到了 React 中状态（state）的控制（对状态的操作会影响视图，视图的变化又会反映到状态上）。</p>
+<h3 id="input"><a href="#input" class="headerlink" title="input"></a>input</h3><ol>
+<li>在 state 中添加一个状态，作为表单元素的 value 值（数据影响视图）。</li>
+<li>给表单元素绑定 onChange 事件，将表单元素的值设置为 state 的值（视图影响数据）。</li>
+</ol>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">'react'</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span> <span class="token punctuation">&#123;</span>
+    state <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+        <span class="token literal-property property">username</span><span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function-variable function">changeText</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">username</span><span class="token operator">:</span> e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value<span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> username <span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>
+            <span class="token operator">&lt;</span>ul<span class="token operator">></span>
+                <span class="token operator">&lt;</span>li<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">'username'</span><span class="token operator">></span>用户名<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>input id<span class="token operator">=</span><span class="token string">'username'</span> type<span class="token operator">=</span><span class="token string">'text'</span> value<span class="token operator">=</span><span class="token punctuation">&#123;</span>username<span class="token punctuation">&#125;</span> onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>changeText<span class="token punctuation">&#125;</span> <span class="token operator">/</span><span class="token operator">></span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+            <span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">></span>
+        <span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+
+
+<h3 id="textarea"><a href="#textarea" class="headerlink" title="textarea"></a>textarea</h3><p>操作方式和 input 框一样。</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">'react'</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span> <span class="token punctuation">&#123;</span>
+    state <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+        <span class="token literal-property property">content</span><span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function-variable function">changeTextArea</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">content</span><span class="token operator">:</span> e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value<span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> content <span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>
+            <span class="token operator">&lt;</span>ul<span class="token operator">></span>
+                <span class="token punctuation">&#123;</span><span class="token comment">/* ... */</span><span class="token punctuation">&#125;</span>
+                <span class="token operator">&lt;</span>li<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">'content'</span><span class="token operator">></span>其他信息<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>textarea id<span class="token operator">=</span><span class="token string">'content'</span> cols<span class="token operator">=</span><span class="token string">'30'</span> rows<span class="token operator">=</span><span class="token string">'10'</span> value<span class="token operator">=</span><span class="token punctuation">&#123;</span>content<span class="token punctuation">&#125;</span> onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>changeTextArea<span class="token punctuation">&#125;</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>textarea<span class="token operator">></span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+            <span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">></span>
+        <span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+
+
+<h3 id="select"><a href="#select" class="headerlink" title="select"></a>select</h3><pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">'react'</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span> <span class="token punctuation">&#123;</span>
+    state <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+        <span class="token literal-property property">frame</span><span class="token operator">:</span> <span class="token string">'react'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function-variable function">changeOption</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">frame</span><span class="token operator">:</span> e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value<span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> frame <span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>
+            <span class="token operator">&lt;</span>ul<span class="token operator">></span>
+                <span class="token punctuation">&#123;</span><span class="token comment">/* ... */</span><span class="token punctuation">&#125;</span>
+                <span class="token operator">&lt;</span>li<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">'frame'</span><span class="token operator">></span>框架<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>select id<span class="token operator">=</span><span class="token string">'frame'</span> value<span class="token operator">=</span><span class="token punctuation">&#123;</span>frame<span class="token punctuation">&#125;</span> onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>changeOption<span class="token punctuation">&#125;</span><span class="token operator">></span>
+                        <span class="token operator">&lt;</span>option value<span class="token operator">=</span><span class="token string">'vue'</span><span class="token operator">></span>Vue<span class="token operator">&lt;</span><span class="token operator">/</span>option<span class="token operator">></span>
+                        <span class="token operator">&lt;</span>option value<span class="token operator">=</span><span class="token string">'react'</span><span class="token operator">></span>React<span class="token operator">&lt;</span><span class="token operator">/</span>option<span class="token operator">></span>
+                        <span class="token operator">&lt;</span>option value<span class="token operator">=</span><span class="token string">'angular'</span><span class="token operator">></span>Angular<span class="token operator">&lt;</span><span class="token operator">/</span>option<span class="token operator">></span>
+                    <span class="token operator">&lt;</span><span class="token operator">/</span>select<span class="token operator">></span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+            <span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">></span>
+        <span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+
+
+<h3 id="radio"><a href="#radio" class="headerlink" title="radio"></a>radio</h3><p>多个单选按钮，绑定的值可以是一个字符串。</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span> <span class="token punctuation">&#123;</span>
+    state <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+        <span class="token literal-property property">checkedRadio</span><span class="token operator">:</span> <span class="token string">'male'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function-variable function">changeRadio</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">checkedRadio</span><span class="token operator">:</span> e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value<span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> checkedRadio <span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>
+            <span class="token operator">&lt;</span>ul<span class="token operator">></span>
+                <span class="token punctuation">&#123;</span><span class="token comment">/* ... */</span><span class="token punctuation">&#125;</span>
+                <span class="token operator">&lt;</span>li<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>input id<span class="token operator">=</span><span class="token string">'male'</span> type<span class="token operator">=</span><span class="token string">'radio'</span> value<span class="token operator">=</span><span class="token string">'male'</span> checked<span class="token operator">=</span><span class="token punctuation">&#123;</span>checkedRadio <span class="token operator">===</span> <span class="token string">'male'</span><span class="token punctuation">&#125;</span> onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>changeRadio<span class="token punctuation">&#125;</span> <span class="token operator">/</span><span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">'male'</span><span class="token operator">></span>男<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>input id<span class="token operator">=</span><span class="token string">'female'</span> type<span class="token operator">=</span><span class="token string">'radio'</span> value<span class="token operator">=</span><span class="token string">'female'</span> checked<span class="token operator">=</span><span class="token punctuation">&#123;</span>checkedRadio <span class="token operator">===</span> <span class="token string">'female'</span><span class="token punctuation">&#125;</span> onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>changeRadio<span class="token punctuation">&#125;</span> <span class="token operator">/</span><span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">'female'</span><span class="token operator">></span>女<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>input id<span class="token operator">=</span><span class="token string">'unknow'</span> type<span class="token operator">=</span><span class="token string">'radio'</span> value<span class="token operator">=</span><span class="token string">'unknow'</span> checked<span class="token operator">=</span><span class="token punctuation">&#123;</span>checkedRadio <span class="token operator">===</span> <span class="token string">'unknow'</span><span class="token punctuation">&#125;</span> onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>changeRadio<span class="token punctuation">&#125;</span> <span class="token operator">/</span><span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">'unknow'</span><span class="token operator">></span>未知<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+            <span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">></span>
+        <span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+
+
+<h3 id="checkbox"><a href="#checkbox" class="headerlink" title="checkbox"></a>checkbox</h3><p>绑定的值可以是一个数组。</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">'react'</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span> <span class="token punctuation">&#123;</span>
+    state <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+        <span class="token literal-property property">username</span><span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">content</span><span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">frame</span><span class="token operator">:</span> <span class="token string">'react'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">checkedRadio</span><span class="token operator">:</span> <span class="token string">'male'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">checkedFruit</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'apple'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function-variable function">changeText</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">username</span><span class="token operator">:</span> e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value<span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function-variable function">changeTextArea</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">content</span><span class="token operator">:</span> e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value<span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function-variable function">changeOption</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">frame</span><span class="token operator">:</span> e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value<span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function-variable function">changeRadio</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">checkedRadio</span><span class="token operator">:</span> e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value<span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function-variable function">changeCheckBox</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">const</span> checkedFruit <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token operator">...</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>checkedFruit<span class="token punctuation">]</span>
+        <span class="token keyword">const</span> idx <span class="token operator">=</span> checkedFruit<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>idx <span class="token operator">===</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token comment">// 数组中没有找到，说明没有被选中，那就把数据添加到数组，进行选中的操作</span>
+            checkedFruit<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value<span class="token punctuation">)</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+            <span class="token comment">// 找到了，说明已被选中，通过删除数组中的数据取消选中</span>
+            checkedFruit<span class="token punctuation">.</span><span class="token function">splice</span><span class="token punctuation">(</span>idx<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+            checkedFruit<span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> username<span class="token punctuation">,</span> content<span class="token punctuation">,</span> frame<span class="token punctuation">,</span> checkedRadio<span class="token punctuation">,</span> checkedFruit <span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>
+            <span class="token operator">&lt;</span>ul<span class="token operator">></span>
+                <span class="token operator">&lt;</span>li<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">'username'</span><span class="token operator">></span>用户名<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>input id<span class="token operator">=</span><span class="token string">'username'</span> type<span class="token operator">=</span><span class="token string">'text'</span> value<span class="token operator">=</span><span class="token punctuation">&#123;</span>username<span class="token punctuation">&#125;</span> onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>changeText<span class="token punctuation">&#125;</span> <span class="token operator">/</span><span class="token operator">></span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+                <span class="token operator">&lt;</span>li<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">'content'</span><span class="token operator">></span>其他信息<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>textarea id<span class="token operator">=</span><span class="token string">'content'</span> cols<span class="token operator">=</span><span class="token string">'30'</span> rows<span class="token operator">=</span><span class="token string">'10'</span> value<span class="token operator">=</span><span class="token punctuation">&#123;</span>content<span class="token punctuation">&#125;</span> onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>changeTextArea<span class="token punctuation">&#125;</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>textarea<span class="token operator">></span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+                <span class="token operator">&lt;</span>li<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">'frame'</span><span class="token operator">></span>框架<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>select id<span class="token operator">=</span><span class="token string">'frame'</span> value<span class="token operator">=</span><span class="token punctuation">&#123;</span>frame<span class="token punctuation">&#125;</span> onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>changeOption<span class="token punctuation">&#125;</span><span class="token operator">></span>
+                        <span class="token operator">&lt;</span>option value<span class="token operator">=</span><span class="token string">'vue'</span><span class="token operator">></span>Vue<span class="token operator">&lt;</span><span class="token operator">/</span>option<span class="token operator">></span>
+                        <span class="token operator">&lt;</span>option value<span class="token operator">=</span><span class="token string">'react'</span><span class="token operator">></span>React<span class="token operator">&lt;</span><span class="token operator">/</span>option<span class="token operator">></span>
+                        <span class="token operator">&lt;</span>option value<span class="token operator">=</span><span class="token string">'angular'</span><span class="token operator">></span>Angular<span class="token operator">&lt;</span><span class="token operator">/</span>option<span class="token operator">></span>
+                    <span class="token operator">&lt;</span><span class="token operator">/</span>select<span class="token operator">></span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+                <span class="token operator">&lt;</span>li<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>input id<span class="token operator">=</span><span class="token string">'male'</span> type<span class="token operator">=</span><span class="token string">'radio'</span> value<span class="token operator">=</span><span class="token string">'male'</span> checked<span class="token operator">=</span><span class="token punctuation">&#123;</span>checkedRadio <span class="token operator">===</span> <span class="token string">'male'</span><span class="token punctuation">&#125;</span> onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>changeRadio<span class="token punctuation">&#125;</span> <span class="token operator">/</span><span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">'male'</span><span class="token operator">></span>男<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>input id<span class="token operator">=</span><span class="token string">'female'</span> type<span class="token operator">=</span><span class="token string">'radio'</span> value<span class="token operator">=</span><span class="token string">'female'</span> checked<span class="token operator">=</span><span class="token punctuation">&#123;</span>checkedRadio <span class="token operator">===</span> <span class="token string">'female'</span><span class="token punctuation">&#125;</span> onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>changeRadio<span class="token punctuation">&#125;</span> <span class="token operator">/</span><span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">'female'</span><span class="token operator">></span>女<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>input id<span class="token operator">=</span><span class="token string">'unknow'</span> type<span class="token operator">=</span><span class="token string">'radio'</span> value<span class="token operator">=</span><span class="token string">'unknow'</span> checked<span class="token operator">=</span><span class="token punctuation">&#123;</span>checkedRadio <span class="token operator">===</span> <span class="token string">'unknow'</span><span class="token punctuation">&#125;</span> onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>changeRadio<span class="token punctuation">&#125;</span> <span class="token operator">/</span><span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">'unknow'</span><span class="token operator">></span>未知<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+                <span class="token operator">&lt;</span>li<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>input id<span class="token operator">=</span><span class="token string">'apple'</span> type<span class="token operator">=</span><span class="token string">'checkbox'</span> value<span class="token operator">=</span><span class="token string">'apple'</span> checked<span class="token operator">=</span><span class="token punctuation">&#123;</span>checkedFruit<span class="token punctuation">.</span><span class="token function">includes</span><span class="token punctuation">(</span><span class="token string">'apple'</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span> onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>changeCheckBox<span class="token punctuation">&#125;</span> <span class="token operator">/</span><span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">'apple'</span><span class="token operator">></span>Apple<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>input id<span class="token operator">=</span><span class="token string">'orange'</span> type<span class="token operator">=</span><span class="token string">'checkbox'</span> value<span class="token operator">=</span><span class="token string">'orange'</span> checked<span class="token operator">=</span><span class="token punctuation">&#123;</span>checkedFruit<span class="token punctuation">.</span><span class="token function">includes</span><span class="token punctuation">(</span><span class="token string">'orange'</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span> onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>changeCheckBox<span class="token punctuation">&#125;</span> <span class="token operator">/</span><span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">'orange'</span><span class="token operator">></span>Orange<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+            <span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">></span>
+        <span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+
+
+<h3 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h3><pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">'react'</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span> <span class="token punctuation">&#123;</span>
+    state <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+        <span class="token literal-property property">username</span><span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">content</span><span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">frame</span><span class="token operator">:</span> <span class="token string">'react'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">checkedRadio</span><span class="token operator">:</span> <span class="token string">'male'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">checkedFruit</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'apple'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function-variable function">changeText</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">username</span><span class="token operator">:</span> e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value<span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function-variable function">changeTextArea</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">content</span><span class="token operator">:</span> e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value<span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function-variable function">changeOption</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">frame</span><span class="token operator">:</span> e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value<span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function-variable function">changeRadio</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">checkedRadio</span><span class="token operator">:</span> e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value<span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function-variable function">changeCheckBox</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">const</span> checkedFruit <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token operator">...</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>checkedFruit<span class="token punctuation">]</span>
+        <span class="token keyword">const</span> idx <span class="token operator">=</span> checkedFruit<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>idx <span class="token operator">===</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token comment">// 数组中没有找到，说明没有被选中，那就把数据添加到数组，进行选中的操作</span>
+            checkedFruit<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value<span class="token punctuation">)</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+            <span class="token comment">// 找到了，说明已被选中，通过删除数组中的数据取消选中</span>
+            checkedFruit<span class="token punctuation">.</span><span class="token function">splice</span><span class="token punctuation">(</span>idx<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+            checkedFruit<span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> username<span class="token punctuation">,</span> content<span class="token punctuation">,</span> frame<span class="token punctuation">,</span> checkedRadio<span class="token punctuation">,</span> checkedFruit <span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>
+            <span class="token operator">&lt;</span>ul<span class="token operator">></span>
+                <span class="token operator">&lt;</span>li<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">'username'</span><span class="token operator">></span>用户名<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>input id<span class="token operator">=</span><span class="token string">'username'</span> type<span class="token operator">=</span><span class="token string">'text'</span> value<span class="token operator">=</span><span class="token punctuation">&#123;</span>username<span class="token punctuation">&#125;</span> onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>changeText<span class="token punctuation">&#125;</span> <span class="token operator">/</span><span class="token operator">></span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+                <span class="token operator">&lt;</span>li<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">'content'</span><span class="token operator">></span>其他信息<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>textarea id<span class="token operator">=</span><span class="token string">'content'</span> cols<span class="token operator">=</span><span class="token string">'30'</span> rows<span class="token operator">=</span><span class="token string">'10'</span> value<span class="token operator">=</span><span class="token punctuation">&#123;</span>content<span class="token punctuation">&#125;</span> onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>changeTextArea<span class="token punctuation">&#125;</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>textarea<span class="token operator">></span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+                <span class="token operator">&lt;</span>li<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">'frame'</span><span class="token operator">></span>框架<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>select id<span class="token operator">=</span><span class="token string">'frame'</span> value<span class="token operator">=</span><span class="token punctuation">&#123;</span>frame<span class="token punctuation">&#125;</span> onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>changeOption<span class="token punctuation">&#125;</span><span class="token operator">></span>
+                        <span class="token operator">&lt;</span>option value<span class="token operator">=</span><span class="token string">'vue'</span><span class="token operator">></span>Vue<span class="token operator">&lt;</span><span class="token operator">/</span>option<span class="token operator">></span>
+                        <span class="token operator">&lt;</span>option value<span class="token operator">=</span><span class="token string">'react'</span><span class="token operator">></span>React<span class="token operator">&lt;</span><span class="token operator">/</span>option<span class="token operator">></span>
+                        <span class="token operator">&lt;</span>option value<span class="token operator">=</span><span class="token string">'angular'</span><span class="token operator">></span>Angular<span class="token operator">&lt;</span><span class="token operator">/</span>option<span class="token operator">></span>
+                    <span class="token operator">&lt;</span><span class="token operator">/</span>select<span class="token operator">></span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+                <span class="token operator">&lt;</span>li<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>input id<span class="token operator">=</span><span class="token string">'male'</span> type<span class="token operator">=</span><span class="token string">'radio'</span> value<span class="token operator">=</span><span class="token string">'male'</span> checked<span class="token operator">=</span><span class="token punctuation">&#123;</span>checkedRadio <span class="token operator">===</span> <span class="token string">'male'</span><span class="token punctuation">&#125;</span> onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>changeRadio<span class="token punctuation">&#125;</span> <span class="token operator">/</span><span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">'male'</span><span class="token operator">></span>男<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>input id<span class="token operator">=</span><span class="token string">'female'</span> type<span class="token operator">=</span><span class="token string">'radio'</span> value<span class="token operator">=</span><span class="token string">'female'</span> checked<span class="token operator">=</span><span class="token punctuation">&#123;</span>checkedRadio <span class="token operator">===</span> <span class="token string">'female'</span><span class="token punctuation">&#125;</span> onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>changeRadio<span class="token punctuation">&#125;</span> <span class="token operator">/</span><span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">'female'</span><span class="token operator">></span>女<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>input id<span class="token operator">=</span><span class="token string">'unknow'</span> type<span class="token operator">=</span><span class="token string">'radio'</span> value<span class="token operator">=</span><span class="token string">'unknow'</span> checked<span class="token operator">=</span><span class="token punctuation">&#123;</span>checkedRadio <span class="token operator">===</span> <span class="token string">'unknow'</span><span class="token punctuation">&#125;</span> onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>changeRadio<span class="token punctuation">&#125;</span> <span class="token operator">/</span><span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">'unknow'</span><span class="token operator">></span>未知<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+                <span class="token operator">&lt;</span>li<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>input id<span class="token operator">=</span><span class="token string">'apple'</span> type<span class="token operator">=</span><span class="token string">'checkbox'</span> value<span class="token operator">=</span><span class="token string">'apple'</span> checked<span class="token operator">=</span><span class="token punctuation">&#123;</span>checkedFruit<span class="token punctuation">.</span><span class="token function">includes</span><span class="token punctuation">(</span><span class="token string">'apple'</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span> onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>changeCheckBox<span class="token punctuation">&#125;</span> <span class="token operator">/</span><span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">'apple'</span><span class="token operator">></span>Apple<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>input id<span class="token operator">=</span><span class="token string">'orange'</span> type<span class="token operator">=</span><span class="token string">'checkbox'</span> value<span class="token operator">=</span><span class="token string">'orange'</span> checked<span class="token operator">=</span><span class="token punctuation">&#123;</span>checkedFruit<span class="token punctuation">.</span><span class="token function">includes</span><span class="token punctuation">(</span><span class="token string">'orange'</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span> onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>changeCheckBox<span class="token punctuation">&#125;</span> <span class="token operator">/</span><span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">'orange'</span><span class="token operator">></span>Orange<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+            <span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">></span>
+        <span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+
+
+<h3 id="简化代码"><a href="#简化代码" class="headerlink" title="简化代码"></a>简化代码</h3><ol>
+<li>添加 name。</li>
+<li>把 key 都替换成 <code>e.target.name</code>。</li>
+<li>观察规律，提取成一个 handleChange 函数。</li>
+<li>根据 <code>e.target.type</code> 做出判断。</li>
+<li>继续精简。</li>
+</ol>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">'react'</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span> <span class="token punctuation">&#123;</span>
+    state <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+        <span class="token literal-property property">username</span><span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">content</span><span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">frame</span><span class="token operator">:</span> <span class="token string">'react'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">checkedRadio</span><span class="token operator">:</span> <span class="token string">'male'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">checkedFruit</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'apple'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function-variable function">handleChange</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">let</span> v
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'checkbox'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">const</span> checkedFruit <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token operator">...</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>checkedFruit<span class="token punctuation">]</span>
+            <span class="token keyword">const</span> idx <span class="token operator">=</span> checkedFruit<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value<span class="token punctuation">)</span>
+            idx <span class="token operator">===</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token operator">?</span> checkedFruit<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value<span class="token punctuation">)</span> <span class="token operator">:</span> checkedFruit<span class="token punctuation">.</span><span class="token function">splice</span><span class="token punctuation">(</span>idx<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+            v <span class="token operator">=</span> checkedFruit
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+            v <span class="token operator">=</span> e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+            <span class="token punctuation">[</span>e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>name<span class="token punctuation">]</span><span class="token operator">:</span> v<span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> username<span class="token punctuation">,</span> content<span class="token punctuation">,</span> frame<span class="token punctuation">,</span> checkedRadio<span class="token punctuation">,</span> checkedFruit <span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>
+            <span class="token operator">&lt;</span>ul<span class="token operator">></span>
+                <span class="token operator">&lt;</span>li<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">'username'</span><span class="token operator">></span>用户名<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>input id<span class="token operator">=</span><span class="token string">'username'</span> name<span class="token operator">=</span><span class="token string">'username'</span> type<span class="token operator">=</span><span class="token string">'text'</span> value<span class="token operator">=</span><span class="token punctuation">&#123;</span>username<span class="token punctuation">&#125;</span> onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>handleChange<span class="token punctuation">&#125;</span> <span class="token operator">/</span><span class="token operator">></span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+                <span class="token operator">&lt;</span>li<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">'content'</span><span class="token operator">></span>其他信息<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>textarea id<span class="token operator">=</span><span class="token string">'content'</span> name<span class="token operator">=</span><span class="token string">'content'</span> cols<span class="token operator">=</span><span class="token string">'30'</span> rows<span class="token operator">=</span><span class="token string">'10'</span> value<span class="token operator">=</span><span class="token punctuation">&#123;</span>content<span class="token punctuation">&#125;</span> onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>handleChange<span class="token punctuation">&#125;</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>textarea<span class="token operator">></span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+                <span class="token operator">&lt;</span>li<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">'frame'</span><span class="token operator">></span>框架<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>select id<span class="token operator">=</span><span class="token string">'frame'</span> name<span class="token operator">=</span><span class="token string">'frame'</span> value<span class="token operator">=</span><span class="token punctuation">&#123;</span>frame<span class="token punctuation">&#125;</span> onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>handleChange<span class="token punctuation">&#125;</span><span class="token operator">></span>
+                        <span class="token operator">&lt;</span>option value<span class="token operator">=</span><span class="token string">'vue'</span><span class="token operator">></span>Vue<span class="token operator">&lt;</span><span class="token operator">/</span>option<span class="token operator">></span>
+                        <span class="token operator">&lt;</span>option value<span class="token operator">=</span><span class="token string">'react'</span><span class="token operator">></span>React<span class="token operator">&lt;</span><span class="token operator">/</span>option<span class="token operator">></span>
+                        <span class="token operator">&lt;</span>option value<span class="token operator">=</span><span class="token string">'angular'</span><span class="token operator">></span>Angular<span class="token operator">&lt;</span><span class="token operator">/</span>option<span class="token operator">></span>
+                    <span class="token operator">&lt;</span><span class="token operator">/</span>select<span class="token operator">></span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+                <span class="token operator">&lt;</span>li<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>input id<span class="token operator">=</span><span class="token string">'male'</span> name<span class="token operator">=</span><span class="token string">'checkedRadio'</span> type<span class="token operator">=</span><span class="token string">'radio'</span> value<span class="token operator">=</span><span class="token string">'male'</span> checked<span class="token operator">=</span><span class="token punctuation">&#123;</span>checkedRadio <span class="token operator">===</span> <span class="token string">'male'</span><span class="token punctuation">&#125;</span> onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>handleChange<span class="token punctuation">&#125;</span> <span class="token operator">/</span><span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">'male'</span><span class="token operator">></span>男<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>input id<span class="token operator">=</span><span class="token string">'female'</span> name<span class="token operator">=</span><span class="token string">'checkedRadio'</span> type<span class="token operator">=</span><span class="token string">'radio'</span> value<span class="token operator">=</span><span class="token string">'female'</span> checked<span class="token operator">=</span><span class="token punctuation">&#123;</span>checkedRadio <span class="token operator">===</span> <span class="token string">'female'</span><span class="token punctuation">&#125;</span> onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>handleChange<span class="token punctuation">&#125;</span> <span class="token operator">/</span><span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">'female'</span><span class="token operator">></span>女<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>input id<span class="token operator">=</span><span class="token string">'unknow'</span> name<span class="token operator">=</span><span class="token string">'checkedRadio'</span> type<span class="token operator">=</span><span class="token string">'radio'</span> value<span class="token operator">=</span><span class="token string">'unknow'</span> checked<span class="token operator">=</span><span class="token punctuation">&#123;</span>checkedRadio <span class="token operator">===</span> <span class="token string">'unknow'</span><span class="token punctuation">&#125;</span> onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>handleChange<span class="token punctuation">&#125;</span> <span class="token operator">/</span><span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">'unknow'</span><span class="token operator">></span>未知<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+                <span class="token operator">&lt;</span>li<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>input id<span class="token operator">=</span><span class="token string">'apple'</span> name<span class="token operator">=</span><span class="token string">'checkedFruit'</span> type<span class="token operator">=</span><span class="token string">'checkbox'</span> value<span class="token operator">=</span><span class="token string">'apple'</span> checked<span class="token operator">=</span><span class="token punctuation">&#123;</span>checkedFruit<span class="token punctuation">.</span><span class="token function">includes</span><span class="token punctuation">(</span><span class="token string">'apple'</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span> onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>handleChange<span class="token punctuation">&#125;</span> <span class="token operator">/</span><span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">'apple'</span><span class="token operator">></span>Apple<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>input id<span class="token operator">=</span><span class="token string">'orange'</span> name<span class="token operator">=</span><span class="token string">'checkedFruit'</span> type<span class="token operator">=</span><span class="token string">'checkbox'</span> value<span class="token operator">=</span><span class="token string">'orange'</span> checked<span class="token operator">=</span><span class="token punctuation">&#123;</span>checkedFruit<span class="token punctuation">.</span><span class="token function">includes</span><span class="token punctuation">(</span><span class="token string">'orange'</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span> onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>handleChange<span class="token punctuation">&#125;</span> <span class="token operator">/</span><span class="token operator">></span>
+                    <span class="token operator">&lt;</span>label htmlFor<span class="token operator">=</span><span class="token string">'orange'</span><span class="token operator">></span>Orange<span class="token operator">&lt;</span><span class="token operator">/</span>label<span class="token operator">></span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+            <span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">></span>
+        <span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+
+
+<h2 id="非受控表单组件"><a href="#非受控表单组件" class="headerlink" title="非受控表单组件"></a>非受控表单组件</h2><h3 id="概念-3"><a href="#概念-3" class="headerlink" title="概念"></a>概念</h3><p>非受控组件则是通过操作 DOM 的方式来获取数据，表单中的 value 并没有和 state 中的数据进行绑定。</p>
+<h3 id="内容-1"><a href="#内容-1" class="headerlink" title="内容"></a>内容</h3><p>通过 <code>React.createRef()</code> 获取 DOM。</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> Component <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'react'</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">Component</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// Step1</span>
+    input <span class="token operator">=</span> React<span class="token punctuation">.</span><span class="token function">createRef</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token function-variable function">handleChange</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">// Step3</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>input<span class="token punctuation">.</span>current<span class="token punctuation">.</span>value<span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>
+            <span class="token operator">&lt;</span>div<span class="token operator">></span>
+                <span class="token punctuation">&#123;</span><span class="token comment">/* Step2 */</span><span class="token punctuation">&#125;</span>
+                <span class="token operator">&lt;</span>input ref<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>input<span class="token punctuation">&#125;</span> type<span class="token operator">=</span><span class="token string">'text'</span> placeholder<span class="token operator">=</span><span class="token string">'输入内容'</span> onChange<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>handleChange<span class="token punctuation">&#125;</span> <span class="token operator">/</span><span class="token operator">></span>
+            <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+        <span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>…end</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">feico</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://hth520.github.io/2020/04/20/272.html">https://hth520.github.io/2020/04/20/272.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">feico</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%89%8D%E7%AB%AF/">
+                                    <span class="chip bg-color">前端</span>
+                                </a>
+                            
+                                <a href="/tags/React/">
+                                    <span class="chip bg-color">React</span>
+                                </a>
+                            
+                                <a href="/tags/%E7%BB%84%E4%BB%B6/">
+                                    <span class="chip bg-color">组件</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'b9a2beda19f54d2b3323',
+        clientSecret: 'e19a9a6d3f23ecc943c5c7fbee9444a8f66fc8b3',
+        repo: 'hth520.github.io',
+        owner: 'hth520',
+        admin: ["hth520"],
+        id: '2020-04-20T00-00-00',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2021/08/21/27130.html">
+                    <div class="card-image">
+                        
+                        <img src="https://s4.ax1x.com/2022/01/24/7TrH6f.jpg" class="responsive-img" alt="学习 Vue3 基础">
+                        
+                        <span class="card-title">学习 Vue3 基础</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-08-21
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Vue-js/" class="post-category">
+                                    Vue.js
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%89%8D%E7%AB%AF/">
+                        <span class="chip bg-color">前端</span>
+                    </a>
+                    
+                    <a href="/tags/Vue/">
+                        <span class="chip bg-color">Vue</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/04/14/268.html">
+                    <div class="card-image">
+                        
+                        <img src="https://s4.ax1x.com/2022/02/13/HDpq8f.jpg" class="responsive-img" alt="学习 React 基础">
+                        
+                        <span class="card-title">学习 React 基础</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-14
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/React-js/" class="post-category">
+                                    React.js
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%89%8D%E7%AB%AF/">
+                        <span class="chip bg-color">前端</span>
+                    </a>
+                    
+                    <a href="/tags/React/">
+                        <span class="chip bg-color">React</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2022</span>
+            
+            <a href="/about" target="_blank">feico</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/hth520" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1257184579@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="https://juejin.cn/user/4143387266268231" class="tooltipped" target="_blank" data-tooltip="关注我的掘金账号" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">掘</i>
+    </a>
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1257184579" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1257184579" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="cOkdS5zLg4HMRQRv9uD0PmhE-MdYXbMMI" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
