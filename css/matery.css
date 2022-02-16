@@ -623,11 +623,11 @@ header .go-back i {
     padding: 10px;
 }
 
-.card .card-image .card-title {
+/* .card .card-image .card-title {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
+} */
 
 @-webkit-keyframes rainbow {
 
