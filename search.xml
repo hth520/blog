@@ -964,650 +964,6 @@ If you wish to <span class="token builtin class-name">set</span> tracking inform
       </tags>
   </entry>
   <entry>
-    <title>vue2-给组件绑定原生事件</title>
-    <url>/2019/03/24/90324.html</url>
-    <content><![CDATA[<h1 id="Vue2-给组件绑定原生事件"><a href="#Vue2-给组件绑定原生事件" class="headerlink" title="Vue2-给组件绑定原生事件"></a>Vue2-给组件绑定原生事件</h1><h4 id="在组件上设置点击事件"><a href="#在组件上设置点击事件" class="headerlink" title="在组件上设置点击事件"></a>在组件上设置点击事件</h4><pre class="language-js" data-language="js"><code class="language-js"><span class="token operator">&lt;</span>div id<span class="token operator">=</span><span class="token string">"app"</span>  <span class="token operator">></span>
-       <span class="token operator">&lt;</span>child @click<span class="token operator">=</span><span class="token string">"handleClick"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>child<span class="token operator">></span>
-   <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
-
-   <span class="token operator">&lt;</span>script<span class="token operator">></span>
-     
-       Vue<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">'child'</span><span class="token punctuation">,</span><span class="token punctuation">&#123;</span>
-           <span class="token literal-property property">template</span><span class="token operator">:</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">&lt;div>Child&lt;/div></span><span class="token template-punctuation string">`</span></span>
-       <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-       <span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
-           <span class="token literal-property property">el</span><span class="token operator">:</span><span class="token string">'#app'</span><span class="token punctuation">,</span>
-           <span class="token literal-property property">methods</span><span class="token operator">:</span><span class="token punctuation">&#123;</span>
-               <span class="token function">handleClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-                   <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">'click'</span><span class="token punctuation">)</span>
-               <span class="token punctuation">&#125;</span>
-           <span class="token punctuation">&#125;</span>
-       <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-
-   <span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span></code></pre>
-
-<p>显然在Root组件中不能被触发，因为这时候 组件<code>child</code>上的<code>click</code>相当于自定义的一个事件，这时候需要通过<code>this.$emit</code>去触发自定义事件</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token operator">&lt;</span>div id<span class="token operator">=</span><span class="token string">"app"</span>  <span class="token operator">></span>
-    <span class="token operator">&lt;</span>child  @click<span class="token operator">=</span><span class="token string">"handleClick"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>child<span class="token operator">></span>
-<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
-
-<span class="token operator">&lt;</span>script<span class="token operator">></span>
-  
-    Vue<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">'child'</span><span class="token punctuation">,</span><span class="token punctuation">&#123;</span>
-        <span class="token literal-property property">template</span><span class="token operator">:</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">&lt;div  @click="handleClick">Child&lt;/div></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
-        <span class="token literal-property property">methods</span><span class="token operator">:</span><span class="token punctuation">&#123;</span>
-            <span class="token function">handleClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-                <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">'click'</span><span class="token punctuation">)</span>
-            <span class="token punctuation">&#125;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
-        <span class="token literal-property property">el</span><span class="token operator">:</span><span class="token string">'#app'</span><span class="token punctuation">,</span>
-        <span class="token literal-property property">methods</span><span class="token operator">:</span><span class="token punctuation">&#123;</span>
-            <span class="token function">handleClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-                <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">'click'</span><span class="token punctuation">)</span>
-            <span class="token punctuation">&#125;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-
-<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span></code></pre>
-
-<blockquote>
-<p>这时候就实现了点击事件，但是究其根本，这还是自定义事件，太过麻烦。</p>
-</blockquote>
-<h4 id="给组件绑定原生事件"><a href="#给组件绑定原生事件" class="headerlink" title="给组件绑定原生事件"></a>给组件绑定原生事件</h4><blockquote>
-<p>非常简单：只要在事件绑定后面加上<code>.native</code> 的修饰符就可以了</p>
-</blockquote>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token operator">&lt;</span>div id<span class="token operator">=</span><span class="token string">"app"</span>  <span class="token operator">></span>
-       <span class="token operator">&lt;</span>child  @click<span class="token punctuation">.</span>native<span class="token operator">=</span><span class="token string">"handleClick"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>child<span class="token operator">></span>
-<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
-
-<span class="token operator">&lt;</span>script<span class="token operator">></span>
-       Vue<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">'child'</span><span class="token punctuation">,</span><span class="token punctuation">&#123;</span>
-           <span class="token literal-property property">template</span><span class="token operator">:</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">&lt;div >Child&lt;/div></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
-       <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-       <span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
-           <span class="token literal-property property">el</span><span class="token operator">:</span><span class="token string">'#app'</span><span class="token punctuation">,</span>
-           <span class="token literal-property property">methods</span><span class="token operator">:</span><span class="token punctuation">&#123;</span>
-               <span class="token function">handleClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-                   <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">'click'</span><span class="token punctuation">)</span>
-               <span class="token punctuation">&#125;</span>
-           <span class="token punctuation">&#125;</span>
-       <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span></code></pre>
-
-]]></content>
-      <categories>
-        <category>Vue.js</category>
-      </categories>
-      <tags>
-        <tag>前端</tag>
-        <tag>Vue</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>在低版本 IE 中点击空 block 元素的问题</title>
-    <url>/2019/05/13/90513.html</url>
-    <content><![CDATA[<h1 id="在低版本-IE-中点击空-block-元素的问题"><a href="#在低版本-IE-中点击空-block-元素的问题" class="headerlink" title="在低版本 IE 中点击空 block 元素的问题"></a>在低版本 IE 中点击空 block 元素的问题</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>当我们点击一个空的、没有任何内容的 div 或者其他块级元素时。在 IE11 以下，是没有反应的。</p>
-<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><p>这类问题使用场景还是很普遍的。比如 UI 给了一张大图，要点击图上的某一块位置的时候。可以用一个空的 div 定位到相应的位置，然后对它进行绑定事件。</p>
-<hr>
-<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>解决方法很简单，即给这个块级元素填充任意颜色，然后将其透明度设置为0。代码如下：</p>
-<pre class="language-css" data-language="css"><code class="language-css"><span class="token property">background-color</span><span class="token punctuation">:</span> #fff<span class="token punctuation">;</span>
-<span class="token property">opacity</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
-<span class="token property">filter</span><span class="token punctuation">:</span><span class="token function">alpha</span><span class="token punctuation">(</span>opacity=0<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>]]></content>
-      <categories>
-        <category>HTML</category>
-      </categories>
-      <tags>
-        <tag>CSS</tag>
-        <tag>IE</tag>
-        <tag>兼容性</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>学习 ES6 基础</title>
-    <url>/2019/04/16/90416.html</url>
-    <content><![CDATA[<h1 id="学习-ES6-基础"><a href="#学习-ES6-基础" class="headerlink" title="学习 ES6 基础"></a>学习 ES6 基础</h1><h2 id="一、块级作用域"><a href="#一、块级作用域" class="headerlink" title="一、块级作用域"></a>一、块级作用域</h2><h3 id="1-var"><a href="#1-var" class="headerlink" title="1. var"></a>1. var</h3><p>首先看看ES5中得变量声明方式</p>
-<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token number">2</span>
-<span class="token punctuation">&#125;</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token comment">// 2</span></code></pre>
-
-<p>以上代码等同于</p>
-<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> a
-<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    a <span class="token operator">=</span> <span class="token number">2</span>
-<span class="token punctuation">&#125;</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span></code></pre>
-
-<blockquote>
-<p>以上可知 ：</p>
-<ol>
-<li>在块内部定义变量 变量提升，到函数最顶部</li>
-<li>通过var声明的变量，无论在何处声明，均为<strong>全局作用域</strong></li>
-</ol>
-</blockquote>
-<h3 id="2-let-和-const"><a href="#2-let-和-const" class="headerlink" title="2.let 和 const"></a>2.let 和 const</h3><p>再来看看<code>ES6</code>中的<code>let</code>和<code>const</code></p>
-<h3 id="let"><a href="#let" class="headerlink" title="let"></a><code>let</code></h3><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">let</span> b <span class="token operator">=</span> <span class="token number">2</span>
-<span class="token punctuation">&#125;</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span> <span class="token comment">// b is not defined</span></code></pre>
-
-<blockquote>
-<p>此时在{} 外部访问b 将会报错，因为 let 的作用域仅为 <code>&#123; &#125; </code>的内部，及<strong>块级作用域</strong></p>
-</blockquote>
-<h3 id="const"><a href="#const" class="headerlink" title="const"></a><code>const</code></h3><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">const</span> c <span class="token operator">=</span> <span class="token number">2</span>
-<span class="token punctuation">&#125;</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span> <span class="token comment">// c is not defined</span></code></pre>
-
-<blockquote>
-<p>从上面可知 const 也是也仅为块级作用域</p>
-<p><strong>const的作用域与let作用域相同：只在声明所在的块级作用域内有效</strong></p>
-</blockquote>
-<p>让我们看看const 更多的特性：</p>
-<p><strong>const 表示常量：</strong></p>
-<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> d <span class="token operator">=</span> <span class="token number">2</span>
-d <span class="token operator">=</span> <span class="token number">3</span> <span class="token comment">// Assignment to constant variable.</span></code></pre>
-
-<blockquote>
-<p>此时，当 d 为 <strong>基本数据类型</strong>的时候，改变其值，将会报错！！！</p>
-</blockquote>
-<p><strong>但是它的常量仅仅表示的是地址常量 对象的成员可以改变值</strong></p>
-<p>看看下面的例子：</p>
-<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> people <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'张三'</span><span class="token punctuation">,</span> <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token number">23</span><span class="token punctuation">&#125;</span>
-people<span class="token punctuation">.</span>age <span class="token operator">=</span> <span class="token number">25</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>people<span class="token punctuation">)</span> <span class="token comment">// &#123;name: "张三", age: 25&#125;</span></code></pre>
-
-<p>看看此时 <strong>people</strong>已经被改变了</p>
-<p><strong>why?</strong></p>
-<blockquote>
-<p>对象是复杂的数据类型 它的地址保存在 栈里面， 值保存在堆里面</p>
-<p>cosnt仅仅是保证这个地址不改变，至于地址对应的数据，是可以进行改变的</p>
-<p>基本类型值在内存中占据固定大小的空间 因此被保存在栈内存中。比如 const a = 1 ; 这时候其直接保存在栈里面</p>
-</blockquote>
-<h2 id="二、字符串"><a href="#二、字符串" class="headerlink" title="二、字符串"></a>二、字符串</h2><h3 id="1-字符串拼接"><a href="#1-字符串拼接" class="headerlink" title="1. 字符串拼接"></a>1. 字符串拼接</h3><h4 id="ES5中字符串拼接"><a href="#ES5中字符串拼接" class="headerlink" title="ES5中字符串拼接"></a>ES5中字符串拼接</h4><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// ES5 </span>
-<span class="token keyword">var</span> name <span class="token operator">=</span> <span class="token string">'Hunter'</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'hello '</span> <span class="token operator">+</span> name<span class="token punctuation">)</span></code></pre>
-
-<h4 id="ES6中字符串拼接"><a href="#ES6中字符串拼接" class="headerlink" title="ES6中字符串拼接"></a>ES6中字符串拼接</h4><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// ES6</span>
-<span class="token keyword">let</span> name <span class="token operator">=</span> <span class="token string">'Hunter'</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">hello </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>name<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span> <span class="token comment">// hello Hunter</span></code></pre>
-
-<p><strong>注意</strong>：用 <code>$&#123;&#125;</code>来拼接字符串，注意此时要使用 ``` `（反单引号）; 如下所示： 单引号将无法将其转义</p>
-<pre class="language-javascript" data-language="javascript"><code class="language-javascript">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'hello $&#123;name&#125;'</span><span class="token punctuation">)</span> <span class="token comment">// hello $&#123;name&#125;</span></code></pre>
-
-<h4 id="ES6的字符串换行"><a href="#ES6的字符串换行" class="headerlink" title="ES6的字符串换行"></a>ES6的字符串换行</h4><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// ES5</span>
-    <span class="token keyword">var</span> template <span class="token operator">=</span> <span class="token string">"&lt;div> \
-                        &lt;span>hello world&lt;/span> \
-                    &lt;/div>"</span>
-<span class="token comment">// ES6</span>
-    <span class="token keyword">let</span> template2 <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">&lt;div> 
-                        &lt;span>hello world&lt;/span>
-                    &lt;/div></span><span class="token template-punctuation string">`</span></span></code></pre>
-
-<blockquote>
-<p>ES5中需要用反斜杠来进行多行字符串拼接，ES6直接使用 ``` `(反单引号）</p>
-</blockquote>
-<h3 id="2-字符串方法"><a href="#2-字符串方法" class="headerlink" title="2. 字符串方法"></a>2. 字符串方法</h3><h4 id="padStart-和-padEnd"><a href="#padStart-和-padEnd" class="headerlink" title="padStart() 和 padEnd()"></a>padStart() 和 padEnd()</h4><blockquote>
-<p>ES6 引入了字符串补全长度的功能，如果某个字符串不够指定长度，会在头部或者尾部补全。</p>
-<p><code>padStart()</code> 用于<strong>头部补全</strong>；</p>
-<p><code>padEnd()</code> 用于<strong>尾部补全</strong>。</p>
-</blockquote>
-<p>如下一个例子：<a href="https://link.segmentfault.com/?enc=s/4vgLhRUyDoiV6EE9xmDg==.5gVHrKgFETCAcBlABIaC7y5JThUkPAsvADpfs5X6kXzoKxzVYMPeX+/Cv8BC0+go">例子来源</a></p>
-<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-       <span class="token keyword">const</span> now <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-       <span class="token keyword">const</span> hours <span class="token operator">=</span> now<span class="token punctuation">.</span><span class="token function">getHours</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-       <span class="token keyword">const</span> minutes <span class="token operator">=</span> now<span class="token punctuation">.</span><span class="token function">getMinutes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-       <span class="token keyword">const</span> seconds <span class="token operator">=</span> now<span class="token punctuation">.</span><span class="token function">getSeconds</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-       console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>hours<span class="token punctuation">.</span><span class="token function">padStart</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">:</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>minutes<span class="token punctuation">.</span><span class="token function">padStart</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">:</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>seconds<span class="token punctuation">.</span><span class="token function">padStart</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
-   <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span></code></pre>
-
-<blockquote>
-<p>先不管箭头函数</p>
-</blockquote>
-<p>看看其中的<code>hours.padStart(2,0)</code> , 表示当小时不够两位数时，在前面补0，如<code>8</code>，补充成 <code>08</code></p>
-<p>后面遇到更多的字符串函数会补充</p>
-<h2 id="三、变量的解构赋值"><a href="#三、变量的解构赋值" class="headerlink" title="三、变量的解构赋值"></a>三、变量的解构赋值</h2><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// ES5</span>
-<span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-<span class="token keyword">let</span> b <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
-<span class="token keyword">let</span> c <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span></code></pre>
-
-<h3 id="1-ES6数组解构赋值"><a href="#1-ES6数组解构赋值" class="headerlink" title="1.ES6数组解构赋值"></a>1.ES6数组解构赋值</h3><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> <span class="token punctuation">[</span>a<span class="token punctuation">,</span>b<span class="token punctuation">,</span>c<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>a<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>b<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>c<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span> <span class="token comment">// 1 2 3</span></code></pre>
-
-<h4 id="默认值"><a href="#默认值" class="headerlink" title="默认值"></a>默认值</h4><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> <span class="token punctuation">[</span>d <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> e<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token keyword">undefined</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>d<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>e<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span> <span class="token comment">// 2 3</span></code></pre>
-
-<blockquote>
-<p>当赋值为<code>undefined</code>时取默认值 当赋值为其他的有效值或者<code>null</code>时 取所赋值的值</p>
-</blockquote>
-<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> <span class="token punctuation">[</span>f <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> g <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>f<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>g<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span> <span class="token comment">// null 4</span></code></pre>
-
-<h3 id="2-对象解构赋值"><a href="#2-对象解构赋值" class="headerlink" title="2.对象解构赋值"></a>2.对象解构赋值</h3><blockquote>
-<p>数组按照顺序解构 对象按照key值进行解构</p>
-</blockquote>
-<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> <span class="token punctuation">&#123;</span>foo<span class="token punctuation">,</span> bar<span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token literal-property property">foo</span><span class="token operator">:</span> <span class="token string">'hi'</span><span class="token punctuation">,</span> <span class="token literal-property property">bar</span><span class="token operator">:</span> <span class="token string">'hello'</span><span class="token punctuation">&#125;</span> <span class="token comment">//可以调换位置</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>foo<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>bar<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span> <span class="token operator">*</span><span class="token comment">// hi hello</span></code></pre>
-
-<blockquote>
-<p>注意：先定义再解构需要在解构语句那块加上圆括号</p>
-</blockquote>
-<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> soso<span class="token punctuation">;</span>
-<span class="token comment">// &#123; soso &#125; = &#123; soso: "hi"&#125;; // 错误</span>
-<span class="token punctuation">(</span><span class="token punctuation">&#123;</span> soso <span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">soso</span><span class="token operator">:</span> <span class="token string">"hi"</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//得加上圆括号 ()</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>soso<span class="token punctuation">)</span> <span class="token comment">// hi</span></code></pre>
-
-<h3 id="3-字符串的解构赋值"><a href="#3-字符串的解构赋值" class="headerlink" title="3.字符串的解构赋值"></a>3.字符串的解构赋值</h3><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> <span class="token punctuation">[</span>h<span class="token punctuation">,</span>i<span class="token punctuation">,</span>j<span class="token punctuation">,</span>k<span class="token punctuation">,</span>l<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'hello'</span><span class="token punctuation">;</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>h<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>i<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>j<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>k<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>l<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span></code></pre>
-
-]]></content>
-      <categories>
-        <category>ECMAScript</category>
-      </categories>
-      <tags>
-        <tag>es6</tag>
-        <tag>javascript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>学习 React 基础</title>
-    <url>/2020/04/14/268.html</url>
-    <content><![CDATA[<h2 id="React-基本概述"><a href="#React-基本概述" class="headerlink" title="React 基本概述"></a>React 基本概述</h2><h3 id="React-背景"><a href="#React-背景" class="headerlink" title="React 背景"></a>React 背景</h3><p><a href="https://react.docschina.org/">React</a> 起源于 Facebook(Meta) 的内部项目（2011，News Feed），之后又被用来开发网站（2012，Instagram），并于 2013 年 5 月开源。</p>
-<h3 id="React-是什么"><a href="#React-是什么" class="headerlink" title="React 是什么"></a>React 是什么</h3><p><a href="https://react.docschina.org/">React</a> 是一个用于构建<strong>用户界面</strong>的 JavaScript <strong>库</strong>。</p>
-<ul>
-<li>用户界面：HTML 界面。</li>
-<li>Library（库）和 Framework（框架）：库的特点是<strong>小而巧</strong>，针对特定问题的单一解决方案。框架的特点是<strong>大而全</strong>，提供了一整套的解决方案。</li>
-</ul>
-<h3 id="React-趋势"><a href="#React-趋势" class="headerlink" title="React 趋势"></a>React 趋势</h3><p>从 <a href="https://www.npmtrends.com/angular-vs-react-vs-vue">NPM 下载量</a> 来看，React &gt; Vue &gt; Angular。</p>
-<h3 id="React-特点"><a href="#React-特点" class="headerlink" title="React 特点"></a>React 特点</h3><p><strong>声明式</strong></p>
-<p>只需要描述UI（HTML）看起来是什么样子，就像写 HTML 一样简单，React 内部负责渲染 UI，并在数据变化时自动更新 UI。</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> jsx <span class="token operator">=</span> <span class="token punctuation">(</span>
-    <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">'app'</span><span class="token operator">></span>
-        <span class="token operator">&lt;</span>h1<span class="token operator">></span>Hello World！<span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span>
-        <span class="token operator">&lt;</span>p<span class="token operator">></span>动态数据：<span class="token punctuation">&#123;</span>count<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
-    <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
-<span class="token punctuation">)</span></code></pre>
-
-<p><strong>组件化</strong></p>
-<p>把复杂的页面拆分成一个一个的单元，这些组成页面的基本单元就是组件，通过组合、复用组件来编写复杂界面的方式，就是组件化。</p>
-<p><strong>小结：</strong></p>
-<p>使用 React 除了可以开发 Web 应用，还可以使用 React Native 开发原生移动应用，甚至可以开发 VR（虚拟现实）应用（React 360）。</p>
-<p>相比较于 Vue，React 强调尽可能的利用 JS 语言自身的能力来编写 UI，而不是通过造轮子增强 HTML 的功能。</p>
-<h3 id="脚手架创建项目"><a href="#脚手架创建项目" class="headerlink" title="脚手架创建项目"></a>脚手架创建项目</h3><p><strong>脚手架意义</strong></p>
-<p>现代的 Web 应用要考虑的问题很多，除了编写业务代码之外，还要考虑代码规范、预编译、压缩合并、打包上线等工作，需要有一套完整的解决方案来辅助我们快速开发，而 <a href="https://create-react-app.dev/">React 脚手架</a> 就是这么一套完整的解决方案，它零配置，开箱即用，让我们从繁杂的 Webpack 配置当中解脱出来，更关注于业务本身。</p>
-<p>使用 <a href="https://create-react-app.dev/">create-react-app</a> 这个命令行工具，它是 React 官方团队出的一个构建 React 应用的脚手架工具。</p>
-<p><strong>方法一</strong></p>
-<ol>
-<li>全局安装<code>npm i -g create-react-app</code>或者<code>yarn global add create-react-app</code>。</li>
-<li>初始化项目<code>create-react-app my-app</code>，my-app 表示项目名称，可以修改。</li>
-<li>启动项目：<code>yarn start</code>or <code>npm start</code>。</li>
-</ol>
-<p>🙁 缺点：全局安装命令无法保证命令一直是最新版本。</p>
-<p><strong>方法二（推荐）</strong></p>
-<ol>
-<li>命令：<code>npx create-react-app react-basic</code>。</li>
-<li>启动项目：<code>yarn start</code> or <code>npm start</code>。</li>
-<li>npx 是 <code>npm@v5.2</code> 版本新添加的命令，用来简化 npm 工具包的使用流程。</li>
-</ol>
-<p>😄 优点：<code>npx</code> 会调用最新的 <code>create-react-app</code> 直接创建 React 项目。</p>
-<h3 id="渲染-Hello-World"><a href="#渲染-Hello-World" class="headerlink" title="渲染 Hello World"></a>渲染 Hello World</h3><img src="https://zhihur.com/resource/images/ifer_hello_world.png">
-
-<p><strong>步骤</strong></p>
-<ol>
-<li>删除 <code>src</code> 和 <code>public</code> 目录中的所有内容。</li>
-<li>新建 <code>public/index.html</code>。</li>
-<li>新建 <code>src/index.js</code> 文件。</li>
-<li>引入 React 核心库和涉及 DOM 操作的包。</li>
-<li>调用 <code>React.createElement()</code> 方法创建 React 元素。</li>
-<li>调用 <code>ReactDOM.render()</code> 方法渲染 React 元素到页面。</li>
-</ol>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><ol>
-<li>删除 <code>src</code> 和 <code>public</code> 目录中的所有内容。</li>
-<li>新建 <code>public/index.html</code>。</li>
-</ol>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token operator">&lt;</span><span class="token operator">!</span><span class="token constant">DOCTYPE</span> html<span class="token operator">></span>
-<span class="token operator">&lt;</span>html lang<span class="token operator">=</span><span class="token string">"en"</span><span class="token operator">></span>
-    <span class="token operator">&lt;</span>head<span class="token operator">></span>
-        <span class="token operator">&lt;</span>meta charset<span class="token operator">=</span><span class="token string">"UTF-8"</span> <span class="token operator">/</span><span class="token operator">></span>
-        <span class="token operator">&lt;</span>meta http<span class="token operator">-</span>equiv<span class="token operator">=</span><span class="token string">"X-UA-Compatible"</span> content<span class="token operator">=</span><span class="token string">"IE=edge"</span> <span class="token operator">/</span><span class="token operator">></span>
-        <span class="token operator">&lt;</span>meta name<span class="token operator">=</span><span class="token string">"viewport"</span> content<span class="token operator">=</span><span class="token string">"width=device-width, initial-scale=1.0"</span> <span class="token operator">/</span><span class="token operator">></span>
-        <span class="token operator">&lt;</span>title<span class="token operator">></span>Document<span class="token operator">&lt;</span><span class="token operator">/</span>title<span class="token operator">></span>
-    <span class="token operator">&lt;</span><span class="token operator">/</span>head<span class="token operator">></span>
-
-    <span class="token operator">&lt;</span>body<span class="token operator">></span>
-        <span class="token operator">&lt;</span>div id<span class="token operator">=</span><span class="token string">"root"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
-    <span class="token operator">&lt;</span><span class="token operator">/</span>body<span class="token operator">></span>
-<span class="token operator">&lt;</span><span class="token operator">/</span>html<span class="token operator">></span></code></pre>
-
-<ol start="3">
-<li><p>新建 <code>src/index.js</code> 文件。</p>
-</li>
-<li><p>引入 React 核心库和涉及 DOM 操作的包。</p>
-</li>
-</ol>
-<p><code>src/index.js</code></p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token comment">// create-react-app 脚手架生成的项目中已经下载好了 react 和 react-dom，无需重复下载，直接使用即可</span>
-<span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">'react'</span>
-<span class="token keyword">import</span> ReactDOM <span class="token keyword">from</span> <span class="token string">'react-dom'</span></code></pre>
-
-<ol start="5">
-<li>调用 <code>React.createElement()</code> 方法创建 React 元素。</li>
-</ol>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token comment">// 标签名、标签属性、标签内容，返回的是一个 React 元素（虚拟 DOM）</span>
-<span class="token keyword">const</span> title <span class="token operator">=</span> React<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'h1'</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token string">'Hello World'</span><span class="token punctuation">)</span></code></pre>
-
-
-
-<ol start="6">
-<li>调用 <code>ReactDOM.render()</code> 方法渲染 React 元素到页面。</li>
-</ol>
-<pre class="language-js" data-language="js"><code class="language-js">ReactDOM<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span>title<span class="token punctuation">,</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'#root'</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
-
-<h3 id="React-createElement-📝"><a href="#React-createElement-📝" class="headerlink" title="React.createElement() 📝"></a>React.createElement() 📝</h3><p>如何用 <code>React.createElement()</code> 创建出如下结构？</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">"wrap"</span><span class="token operator">></span>
-    <span class="token operator">&lt;</span>ul<span class="token operator">></span>
-        <span class="token operator">&lt;</span>li<span class="token operator">></span>React<span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
-        <span class="token operator">&lt;</span>li<span class="token operator">></span>Vue<span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
-        <span class="token operator">&lt;</span>li<span class="token operator">></span>Angular<span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
-    <span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">></span>
-<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span></code></pre>
-
-<p><strong>重点</strong></p>
-<pre class="language-js" data-language="js"><code class="language-js">React<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'标签名'</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> 标签上的属性<span class="token number">1</span>：值<span class="token number">1</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> 子元素<span class="token number">1</span><span class="token punctuation">,</span> 子元素<span class="token number">2</span><span class="token punctuation">)</span></code></pre>
-
-<p>如果有更复杂的就需要使用 JSX</p>
-<h3 id="JSX-基本介绍"><a href="#JSX-基本介绍" class="headerlink" title="JSX 基本介绍"></a>JSX 基本介绍</h3><p><code>React.createElement()</code> 创建 React 元素的问题：繁琐/不简洁；不直观，无法一眼看出所描述的结构；代码不容易维护！</p>
-<pre class="language-js" data-language="js"><code class="language-js">React<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span>
-    <span class="token string">'div'</span><span class="token punctuation">,</span>
-    <span class="token punctuation">&#123;</span> <span class="token literal-property property">className</span><span class="token operator">:</span> <span class="token string">'wrap'</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-    React<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'ul'</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> React<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'li'</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token string">'React'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> React<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'li'</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token string">'Vue'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> React<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'li'</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token string">'Angular'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token punctuation">)</span></code></pre>
-
-<p>对比下面 JSX 的写法</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">"wrap"</span><span class="token operator">></span>
-    <span class="token operator">&lt;</span>ul<span class="token operator">></span>
-        <span class="token operator">&lt;</span>li<span class="token operator">></span>React<span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
-        <span class="token operator">&lt;</span>li<span class="token operator">></span>Vue<span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
-        <span class="token operator">&lt;</span>li<span class="token operator">></span>Angular<span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
-    <span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">></span>
-<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span></code></pre>
-
-<p><strong>JSX 是什么</strong></p>
-<p>JSX 是 JavaScript XML 的简写，表示可以在 JavaScript 代码中写 XML（HTML） 格式的代码。</p>
-<p>优势：声明式语法更加直观，与 HTML 结构相同，降低了学习成本，提高了开发效率，JSX 是 React 的核心之一。</p>
-<p><strong>JSX 基本使用</strong></p>
-<ol>
-<li>使用 JSX 创建 React 元素</li>
-</ol>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> title <span class="token operator">=</span> <span class="token operator">&lt;</span>h1<span class="token operator">></span>Hello <span class="token constant">JSX</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span></code></pre>
-
-
-
-<ol start="2">
-<li>使用 <code>ReactDOM.render()</code> 方法渲染 React 元素到页面中</li>
-</ol>
-<pre class="language-js" data-language="js"><code class="language-js">ReactDOM<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span>title<span class="token punctuation">,</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'#root'</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
-
-<p><strong>JSX 是如何工作的</strong></p>
-<p>🤔 换句话说，JSX 并不是标准的 ECMAScript 语法，为什么 React 脚手架中可以直接使用 JSX 呢？</p>
-<ul>
-<li>JSX 需要使用 Babel 编译成 <code>React.createElement()</code> 的形式，然后配合 React 才能在浏览器中使用，而 <code>create-react-app</code> 脚手架中已经内置了 Babel 及相关配置。</li>
-<li>编译 JSX 语法的包为：<a href="https://www.npmjs.com/package/@babel/preset-react">@babel/preset-react</a>，<a href="https://www.babeljs.cn/repl#?browsers=defaults%2C%20not%20ie%2011%2C%20not%20ie_mob%2011&build=&builtIns=false&corejs=3.6&spec=false&loose=false&code_lz=DwCwjAfAEgpgNnA9gAgFIGUAawD04JA&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=env%2Creact%2Cstage-2&prettier=false&targets=&version=7.16.2&externalPlugins=&assumptions=%7B%7D">在线体验</a>。</li>
-</ul>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> r <span class="token operator">=</span> <span class="token punctuation">(</span>
-    <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">'wrap'</span><span class="token operator">></span>
-        <span class="token operator">&lt;</span>h1<span class="token operator">></span>Hello World<span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span>
-        <span class="token operator">&lt;</span>p<span class="token operator">></span>React<span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
-    <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
-<span class="token punctuation">)</span></code></pre>
-
-<ol>
-<li>必须有 1 个根节点，或者虚拟根节点 <code>&lt;&gt;&lt;/&gt;</code>、<code>&lt;React.Fragment&gt;&lt;/React.Fragment&gt;</code>。</li>
-<li>属性名一般是驼峰的写法且不能是 JS 中的关键字，例如 class 改成 className，label 的 for 属性改为 <code>htmlFor</code>，colspan 改为 <code>colSpan</code>。</li>
-<li>元素若没有子节点，可以使用单标签，但一定要闭合，例如 <code>&lt;span/&gt;</code>。</li>
-<li><code>React@16.14</code> 之前需要先引入 React 才能使用 JSX（这个也好理解，因为 JSX 最后还是要被转成 <code>React.createElement()</code> 的形式）。</li>
-<li>换行建议使用 <code>()</code> 进行包裹，防止换行的时候<a href="https://stackoverflow.com/questions/2846283/what-are-the-rules-for-javascripts-automatic-semicolon-insertion-asi">自动插入分号</a>的 Bug。</li>
-</ol>
-<img src="https://zhihur.com/resource/images/ifer_bug.png">
-
-<p><strong>使用表达式</strong></p>
-<p><strong>单大括号</strong>中可以使用任意的表达式（可以产生结果的式子）。</p>
-<ul>
-<li>普通的简单数据类型。</li>
-</ul>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> name <span class="token operator">=</span> <span class="token string">'zs'</span>
-<span class="token keyword">const</span> age <span class="token operator">=</span> <span class="token number">18</span>
-<span class="token keyword">const</span> title <span class="token operator">=</span> <span class="token punctuation">(</span>
-    <span class="token operator">&lt;</span>h1<span class="token operator">></span>
-        姓名：<span class="token punctuation">&#123;</span>name<span class="token punctuation">&#125;</span><span class="token punctuation">,</span> 年龄：<span class="token punctuation">&#123;</span>age<span class="token punctuation">&#125;</span>
-    <span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span>
-<span class="token punctuation">)</span></code></pre>
-
-
-
-<ul>
-<li>对象中的属性。</li>
-</ul>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> car <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-    <span class="token literal-property property">brand</span><span class="token operator">:</span> <span class="token string">'玛莎拉蒂'</span><span class="token punctuation">,</span>
-<span class="token punctuation">&#125;</span>
-<span class="token keyword">const</span> title <span class="token operator">=</span> <span class="token operator">&lt;</span>h1<span class="token operator">></span>汽车：<span class="token punctuation">&#123;</span>car<span class="token punctuation">.</span>brand<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span></code></pre>
-
-
-
-<ul>
-<li>数组中的某一项甚至整个数组。</li>
-</ul>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> friends <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'张三'</span><span class="token punctuation">,</span> <span class="token string">'李四'</span><span class="token punctuation">]</span>
-<span class="token keyword">const</span> title <span class="token operator">=</span> <span class="token operator">&lt;</span>h1<span class="token operator">></span>汽车：<span class="token punctuation">&#123;</span>friends<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span></code></pre>
-
-
-
-<ul>
-<li>可以调用方法。</li>
-</ul>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">sayHi</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token string">'你好'</span>
-<span class="token punctuation">&#125;</span>
-<span class="token keyword">const</span> title <span class="token operator">=</span> <span class="token operator">&lt;</span>h1<span class="token operator">></span>姓名：<span class="token punctuation">&#123;</span><span class="token function">sayHi</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span></code></pre>
-
-<ul>
-<li>JS 对象虽然也是表达式，但是不能直接嵌套在 <code>&#123;&#125;</code> 中，一般只会出现在 style 属性中。</li>
-<li>JSX 本身也是表达式。</li>
-</ul>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> span <span class="token operator">=</span> <span class="token operator">&lt;</span>span<span class="token operator">></span>我是一个span<span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">></span>
-<span class="token keyword">const</span> title <span class="token operator">=</span> <span class="token operator">&lt;</span>h1<span class="token operator">></span>盒子<span class="token punctuation">&#123;</span>span<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span></code></pre>
-
-<p><strong>小结</strong></p>
-<ul>
-<li>JSX 中可以包含任意的表达式（除了对象）。</li>
-<li>JSX 中不能放语句，例如 <code>if</code>、<code>switch</code>、<code>for</code>、<code>while</code> 等。</li>
-</ul>
-<h4 id="列表渲染"><a href="#列表渲染" class="headerlink" title="列表渲染"></a><strong>列表渲染</strong></h4><p><strong>小试牛刀</strong></p>
-<ul>
-<li>后端返回的数据。</li>
-</ul>
-<pre class="language-none"><code class="language-none">const arr &#x3D; [
-    &#123; id: 1, name: &#39;Vue&#39; &#125;,
-    &#123; id: 2, name: &#39;React&#39; &#125;,
-    &#123; id: 3, name: &#39;Angular&#39; &#125;,
-]</code></pre>
-
-
-
-<ul>
-<li>期望实现的效果。</li>
-</ul>
-<img src="https://zhihur.com/resource/images/ifer_list_jsx.png">
-
-<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>手动拼接如下。</p>
-<pre class="language-none"><code class="language-none">&lt;ul&gt;
-    &lt;li&gt;&#123;list[0].name&#125;&lt;&#x2F;li&gt;
-    &lt;li&gt;&#123;list[1].name&#125;&lt;&#x2F;li&gt;
-    &lt;li&gt;&#123;list[2].name&#125;&lt;&#x2F;li&gt;
-&lt;&#x2F;ul&gt;</code></pre>
-
-
-
-<p>简化上面的代码：可以使用 <code>map()</code> 方法渲染一组数据。</p>
-<pre class="language-none"><code class="language-none">import ReactDOM from &#39;react-dom&#39;
-
-const list &#x3D; [
-    &#123; id: 1, name: &#39;Vue&#39; &#125;,
-    &#123; id: 2, name: &#39;React&#39; &#125;,
-    &#123; id: 3, name: &#39;Angular&#39; &#125;,
-]
-
-const arrJsx &#x3D; list.map((item) &#x3D;&gt; &lt;li key&#x3D;&#123;item.id&#125;&gt;&#123;item.name&#125;&lt;&#x2F;li&gt;)
-
-const loadData &#x3D; () &#x3D;&gt; &#123;
-    return &lt;ul&gt;&#123;arrJsx&#125;&lt;&#x2F;ul&gt;
-&#125;
-
-ReactDOM.render(loadData(), document.querySelector(&#39;#root&#39;))</code></pre>
-
-
-
-<h3 id="关于-key"><a href="#关于-key" class="headerlink" title="关于 key"></a>关于 key</h3><ol>
-<li>特点：key 值要保证唯一，尽量避免使用索引号，key 在最终的 HTML 结构中是看不见的。</li>
-<li>加在哪里：<code>map()</code> 遍历谁，就把 key 加在谁上。</li>
-<li>作用：React 内部用来进行<strong>性能优化</strong>时使用的，key 在最终的 HTML 结构中是看不见的。</li>
-</ol>
-<h3 id="渲染数据-📝"><a href="#渲染数据-📝" class="headerlink" title="渲染数据 📝"></a>渲染数据 📝</h3><pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> list <span class="token operator">=</span> <span class="token punctuation">[</span>
-    <span class="token punctuation">&#123;</span> <span class="token literal-property property">id</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'奔驰'</span><span class="token punctuation">,</span> <span class="token literal-property property">price</span><span class="token operator">:</span> <span class="token number">11000</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-    <span class="token punctuation">&#123;</span> <span class="token literal-property property">id</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'宝马'</span><span class="token punctuation">,</span> <span class="token literal-property property">price</span><span class="token operator">:</span> <span class="token number">13000</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-    <span class="token punctuation">&#123;</span> <span class="token literal-property property">id</span><span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'法拉利'</span><span class="token punctuation">,</span> <span class="token literal-property property">price</span><span class="token operator">:</span> <span class="token number">15000</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-<span class="token punctuation">]</span></code></pre>
-
-<p>需求：根据上面数据生成下面结果。</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token operator">&lt;</span>ul<span class="token operator">></span>
-    <span class="token operator">&lt;</span>li<span class="token operator">></span>
-        <span class="token operator">&lt;</span>h3<span class="token operator">></span>车名：奔驰<span class="token operator">&lt;</span><span class="token operator">/</span>h3<span class="token operator">></span>
-        <span class="token operator">&lt;</span>p<span class="token operator">></span>价格：<span class="token number">11000</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
-    <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
-    <span class="token operator">&lt;</span>li<span class="token operator">></span>
-        <span class="token operator">&lt;</span>h3<span class="token operator">></span>车名：宝马<span class="token operator">&lt;</span><span class="token operator">/</span>h3<span class="token operator">></span>
-        <span class="token operator">&lt;</span>p<span class="token operator">></span>价格：<span class="token number">13000</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
-    <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
-    <span class="token operator">&lt;</span>li<span class="token operator">></span>
-        <span class="token operator">&lt;</span>h3<span class="token operator">></span>车名：法拉利<span class="token operator">&lt;</span><span class="token operator">/</span>h3<span class="token operator">></span>
-        <span class="token operator">&lt;</span>p<span class="token operator">></span>价格：<span class="token number">15000</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
-    <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
-<span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">></span></code></pre>
-
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> arr <span class="token operator">=</span> list<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">item</span><span class="token punctuation">)</span><span class="token operator">=></span><span class="token punctuation">(</span>
-    <span class="token operator">&lt;</span>ul<span class="token operator">></span>
-        <span class="token operator">&lt;</span>li key<span class="token operator">=</span><span class="token punctuation">&#123;</span>item<span class="token punctuation">.</span>id<span class="token punctuation">&#125;</span><span class="token operator">></span>
-          <span class="token operator">&lt;</span>h3<span class="token operator">></span><span class="token punctuation">&#123;</span>item<span class="token punctuation">.</span>name<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>h3<span class="token operator">></span>
-          <span class="token operator">&lt;</span>p<span class="token operator">></span><span class="token punctuation">&#123;</span>item<span class="token punctuation">.</span>price<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
-        <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
-    <span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">></span>
-<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
-
-<h2 id="样式处理"><a href="#样式处理" class="headerlink" title="样式处理"></a>样式处理</h2><h3 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h3><p>掌握 React 中使用样式的两种方式。</p>
-<h3 id="行内样式"><a href="#行内样式" class="headerlink" title="行内样式"></a>行内样式</h3><ul>
-<li>语法</li>
-</ul>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token operator">&lt;</span>元素 style<span class="token operator">=</span><span class="token punctuation">&#123;</span> <span class="token punctuation">&#123;</span>css属性<span class="token number">1</span>：值<span class="token number">1</span><span class="token punctuation">,</span>css属性<span class="token number">2</span>：值<span class="token number">2</span><span class="token punctuation">&#125;</span> <span class="token punctuation">&#125;</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>元素<span class="token operator">></span></code></pre>
-
-<ul>
-<li>需求</li>
-</ul>
-<img src="https://zhihur.com/resource/images/react_style.png">
-
-<ul>
-<li>代码</li>
-</ul>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token operator">&lt;</span>div style<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">width</span><span class="token operator">:</span> <span class="token number">200</span><span class="token punctuation">,</span> <span class="token literal-property property">height</span><span class="token operator">:</span> <span class="token number">200</span><span class="token punctuation">,</span> <span class="token literal-property property">lineHeight</span><span class="token operator">:</span> <span class="token string">'200px'</span><span class="token punctuation">,</span> <span class="token literal-property property">backgroundColor</span><span class="token operator">:</span> <span class="token string">'black'</span><span class="token punctuation">,</span> <span class="token literal-property property">color</span><span class="token operator">:</span> <span class="token string">'white'</span><span class="token punctuation">,</span> <span class="token literal-property property">textAlign</span><span class="token operator">:</span> <span class="token string">'center'</span><span class="token punctuation">,</span> <span class="token literal-property property">fontSize</span><span class="token operator">:</span> <span class="token number">30</span> <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token operator">></span>React<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span></code></pre>
-
-
-
-<ul>
-<li><p>注意点</p>
-<p>a，为啥有两个<code>&#123;&#123; &#125;&#125;</code>，外层的 <code>&#123;&#125;</code> 表示要开始写 JS 表达式了，内层的 <code>&#123;&#125;</code> 表示是一个对象。</p>
-<p>b，属性名是小驼峰格式，例如 <code>background-color</code> 需要写成 <code>backgroundColor</code>。</p>
-<p>c，属性值是字符串，如果单位是 px，可以简写成数值。</p>
-</li>
-</ul>
-<h3 id="className"><a href="#className" class="headerlink" title="className"></a>className</h3><ul>
-<li>用 <code>className</code> 定义类名。</li>
-<li>在 <code>src</code> 目录中准备 <code>index.css</code> 文件，然后在 <code>index.js</code> 文件中通过 <code>import &#39;./index.css&#39;</code> 引入文件。</li>
-</ul>
-<p><code>index.css</code></p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token punctuation">.</span>title <span class="token punctuation">&#123;</span>
-    <span class="token literal-property property">width</span><span class="token operator">:</span> 200px<span class="token punctuation">;</span>
-    <span class="token literal-property property">height</span><span class="token operator">:</span> 200px<span class="token punctuation">;</span>
-    <span class="token literal-property property">color</span><span class="token operator">:</span> white<span class="token punctuation">;</span>
-    background<span class="token operator">-</span>color<span class="token operator">:</span> black<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-
-<p><code>index.js</code></p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">import</span> <span class="token string">'./index.css'</span>
-<span class="token punctuation">;</span><span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">'title'</span><span class="token operator">></span>Hello React<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span></code></pre>
-
-
-
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ul>
-<li>类名使用 <code>className</code>，<strong>推荐</strong>。</li>
-<li>行内样式，<code>&lt;div style=&#123;&#123; color: 'red' &#125;&#125;&gt;Hello&lt;/div&gt;</code>。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>React.js</category>
-      </categories>
-      <tags>
-        <tag>前端</tag>
-        <tag>React</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>浅谈正则表达式中的分组和引用</title>
-    <url>/2019/05/01/90501.html</url>
-    <content><![CDATA[<h1 id="浅谈正则表达式中的分组和引用"><a href="#浅谈正则表达式中的分组和引用" class="headerlink" title="浅谈正则表达式中的分组和引用"></a>浅谈正则表达式中的分组和引用</h1><p>由正则表达式如何匹配相同字符出发，讲讲正则表达式中的选择、分组和引用。</p>
-<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>在外刊君读者群中看到有人提出这样的一个需求：</p>
-<blockquote>
-<p>把字符串切成连续相同字符的正则怎么写？比如<code>abbcccdddd</code>切成<code>a,bb,ccc,dddd</code></p>
-</blockquote>
-<p>之前我对正则表达式也是略有研究，想尝试一下。其实我对正则表达式的学习基本完全来源于犀牛书的第10章，真正看懂这一章，我觉得操作正则表达式应该不在话下。</p>
-<h2 id="我的答案"><a href="#我的答案" class="headerlink" title="我的答案"></a>我的答案</h2><p>先给出我的答案吧：</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token string">'abbccddd'</span><span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(\w)\1*</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">)</span> <span class="token comment">// ["a", "bb", "cc", "ddd"]</span></code></pre>
-
-<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>拿到这个问题，首先要匹配字符<code>[a-zA-Z0-9]</code>，这里直接使用<code>\w</code>。然后是全局匹配，在最后加上<code>g</code>。难点在于怎么判断重复。</p>
-<p>翻看了犀牛书后，又读了一遍分组和引用的部分。使用小括号<code>()</code>将字符作为一个最小单元，同时小括号还能记忆这个组合相匹配的字符串。再使用反斜杠<code>\</code>引用前面分组的表达式，数字1表示第一个小括号。这时完成了2个字符重复的要求。最后再使用<code>*</code>来匹配出现0次或n次。这个正则表达式就写完了。</p>
-<p>下面详细说说分组和引用。</p>
-<p><strong>正则表达式的选择、分组和引用字符表</strong></p>
-<table>
-<thead>
-<tr>
-<th>|</th>
-<th>选择，匹配的是该符号左边的子表达式或右边的子表达式</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>(…)</td>
-<td>组合，将几个项组合为一个单元，这个单元可通过<code>*</code> <code>+</code> <code>?</code> `</td>
-</tr>
-<tr>
-<td>(?:…)</td>
-<td>只组合，把项组合到一个段元，但不记忆与该组相匹配的字符</td>
-</tr>
-<tr>
-<td>\n</td>
-<td>和第n个分组第一次匹配的字符相匹配，组是圆括号中的子表达式（也有可能是嵌套的），组索引是从左到右的左括号数，<code>(?:</code>形式的分组不编码</td>
-</tr>
-</tbody></table>
-]]></content>
-      <categories>
-        <category>Regular</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-        <tag>正则</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>React 组件</title>
     <url>/2020/04/20/272.html</url>
     <content><![CDATA[<h1 id="React-组件"><a href="#React-组件" class="headerlink" title="React 组件"></a>React 组件</h1><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>组件就是页面中的一部分，是 React 的一等公民，使用 React 就是在用组件，而所谓的组件化开发就是采用分而治之的思想来管理繁杂的页面逻辑。</p>
@@ -2471,6 +1827,605 @@ ReactDOM<span class="token punctuation">.</span><span class="token function">ren
         <tag>前端</tag>
         <tag>React</tag>
         <tag>组件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vue2-给组件绑定原生事件</title>
+    <url>/2019/03/24/90324.html</url>
+    <content><![CDATA[<h1 id="Vue2-给组件绑定原生事件"><a href="#Vue2-给组件绑定原生事件" class="headerlink" title="Vue2-给组件绑定原生事件"></a>Vue2-给组件绑定原生事件</h1><h4 id="在组件上设置点击事件"><a href="#在组件上设置点击事件" class="headerlink" title="在组件上设置点击事件"></a>在组件上设置点击事件</h4><pre class="language-js" data-language="js"><code class="language-js"><span class="token operator">&lt;</span>div id<span class="token operator">=</span><span class="token string">"app"</span>  <span class="token operator">></span>
+       <span class="token operator">&lt;</span>child @click<span class="token operator">=</span><span class="token string">"handleClick"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>child<span class="token operator">></span>
+   <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+
+   <span class="token operator">&lt;</span>script<span class="token operator">></span>
+     
+       Vue<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">'child'</span><span class="token punctuation">,</span><span class="token punctuation">&#123;</span>
+           <span class="token literal-property property">template</span><span class="token operator">:</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">&lt;div>Child&lt;/div></span><span class="token template-punctuation string">`</span></span>
+       <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+       <span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+           <span class="token literal-property property">el</span><span class="token operator">:</span><span class="token string">'#app'</span><span class="token punctuation">,</span>
+           <span class="token literal-property property">methods</span><span class="token operator">:</span><span class="token punctuation">&#123;</span>
+               <span class="token function">handleClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+                   <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">'click'</span><span class="token punctuation">)</span>
+               <span class="token punctuation">&#125;</span>
+           <span class="token punctuation">&#125;</span>
+       <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+   <span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span></code></pre>
+
+<p>显然在Root组件中不能被触发，因为这时候 组件<code>child</code>上的<code>click</code>相当于自定义的一个事件，这时候需要通过<code>this.$emit</code>去触发自定义事件</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token operator">&lt;</span>div id<span class="token operator">=</span><span class="token string">"app"</span>  <span class="token operator">></span>
+    <span class="token operator">&lt;</span>child  @click<span class="token operator">=</span><span class="token string">"handleClick"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>child<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+
+<span class="token operator">&lt;</span>script<span class="token operator">></span>
+  
+    Vue<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">'child'</span><span class="token punctuation">,</span><span class="token punctuation">&#123;</span>
+        <span class="token literal-property property">template</span><span class="token operator">:</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">&lt;div  @click="handleClick">Child&lt;/div></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+        <span class="token literal-property property">methods</span><span class="token operator">:</span><span class="token punctuation">&#123;</span>
+            <span class="token function">handleClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">'click'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+        <span class="token literal-property property">el</span><span class="token operator">:</span><span class="token string">'#app'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">methods</span><span class="token operator">:</span><span class="token punctuation">&#123;</span>
+            <span class="token function">handleClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+                <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">'click'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span></code></pre>
+
+<blockquote>
+<p>这时候就实现了点击事件，但是究其根本，这还是自定义事件，太过麻烦。</p>
+</blockquote>
+<h4 id="给组件绑定原生事件"><a href="#给组件绑定原生事件" class="headerlink" title="给组件绑定原生事件"></a>给组件绑定原生事件</h4><blockquote>
+<p>非常简单：只要在事件绑定后面加上<code>.native</code> 的修饰符就可以了</p>
+</blockquote>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token operator">&lt;</span>div id<span class="token operator">=</span><span class="token string">"app"</span>  <span class="token operator">></span>
+       <span class="token operator">&lt;</span>child  @click<span class="token punctuation">.</span>native<span class="token operator">=</span><span class="token string">"handleClick"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>child<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+
+<span class="token operator">&lt;</span>script<span class="token operator">></span>
+       Vue<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">'child'</span><span class="token punctuation">,</span><span class="token punctuation">&#123;</span>
+           <span class="token literal-property property">template</span><span class="token operator">:</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">&lt;div >Child&lt;/div></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+       <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+       <span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+           <span class="token literal-property property">el</span><span class="token operator">:</span><span class="token string">'#app'</span><span class="token punctuation">,</span>
+           <span class="token literal-property property">methods</span><span class="token operator">:</span><span class="token punctuation">&#123;</span>
+               <span class="token function">handleClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+                   <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">'click'</span><span class="token punctuation">)</span>
+               <span class="token punctuation">&#125;</span>
+           <span class="token punctuation">&#125;</span>
+       <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span></code></pre>
+
+]]></content>
+      <categories>
+        <category>Vue.js</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>在低版本 IE 中点击空 block 元素的问题</title>
+    <url>/2019/05/13/90513.html</url>
+    <content><![CDATA[<h1 id="在低版本-IE-中点击空-block-元素的问题"><a href="#在低版本-IE-中点击空-block-元素的问题" class="headerlink" title="在低版本 IE 中点击空 block 元素的问题"></a>在低版本 IE 中点击空 block 元素的问题</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>当我们点击一个空的、没有任何内容的 div 或者其他块级元素时。在 IE11 以下，是没有反应的。</p>
+<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><p>这类问题使用场景还是很普遍的。比如 UI 给了一张大图，要点击图上的某一块位置的时候。可以用一个空的 div 定位到相应的位置，然后对它进行绑定事件。</p>
+<hr>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>解决方法很简单，即给这个块级元素填充任意颜色，然后将其透明度设置为0。代码如下：</p>
+<pre class="language-css" data-language="css"><code class="language-css"><span class="token property">background-color</span><span class="token punctuation">:</span> #fff<span class="token punctuation">;</span>
+<span class="token property">opacity</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+<span class="token property">filter</span><span class="token punctuation">:</span><span class="token function">alpha</span><span class="token punctuation">(</span>opacity=0<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>]]></content>
+      <categories>
+        <category>HTML</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+        <tag>IE</tag>
+        <tag>兼容性</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>学习 ES6 基础</title>
+    <url>/2019/04/16/90416.html</url>
+    <content><![CDATA[<h1 id="学习-ES6-基础"><a href="#学习-ES6-基础" class="headerlink" title="学习 ES6 基础"></a>学习 ES6 基础</h1><h2 id="一、块级作用域"><a href="#一、块级作用域" class="headerlink" title="一、块级作用域"></a>一、块级作用域</h2><h3 id="1-var"><a href="#1-var" class="headerlink" title="1. var"></a>1. var</h3><p>首先看看ES5中得变量声明方式</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token number">2</span>
+<span class="token punctuation">&#125;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token comment">// 2</span></code></pre>
+
+<p>以上代码等同于</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> a
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    a <span class="token operator">=</span> <span class="token number">2</span>
+<span class="token punctuation">&#125;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span></code></pre>
+
+<blockquote>
+<p>以上可知 ：</p>
+<ol>
+<li>在块内部定义变量 变量提升，到函数最顶部</li>
+<li>通过var声明的变量，无论在何处声明，均为<strong>全局作用域</strong></li>
+</ol>
+</blockquote>
+<h3 id="2-let-和-const"><a href="#2-let-和-const" class="headerlink" title="2.let 和 const"></a>2.let 和 const</h3><p>再来看看<code>ES6</code>中的<code>let</code>和<code>const</code></p>
+<h3 id="let"><a href="#let" class="headerlink" title="let"></a><code>let</code></h3><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">let</span> b <span class="token operator">=</span> <span class="token number">2</span>
+<span class="token punctuation">&#125;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span> <span class="token comment">// b is not defined</span></code></pre>
+
+<blockquote>
+<p>此时在{} 外部访问b 将会报错，因为 let 的作用域仅为 <code>&#123; &#125; </code>的内部，及<strong>块级作用域</strong></p>
+</blockquote>
+<h3 id="const"><a href="#const" class="headerlink" title="const"></a><code>const</code></h3><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">const</span> c <span class="token operator">=</span> <span class="token number">2</span>
+<span class="token punctuation">&#125;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span> <span class="token comment">// c is not defined</span></code></pre>
+
+<blockquote>
+<p>从上面可知 const 也是也仅为块级作用域</p>
+<p><strong>const的作用域与let作用域相同：只在声明所在的块级作用域内有效</strong></p>
+</blockquote>
+<p>让我们看看const 更多的特性：</p>
+<p><strong>const 表示常量：</strong></p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> d <span class="token operator">=</span> <span class="token number">2</span>
+d <span class="token operator">=</span> <span class="token number">3</span> <span class="token comment">// Assignment to constant variable.</span></code></pre>
+
+<blockquote>
+<p>此时，当 d 为 <strong>基本数据类型</strong>的时候，改变其值，将会报错！！！</p>
+</blockquote>
+<p><strong>但是它的常量仅仅表示的是地址常量 对象的成员可以改变值</strong></p>
+<p>看看下面的例子：</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> people <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'张三'</span><span class="token punctuation">,</span> <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token number">23</span><span class="token punctuation">&#125;</span>
+people<span class="token punctuation">.</span>age <span class="token operator">=</span> <span class="token number">25</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>people<span class="token punctuation">)</span> <span class="token comment">// &#123;name: "张三", age: 25&#125;</span></code></pre>
+
+<p>看看此时 <strong>people</strong>已经被改变了</p>
+<p><strong>why?</strong></p>
+<blockquote>
+<p>对象是复杂的数据类型 它的地址保存在 栈里面， 值保存在堆里面</p>
+<p>cosnt仅仅是保证这个地址不改变，至于地址对应的数据，是可以进行改变的</p>
+<p>基本类型值在内存中占据固定大小的空间 因此被保存在栈内存中。比如 const a = 1 ; 这时候其直接保存在栈里面</p>
+</blockquote>
+<h2 id="二、字符串"><a href="#二、字符串" class="headerlink" title="二、字符串"></a>二、字符串</h2><h3 id="1-字符串拼接"><a href="#1-字符串拼接" class="headerlink" title="1. 字符串拼接"></a>1. 字符串拼接</h3><h4 id="ES5中字符串拼接"><a href="#ES5中字符串拼接" class="headerlink" title="ES5中字符串拼接"></a>ES5中字符串拼接</h4><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// ES5 </span>
+<span class="token keyword">var</span> name <span class="token operator">=</span> <span class="token string">'Hunter'</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'hello '</span> <span class="token operator">+</span> name<span class="token punctuation">)</span></code></pre>
+
+<h4 id="ES6中字符串拼接"><a href="#ES6中字符串拼接" class="headerlink" title="ES6中字符串拼接"></a>ES6中字符串拼接</h4><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// ES6</span>
+<span class="token keyword">let</span> name <span class="token operator">=</span> <span class="token string">'Hunter'</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">hello </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>name<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span> <span class="token comment">// hello Hunter</span></code></pre>
+
+<p><strong>注意</strong>：用 <code>$&#123;&#125;</code>来拼接字符串，注意此时要使用 ``` `（反单引号）; 如下所示： 单引号将无法将其转义</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'hello $&#123;name&#125;'</span><span class="token punctuation">)</span> <span class="token comment">// hello $&#123;name&#125;</span></code></pre>
+
+<h4 id="ES6的字符串换行"><a href="#ES6的字符串换行" class="headerlink" title="ES6的字符串换行"></a>ES6的字符串换行</h4><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// ES5</span>
+    <span class="token keyword">var</span> template <span class="token operator">=</span> <span class="token string">"&lt;div> \
+                        &lt;span>hello world&lt;/span> \
+                    &lt;/div>"</span>
+<span class="token comment">// ES6</span>
+    <span class="token keyword">let</span> template2 <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">&lt;div> 
+                        &lt;span>hello world&lt;/span>
+                    &lt;/div></span><span class="token template-punctuation string">`</span></span></code></pre>
+
+<blockquote>
+<p>ES5中需要用反斜杠来进行多行字符串拼接，ES6直接使用 ``` `(反单引号）</p>
+</blockquote>
+<h3 id="2-字符串方法"><a href="#2-字符串方法" class="headerlink" title="2. 字符串方法"></a>2. 字符串方法</h3><h4 id="padStart-和-padEnd"><a href="#padStart-和-padEnd" class="headerlink" title="padStart() 和 padEnd()"></a>padStart() 和 padEnd()</h4><blockquote>
+<p>ES6 引入了字符串补全长度的功能，如果某个字符串不够指定长度，会在头部或者尾部补全。</p>
+<p><code>padStart()</code> 用于<strong>头部补全</strong>；</p>
+<p><code>padEnd()</code> 用于<strong>尾部补全</strong>。</p>
+</blockquote>
+<p>如下一个例子：<a href="https://link.segmentfault.com/?enc=s/4vgLhRUyDoiV6EE9xmDg==.5gVHrKgFETCAcBlABIaC7y5JThUkPAsvADpfs5X6kXzoKxzVYMPeX+/Cv8BC0+go">例子来源</a></p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+       <span class="token keyword">const</span> now <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+       <span class="token keyword">const</span> hours <span class="token operator">=</span> now<span class="token punctuation">.</span><span class="token function">getHours</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+       <span class="token keyword">const</span> minutes <span class="token operator">=</span> now<span class="token punctuation">.</span><span class="token function">getMinutes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+       <span class="token keyword">const</span> seconds <span class="token operator">=</span> now<span class="token punctuation">.</span><span class="token function">getSeconds</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+       console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>hours<span class="token punctuation">.</span><span class="token function">padStart</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">:</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>minutes<span class="token punctuation">.</span><span class="token function">padStart</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">:</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>seconds<span class="token punctuation">.</span><span class="token function">padStart</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+   <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span></code></pre>
+
+<blockquote>
+<p>先不管箭头函数</p>
+</blockquote>
+<p>看看其中的<code>hours.padStart(2,0)</code> , 表示当小时不够两位数时，在前面补0，如<code>8</code>，补充成 <code>08</code></p>
+<p>后面遇到更多的字符串函数会补充</p>
+<h2 id="三、变量的解构赋值"><a href="#三、变量的解构赋值" class="headerlink" title="三、变量的解构赋值"></a>三、变量的解构赋值</h2><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// ES5</span>
+<span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> b <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> c <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span></code></pre>
+
+<h3 id="1-ES6数组解构赋值"><a href="#1-ES6数组解构赋值" class="headerlink" title="1.ES6数组解构赋值"></a>1.ES6数组解构赋值</h3><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> <span class="token punctuation">[</span>a<span class="token punctuation">,</span>b<span class="token punctuation">,</span>c<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>a<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>b<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>c<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span> <span class="token comment">// 1 2 3</span></code></pre>
+
+<h4 id="默认值"><a href="#默认值" class="headerlink" title="默认值"></a>默认值</h4><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> <span class="token punctuation">[</span>d <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> e<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token keyword">undefined</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>d<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>e<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span> <span class="token comment">// 2 3</span></code></pre>
+
+<blockquote>
+<p>当赋值为<code>undefined</code>时取默认值 当赋值为其他的有效值或者<code>null</code>时 取所赋值的值</p>
+</blockquote>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> <span class="token punctuation">[</span>f <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> g <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>f<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>g<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span> <span class="token comment">// null 4</span></code></pre>
+
+<h3 id="2-对象解构赋值"><a href="#2-对象解构赋值" class="headerlink" title="2.对象解构赋值"></a>2.对象解构赋值</h3><blockquote>
+<p>数组按照顺序解构 对象按照key值进行解构</p>
+</blockquote>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> <span class="token punctuation">&#123;</span>foo<span class="token punctuation">,</span> bar<span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token literal-property property">foo</span><span class="token operator">:</span> <span class="token string">'hi'</span><span class="token punctuation">,</span> <span class="token literal-property property">bar</span><span class="token operator">:</span> <span class="token string">'hello'</span><span class="token punctuation">&#125;</span> <span class="token comment">//可以调换位置</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>foo<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>bar<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span> <span class="token operator">*</span><span class="token comment">// hi hello</span></code></pre>
+
+<blockquote>
+<p>注意：先定义再解构需要在解构语句那块加上圆括号</p>
+</blockquote>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> soso<span class="token punctuation">;</span>
+<span class="token comment">// &#123; soso &#125; = &#123; soso: "hi"&#125;; // 错误</span>
+<span class="token punctuation">(</span><span class="token punctuation">&#123;</span> soso <span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">soso</span><span class="token operator">:</span> <span class="token string">"hi"</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//得加上圆括号 ()</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>soso<span class="token punctuation">)</span> <span class="token comment">// hi</span></code></pre>
+
+<h3 id="3-字符串的解构赋值"><a href="#3-字符串的解构赋值" class="headerlink" title="3.字符串的解构赋值"></a>3.字符串的解构赋值</h3><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> <span class="token punctuation">[</span>h<span class="token punctuation">,</span>i<span class="token punctuation">,</span>j<span class="token punctuation">,</span>k<span class="token punctuation">,</span>l<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'hello'</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>h<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>i<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>j<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>k<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>l<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span></code></pre>
+
+]]></content>
+      <categories>
+        <category>ECMAScript</category>
+      </categories>
+      <tags>
+        <tag>es6</tag>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>学习 React 基础</title>
+    <url>/2020/04/14/268.html</url>
+    <content><![CDATA[<h2 id="React-基本概述"><a href="#React-基本概述" class="headerlink" title="React 基本概述"></a>React 基本概述</h2><h3 id="React-背景"><a href="#React-背景" class="headerlink" title="React 背景"></a>React 背景</h3><p><a href="https://react.docschina.org/">React</a> 起源于 Facebook(Meta) 的内部项目（2011，News Feed），之后又被用来开发网站（2012，Instagram），并于 2013 年 5 月开源。</p>
+<h3 id="React-是什么"><a href="#React-是什么" class="headerlink" title="React 是什么"></a>React 是什么</h3><p><a href="https://react.docschina.org/">React</a> 是一个用于构建<strong>用户界面</strong>的 JavaScript <strong>库</strong>。</p>
+<ul>
+<li>用户界面：HTML 界面。</li>
+<li>Library（库）和 Framework（框架）：库的特点是<strong>小而巧</strong>，针对特定问题的单一解决方案。框架的特点是<strong>大而全</strong>，提供了一整套的解决方案。</li>
+</ul>
+<h3 id="React-趋势"><a href="#React-趋势" class="headerlink" title="React 趋势"></a>React 趋势</h3><p>从 <a href="https://www.npmtrends.com/angular-vs-react-vs-vue">NPM 下载量</a> 来看，React &gt; Vue &gt; Angular。</p>
+<h3 id="React-特点"><a href="#React-特点" class="headerlink" title="React 特点"></a>React 特点</h3><p><strong>声明式</strong></p>
+<p>只需要描述UI（HTML）看起来是什么样子，就像写 HTML 一样简单，React 内部负责渲染 UI，并在数据变化时自动更新 UI。</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> jsx <span class="token operator">=</span> <span class="token punctuation">(</span>
+    <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">'app'</span><span class="token operator">></span>
+        <span class="token operator">&lt;</span>h1<span class="token operator">></span>Hello World！<span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span>
+        <span class="token operator">&lt;</span>p<span class="token operator">></span>动态数据：<span class="token punctuation">&#123;</span>count<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+<span class="token punctuation">)</span></code></pre>
+
+<p><strong>组件化</strong></p>
+<p>把复杂的页面拆分成一个一个的单元，这些组成页面的基本单元就是组件，通过组合、复用组件来编写复杂界面的方式，就是组件化。</p>
+<p><strong>小结：</strong></p>
+<p>使用 React 除了可以开发 Web 应用，还可以使用 React Native 开发原生移动应用，甚至可以开发 VR（虚拟现实）应用（React 360）。</p>
+<p>相比较于 Vue，React 强调尽可能的利用 JS 语言自身的能力来编写 UI，而不是通过造轮子增强 HTML 的功能。</p>
+<h3 id="脚手架创建项目"><a href="#脚手架创建项目" class="headerlink" title="脚手架创建项目"></a>脚手架创建项目</h3><p><strong>脚手架意义</strong></p>
+<p>现代的 Web 应用要考虑的问题很多，除了编写业务代码之外，还要考虑代码规范、预编译、压缩合并、打包上线等工作，需要有一套完整的解决方案来辅助我们快速开发，而 <a href="https://create-react-app.dev/">React 脚手架</a> 就是这么一套完整的解决方案，它零配置，开箱即用，让我们从繁杂的 Webpack 配置当中解脱出来，更关注于业务本身。</p>
+<p>使用 <a href="https://create-react-app.dev/">create-react-app</a> 这个命令行工具，它是 React 官方团队出的一个构建 React 应用的脚手架工具。</p>
+<p><strong>方法一</strong></p>
+<ol>
+<li>全局安装<code>npm i -g create-react-app</code>或者<code>yarn global add create-react-app</code>。</li>
+<li>初始化项目<code>create-react-app my-app</code>，my-app 表示项目名称，可以修改。</li>
+<li>启动项目：<code>yarn start</code>or <code>npm start</code>。</li>
+</ol>
+<p>🙁 缺点：全局安装命令无法保证命令一直是最新版本。</p>
+<p><strong>方法二（推荐）</strong></p>
+<ol>
+<li>命令：<code>npx create-react-app react-basic</code>。</li>
+<li>启动项目：<code>yarn start</code> or <code>npm start</code>。</li>
+<li>npx 是 <code>npm@v5.2</code> 版本新添加的命令，用来简化 npm 工具包的使用流程。</li>
+</ol>
+<p>😄 优点：<code>npx</code> 会调用最新的 <code>create-react-app</code> 直接创建 React 项目。</p>
+<h3 id="渲染-Hello-World"><a href="#渲染-Hello-World" class="headerlink" title="渲染 Hello World"></a>渲染 Hello World</h3><img src="https://zhihur.com/resource/images/ifer_hello_world.png">
+
+<p><strong>步骤</strong></p>
+<ol>
+<li>删除 <code>src</code> 和 <code>public</code> 目录中的所有内容。</li>
+<li>新建 <code>public/index.html</code>。</li>
+<li>新建 <code>src/index.js</code> 文件。</li>
+<li>引入 React 核心库和涉及 DOM 操作的包。</li>
+<li>调用 <code>React.createElement()</code> 方法创建 React 元素。</li>
+<li>调用 <code>ReactDOM.render()</code> 方法渲染 React 元素到页面。</li>
+</ol>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><ol>
+<li>删除 <code>src</code> 和 <code>public</code> 目录中的所有内容。</li>
+<li>新建 <code>public/index.html</code>。</li>
+</ol>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token operator">&lt;</span><span class="token operator">!</span><span class="token constant">DOCTYPE</span> html<span class="token operator">></span>
+<span class="token operator">&lt;</span>html lang<span class="token operator">=</span><span class="token string">"en"</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>head<span class="token operator">></span>
+        <span class="token operator">&lt;</span>meta charset<span class="token operator">=</span><span class="token string">"UTF-8"</span> <span class="token operator">/</span><span class="token operator">></span>
+        <span class="token operator">&lt;</span>meta http<span class="token operator">-</span>equiv<span class="token operator">=</span><span class="token string">"X-UA-Compatible"</span> content<span class="token operator">=</span><span class="token string">"IE=edge"</span> <span class="token operator">/</span><span class="token operator">></span>
+        <span class="token operator">&lt;</span>meta name<span class="token operator">=</span><span class="token string">"viewport"</span> content<span class="token operator">=</span><span class="token string">"width=device-width, initial-scale=1.0"</span> <span class="token operator">/</span><span class="token operator">></span>
+        <span class="token operator">&lt;</span>title<span class="token operator">></span>Document<span class="token operator">&lt;</span><span class="token operator">/</span>title<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>head<span class="token operator">></span>
+
+    <span class="token operator">&lt;</span>body<span class="token operator">></span>
+        <span class="token operator">&lt;</span>div id<span class="token operator">=</span><span class="token string">"root"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>body<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>html<span class="token operator">></span></code></pre>
+
+<ol start="3">
+<li><p>新建 <code>src/index.js</code> 文件。</p>
+</li>
+<li><p>引入 React 核心库和涉及 DOM 操作的包。</p>
+</li>
+</ol>
+<p><code>src/index.js</code></p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token comment">// create-react-app 脚手架生成的项目中已经下载好了 react 和 react-dom，无需重复下载，直接使用即可</span>
+<span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">'react'</span>
+<span class="token keyword">import</span> ReactDOM <span class="token keyword">from</span> <span class="token string">'react-dom'</span></code></pre>
+
+<ol start="5">
+<li>调用 <code>React.createElement()</code> 方法创建 React 元素。</li>
+</ol>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token comment">// 标签名、标签属性、标签内容，返回的是一个 React 元素（虚拟 DOM）</span>
+<span class="token keyword">const</span> title <span class="token operator">=</span> React<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'h1'</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token string">'Hello World'</span><span class="token punctuation">)</span></code></pre>
+
+
+
+<ol start="6">
+<li>调用 <code>ReactDOM.render()</code> 方法渲染 React 元素到页面。</li>
+</ol>
+<pre class="language-js" data-language="js"><code class="language-js">ReactDOM<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span>title<span class="token punctuation">,</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'#root'</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+
+<h3 id="React-createElement-📝"><a href="#React-createElement-📝" class="headerlink" title="React.createElement() 📝"></a>React.createElement() 📝</h3><p>如何用 <code>React.createElement()</code> 创建出如下结构？</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">"wrap"</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>ul<span class="token operator">></span>
+        <span class="token operator">&lt;</span>li<span class="token operator">></span>React<span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+        <span class="token operator">&lt;</span>li<span class="token operator">></span>Vue<span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+        <span class="token operator">&lt;</span>li<span class="token operator">></span>Angular<span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span></code></pre>
+
+<p><strong>重点</strong></p>
+<pre class="language-js" data-language="js"><code class="language-js">React<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'标签名'</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> 标签上的属性<span class="token number">1</span>：值<span class="token number">1</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> 子元素<span class="token number">1</span><span class="token punctuation">,</span> 子元素<span class="token number">2</span><span class="token punctuation">)</span></code></pre>
+
+<p>如果有更复杂的就需要使用 JSX</p>
+<h3 id="JSX-基本介绍"><a href="#JSX-基本介绍" class="headerlink" title="JSX 基本介绍"></a>JSX 基本介绍</h3><p><code>React.createElement()</code> 创建 React 元素的问题：繁琐/不简洁；不直观，无法一眼看出所描述的结构；代码不容易维护！</p>
+<pre class="language-js" data-language="js"><code class="language-js">React<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span>
+    <span class="token string">'div'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#123;</span> <span class="token literal-property property">className</span><span class="token operator">:</span> <span class="token string">'wrap'</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    React<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'ul'</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> React<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'li'</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token string">'React'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> React<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'li'</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token string">'Vue'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> React<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'li'</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token string">'Angular'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span></code></pre>
+
+<p>对比下面 JSX 的写法</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">"wrap"</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>ul<span class="token operator">></span>
+        <span class="token operator">&lt;</span>li<span class="token operator">></span>React<span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+        <span class="token operator">&lt;</span>li<span class="token operator">></span>Vue<span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+        <span class="token operator">&lt;</span>li<span class="token operator">></span>Angular<span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span></code></pre>
+
+<p><strong>JSX 是什么</strong></p>
+<p>JSX 是 JavaScript XML 的简写，表示可以在 JavaScript 代码中写 XML（HTML） 格式的代码。</p>
+<p>优势：声明式语法更加直观，与 HTML 结构相同，降低了学习成本，提高了开发效率，JSX 是 React 的核心之一。</p>
+<p><strong>JSX 基本使用</strong></p>
+<ol>
+<li>使用 JSX 创建 React 元素</li>
+</ol>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> title <span class="token operator">=</span> <span class="token operator">&lt;</span>h1<span class="token operator">></span>Hello <span class="token constant">JSX</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span></code></pre>
+
+
+
+<ol start="2">
+<li>使用 <code>ReactDOM.render()</code> 方法渲染 React 元素到页面中</li>
+</ol>
+<pre class="language-js" data-language="js"><code class="language-js">ReactDOM<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span>title<span class="token punctuation">,</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'#root'</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+
+<p><strong>JSX 是如何工作的</strong></p>
+<p>🤔 换句话说，JSX 并不是标准的 ECMAScript 语法，为什么 React 脚手架中可以直接使用 JSX 呢？</p>
+<ul>
+<li>JSX 需要使用 Babel 编译成 <code>React.createElement()</code> 的形式，然后配合 React 才能在浏览器中使用，而 <code>create-react-app</code> 脚手架中已经内置了 Babel 及相关配置。</li>
+<li>编译 JSX 语法的包为：<a href="https://www.npmjs.com/package/@babel/preset-react">@babel/preset-react</a>，<a href="https://www.babeljs.cn/repl#?browsers=defaults%2C%20not%20ie%2011%2C%20not%20ie_mob%2011&build=&builtIns=false&corejs=3.6&spec=false&loose=false&code_lz=DwCwjAfAEgpgNnA9gAgFIGUAawD04JA&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=env%2Creact%2Cstage-2&prettier=false&targets=&version=7.16.2&externalPlugins=&assumptions=%7B%7D">在线体验</a>。</li>
+</ul>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> r <span class="token operator">=</span> <span class="token punctuation">(</span>
+    <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">'wrap'</span><span class="token operator">></span>
+        <span class="token operator">&lt;</span>h1<span class="token operator">></span>Hello World<span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span>
+        <span class="token operator">&lt;</span>p<span class="token operator">></span>React<span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+<span class="token punctuation">)</span></code></pre>
+
+<ol>
+<li>必须有 1 个根节点，或者虚拟根节点 <code>&lt;&gt;&lt;/&gt;</code>、<code>&lt;React.Fragment&gt;&lt;/React.Fragment&gt;</code>。</li>
+<li>属性名一般是驼峰的写法且不能是 JS 中的关键字，例如 class 改成 className，label 的 for 属性改为 <code>htmlFor</code>，colspan 改为 <code>colSpan</code>。</li>
+<li>元素若没有子节点，可以使用单标签，但一定要闭合，例如 <code>&lt;span/&gt;</code>。</li>
+<li><code>React@16.14</code> 之前需要先引入 React 才能使用 JSX（这个也好理解，因为 JSX 最后还是要被转成 <code>React.createElement()</code> 的形式）。</li>
+<li>换行建议使用 <code>()</code> 进行包裹，防止换行的时候<a href="https://stackoverflow.com/questions/2846283/what-are-the-rules-for-javascripts-automatic-semicolon-insertion-asi">自动插入分号</a>的 Bug。</li>
+</ol>
+<img src="https://zhihur.com/resource/images/ifer_bug.png">
+
+<p><strong>使用表达式</strong></p>
+<p><strong>单大括号</strong>中可以使用任意的表达式（可以产生结果的式子）。</p>
+<ul>
+<li>普通的简单数据类型。</li>
+</ul>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> name <span class="token operator">=</span> <span class="token string">'zs'</span>
+<span class="token keyword">const</span> age <span class="token operator">=</span> <span class="token number">18</span>
+<span class="token keyword">const</span> title <span class="token operator">=</span> <span class="token punctuation">(</span>
+    <span class="token operator">&lt;</span>h1<span class="token operator">></span>
+        姓名：<span class="token punctuation">&#123;</span>name<span class="token punctuation">&#125;</span><span class="token punctuation">,</span> 年龄：<span class="token punctuation">&#123;</span>age<span class="token punctuation">&#125;</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span>
+<span class="token punctuation">)</span></code></pre>
+
+
+
+<ul>
+<li>对象中的属性。</li>
+</ul>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> car <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    <span class="token literal-property property">brand</span><span class="token operator">:</span> <span class="token string">'玛莎拉蒂'</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">const</span> title <span class="token operator">=</span> <span class="token operator">&lt;</span>h1<span class="token operator">></span>汽车：<span class="token punctuation">&#123;</span>car<span class="token punctuation">.</span>brand<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span></code></pre>
+
+
+
+<ul>
+<li>数组中的某一项甚至整个数组。</li>
+</ul>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> friends <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'张三'</span><span class="token punctuation">,</span> <span class="token string">'李四'</span><span class="token punctuation">]</span>
+<span class="token keyword">const</span> title <span class="token operator">=</span> <span class="token operator">&lt;</span>h1<span class="token operator">></span>汽车：<span class="token punctuation">&#123;</span>friends<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span></code></pre>
+
+
+
+<ul>
+<li>可以调用方法。</li>
+</ul>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">sayHi</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token string">'你好'</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">const</span> title <span class="token operator">=</span> <span class="token operator">&lt;</span>h1<span class="token operator">></span>姓名：<span class="token punctuation">&#123;</span><span class="token function">sayHi</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span></code></pre>
+
+<ul>
+<li>JS 对象虽然也是表达式，但是不能直接嵌套在 <code>&#123;&#125;</code> 中，一般只会出现在 style 属性中。</li>
+<li>JSX 本身也是表达式。</li>
+</ul>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> span <span class="token operator">=</span> <span class="token operator">&lt;</span>span<span class="token operator">></span>我是一个span<span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">></span>
+<span class="token keyword">const</span> title <span class="token operator">=</span> <span class="token operator">&lt;</span>h1<span class="token operator">></span>盒子<span class="token punctuation">&#123;</span>span<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span></code></pre>
+
+<p><strong>小结</strong></p>
+<ul>
+<li>JSX 中可以包含任意的表达式（除了对象）。</li>
+<li>JSX 中不能放语句，例如 <code>if</code>、<code>switch</code>、<code>for</code>、<code>while</code> 等。</li>
+</ul>
+<h4 id="列表渲染"><a href="#列表渲染" class="headerlink" title="列表渲染"></a><strong>列表渲染</strong></h4><p><strong>小试牛刀</strong></p>
+<ul>
+<li>后端返回的数据。</li>
+</ul>
+<pre class="language-none"><code class="language-none">const arr &#x3D; [
+    &#123; id: 1, name: &#39;Vue&#39; &#125;,
+    &#123; id: 2, name: &#39;React&#39; &#125;,
+    &#123; id: 3, name: &#39;Angular&#39; &#125;,
+]</code></pre>
+
+
+
+<ul>
+<li>期望实现的效果。</li>
+</ul>
+<img src="https://zhihur.com/resource/images/ifer_list_jsx.png">
+
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>手动拼接如下。</p>
+<pre class="language-none"><code class="language-none">&lt;ul&gt;
+    &lt;li&gt;&#123;list[0].name&#125;&lt;&#x2F;li&gt;
+    &lt;li&gt;&#123;list[1].name&#125;&lt;&#x2F;li&gt;
+    &lt;li&gt;&#123;list[2].name&#125;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;</code></pre>
+
+
+
+<p>简化上面的代码：可以使用 <code>map()</code> 方法渲染一组数据。</p>
+<pre class="language-none"><code class="language-none">import ReactDOM from &#39;react-dom&#39;
+
+const list &#x3D; [
+    &#123; id: 1, name: &#39;Vue&#39; &#125;,
+    &#123; id: 2, name: &#39;React&#39; &#125;,
+    &#123; id: 3, name: &#39;Angular&#39; &#125;,
+]
+
+const arrJsx &#x3D; list.map((item) &#x3D;&gt; &lt;li key&#x3D;&#123;item.id&#125;&gt;&#123;item.name&#125;&lt;&#x2F;li&gt;)
+
+const loadData &#x3D; () &#x3D;&gt; &#123;
+    return &lt;ul&gt;&#123;arrJsx&#125;&lt;&#x2F;ul&gt;
+&#125;
+
+ReactDOM.render(loadData(), document.querySelector(&#39;#root&#39;))</code></pre>
+
+
+
+<h3 id="关于-key"><a href="#关于-key" class="headerlink" title="关于 key"></a>关于 key</h3><ol>
+<li>特点：key 值要保证唯一，尽量避免使用索引号，key 在最终的 HTML 结构中是看不见的。</li>
+<li>加在哪里：<code>map()</code> 遍历谁，就把 key 加在谁上。</li>
+<li>作用：React 内部用来进行<strong>性能优化</strong>时使用的，key 在最终的 HTML 结构中是看不见的。</li>
+</ol>
+<h3 id="渲染数据-📝"><a href="#渲染数据-📝" class="headerlink" title="渲染数据 📝"></a>渲染数据 📝</h3><pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> list <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">&#123;</span> <span class="token literal-property property">id</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'奔驰'</span><span class="token punctuation">,</span> <span class="token literal-property property">price</span><span class="token operator">:</span> <span class="token number">11000</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#123;</span> <span class="token literal-property property">id</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'宝马'</span><span class="token punctuation">,</span> <span class="token literal-property property">price</span><span class="token operator">:</span> <span class="token number">13000</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#123;</span> <span class="token literal-property property">id</span><span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'法拉利'</span><span class="token punctuation">,</span> <span class="token literal-property property">price</span><span class="token operator">:</span> <span class="token number">15000</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span></code></pre>
+
+<p>需求：根据上面数据生成下面结果。</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token operator">&lt;</span>ul<span class="token operator">></span>
+    <span class="token operator">&lt;</span>li<span class="token operator">></span>
+        <span class="token operator">&lt;</span>h3<span class="token operator">></span>车名：奔驰<span class="token operator">&lt;</span><span class="token operator">/</span>h3<span class="token operator">></span>
+        <span class="token operator">&lt;</span>p<span class="token operator">></span>价格：<span class="token number">11000</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+    <span class="token operator">&lt;</span>li<span class="token operator">></span>
+        <span class="token operator">&lt;</span>h3<span class="token operator">></span>车名：宝马<span class="token operator">&lt;</span><span class="token operator">/</span>h3<span class="token operator">></span>
+        <span class="token operator">&lt;</span>p<span class="token operator">></span>价格：<span class="token number">13000</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+    <span class="token operator">&lt;</span>li<span class="token operator">></span>
+        <span class="token operator">&lt;</span>h3<span class="token operator">></span>车名：法拉利<span class="token operator">&lt;</span><span class="token operator">/</span>h3<span class="token operator">></span>
+        <span class="token operator">&lt;</span>p<span class="token operator">></span>价格：<span class="token number">15000</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">></span></code></pre>
+
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> arr <span class="token operator">=</span> list<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">item</span><span class="token punctuation">)</span><span class="token operator">=></span><span class="token punctuation">(</span>
+    <span class="token operator">&lt;</span>ul<span class="token operator">></span>
+        <span class="token operator">&lt;</span>li key<span class="token operator">=</span><span class="token punctuation">&#123;</span>item<span class="token punctuation">.</span>id<span class="token punctuation">&#125;</span><span class="token operator">></span>
+          <span class="token operator">&lt;</span>h3<span class="token operator">></span><span class="token punctuation">&#123;</span>item<span class="token punctuation">.</span>name<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>h3<span class="token operator">></span>
+          <span class="token operator">&lt;</span>p<span class="token operator">></span><span class="token punctuation">&#123;</span>item<span class="token punctuation">.</span>price<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
+        <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">></span>
+<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+
+<h2 id="样式处理"><a href="#样式处理" class="headerlink" title="样式处理"></a>样式处理</h2><h3 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h3><p>掌握 React 中使用样式的两种方式。</p>
+<h3 id="行内样式"><a href="#行内样式" class="headerlink" title="行内样式"></a>行内样式</h3><ul>
+<li>语法</li>
+</ul>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token operator">&lt;</span>元素 style<span class="token operator">=</span><span class="token punctuation">&#123;</span> <span class="token punctuation">&#123;</span>css属性<span class="token number">1</span>：值<span class="token number">1</span><span class="token punctuation">,</span>css属性<span class="token number">2</span>：值<span class="token number">2</span><span class="token punctuation">&#125;</span> <span class="token punctuation">&#125;</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>元素<span class="token operator">></span></code></pre>
+
+<ul>
+<li>需求</li>
+</ul>
+<img src="https://zhihur.com/resource/images/react_style.png">
+
+<ul>
+<li>代码</li>
+</ul>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token operator">&lt;</span>div style<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">width</span><span class="token operator">:</span> <span class="token number">200</span><span class="token punctuation">,</span> <span class="token literal-property property">height</span><span class="token operator">:</span> <span class="token number">200</span><span class="token punctuation">,</span> <span class="token literal-property property">lineHeight</span><span class="token operator">:</span> <span class="token string">'200px'</span><span class="token punctuation">,</span> <span class="token literal-property property">backgroundColor</span><span class="token operator">:</span> <span class="token string">'black'</span><span class="token punctuation">,</span> <span class="token literal-property property">color</span><span class="token operator">:</span> <span class="token string">'white'</span><span class="token punctuation">,</span> <span class="token literal-property property">textAlign</span><span class="token operator">:</span> <span class="token string">'center'</span><span class="token punctuation">,</span> <span class="token literal-property property">fontSize</span><span class="token operator">:</span> <span class="token number">30</span> <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token operator">></span>React<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span></code></pre>
+
+
+
+<ul>
+<li><p>注意点</p>
+<p>a，为啥有两个<code>&#123;&#123; &#125;&#125;</code>，外层的 <code>&#123;&#125;</code> 表示要开始写 JS 表达式了，内层的 <code>&#123;&#125;</code> 表示是一个对象。</p>
+<p>b，属性名是小驼峰格式，例如 <code>background-color</code> 需要写成 <code>backgroundColor</code>。</p>
+<p>c，属性值是字符串，如果单位是 px，可以简写成数值。</p>
+</li>
+</ul>
+<h3 id="className"><a href="#className" class="headerlink" title="className"></a>className</h3><ul>
+<li>用 <code>className</code> 定义类名。</li>
+<li>在 <code>src</code> 目录中准备 <code>index.css</code> 文件，然后在 <code>index.js</code> 文件中通过 <code>import &#39;./index.css&#39;</code> 引入文件。</li>
+</ul>
+<p><code>index.css</code></p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token punctuation">.</span>title <span class="token punctuation">&#123;</span>
+    <span class="token literal-property property">width</span><span class="token operator">:</span> 200px<span class="token punctuation">;</span>
+    <span class="token literal-property property">height</span><span class="token operator">:</span> 200px<span class="token punctuation">;</span>
+    <span class="token literal-property property">color</span><span class="token operator">:</span> white<span class="token punctuation">;</span>
+    background<span class="token operator">-</span>color<span class="token operator">:</span> black<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p><code>index.js</code></p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">import</span> <span class="token string">'./index.css'</span>
+<span class="token punctuation">;</span><span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">'title'</span><span class="token operator">></span>Hello React<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span></code></pre>
+
+
+
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ul>
+<li>类名使用 <code>className</code>，<strong>推荐</strong>。</li>
+<li>行内样式，<code>&lt;div style=&#123;&#123; color: 'red' &#125;&#125;&gt;Hello&lt;/div&gt;</code>。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>React.js</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>React</tag>
       </tags>
   </entry>
   <entry>
@@ -3891,6 +3846,51 @@ app<span class="token punctuation">.</span><span class="token function">mixin</s
       <tags>
         <tag>前端</tag>
         <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>浅谈正则表达式中的分组和引用</title>
+    <url>/2019/05/01/90501.html</url>
+    <content><![CDATA[<h1 id="浅谈正则表达式中的分组和引用"><a href="#浅谈正则表达式中的分组和引用" class="headerlink" title="浅谈正则表达式中的分组和引用"></a>浅谈正则表达式中的分组和引用</h1><p>由正则表达式如何匹配相同字符出发，讲讲正则表达式中的选择、分组和引用。</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>在外刊君读者群中看到有人提出这样的一个需求：</p>
+<blockquote>
+<p>把字符串切成连续相同字符的正则怎么写？比如<code>abbcccdddd</code>切成<code>a,bb,ccc,dddd</code></p>
+</blockquote>
+<p>之前我对正则表达式也是略有研究，想尝试一下。其实我对正则表达式的学习基本完全来源于犀牛书的第10章，真正看懂这一章，我觉得操作正则表达式应该不在话下。</p>
+<h2 id="我的答案"><a href="#我的答案" class="headerlink" title="我的答案"></a>我的答案</h2><p>先给出我的答案吧：</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token string">'abbccddd'</span><span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(\w)\1*</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">)</span> <span class="token comment">// ["a", "bb", "cc", "ddd"]</span></code></pre>
+
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>拿到这个问题，首先要匹配字符<code>[a-zA-Z0-9]</code>，这里直接使用<code>\w</code>。然后是全局匹配，在最后加上<code>g</code>。难点在于怎么判断重复。</p>
+<p>翻看了犀牛书后，又读了一遍分组和引用的部分。使用小括号<code>()</code>将字符作为一个最小单元，同时小括号还能记忆这个组合相匹配的字符串。再使用反斜杠<code>\</code>引用前面分组的表达式，数字1表示第一个小括号。这时完成了2个字符重复的要求。最后再使用<code>*</code>来匹配出现0次或n次。这个正则表达式就写完了。</p>
+<p>下面详细说说分组和引用。</p>
+<p><strong>正则表达式的选择、分组和引用字符表</strong></p>
+<table>
+<thead>
+<tr>
+<th>|</th>
+<th>选择，匹配的是该符号左边的子表达式或右边的子表达式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>(…)</td>
+<td>组合，将几个项组合为一个单元，这个单元可通过<code>*</code> <code>+</code> <code>?</code> `</td>
+</tr>
+<tr>
+<td>(?:…)</td>
+<td>只组合，把项组合到一个段元，但不记忆与该组相匹配的字符</td>
+</tr>
+<tr>
+<td>\n</td>
+<td>和第n个分组第一次匹配的字符相匹配，组是圆括号中的子表达式（也有可能是嵌套的），组索引是从左到右的左括号数，<code>(?:</code>形式的分组不编码</td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>Regular</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>正则</tag>
       </tags>
   </entry>
 </search>
