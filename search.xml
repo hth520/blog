@@ -595,6 +595,99 @@ console<span class="token punctuation">.</span><span class="token function">log<
       </tags>
   </entry>
   <entry>
+    <title>手淘rem的适配方案详解</title>
+    <url>/2019/06/18/90618.html</url>
+    <content><![CDATA[<h1 id="手淘rem的适配方案详解"><a href="#手淘rem的适配方案详解" class="headerlink" title="手淘rem的适配方案详解"></a>手淘rem的适配方案详解</h1><h2 id="什么是rem？"><a href="#什么是rem？" class="headerlink" title="什么是rem？"></a>什么是rem？</h2><p>CSS3新增的一个相对单位rem（root em，根em）。rem是相对于根节点（或者是html节点）。如果根节点设置了font-size:10px;那么font-size:1.5rem;字体大小等于15px。</p>
+<p>想想看，因为rem是一个相对单位，那么只要根节点的font-size属性随着屏幕自适应，那么下面通过rem设置的单位便可以达到自适应的目的！<br>当我们拿到设计稿的时候，主要会将视觉稿分成100份（主要为了以后能更好的兼容vh和vw），而每一份被称为一个单位a。同时1rem单位被认定为10a。就相当于1rem可以定为宽度为屏幕的10%。那么针对一个750px宽的设计稿，我们可以算出：</p>
+<pre class="language-js" data-language="js"><code class="language-js">1a   <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">.</span>5px
+1rem <span class="token operator">=</span> 75px </code></pre>
+
+<p>那么这个设计稿也就被分成了10rem份。此时淘宝开源库<code>lib-flexible</code>会为根节点的html和body元素设置一个<code>data-dpr</code>和<code>font-size</code>两个属性。其中dpr在IOS内会根据不同型号的机器动态的计算生成，大多数机型的<code>data-dpr=2</code>但是对于安卓来说，由于其机型特别复杂多样，dpr会全部设置成1。<br><code>font-size = 1rem</code>，对于一个750的设计稿来说，<code>font-size=75px</code>，而这个就是rem的基准值。这样一来，对于视觉稿上的元素尺寸换算，只需要原始的px值除以rem基准值即可。例如此例视觉稿中的图片，其尺寸是176px * 176px,转换成为2.346667rem * 2.346667rem。</p>
+<h3 id="lib-flexible-原理"><a href="#lib-flexible-原理" class="headerlink" title="lib-flexible 原理"></a>lib-flexible 原理</h3><h4 id="1-计算页面的dpr"><a href="#1-计算页面的dpr" class="headerlink" title="1. 计算页面的dpr"></a>1. 计算页面的dpr</h4><pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>dpr <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>scale<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">var</span> isAndroid <span class="token operator">=</span> win<span class="token punctuation">.</span>navigator<span class="token punctuation">.</span>appVersion<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">android</span><span class="token regex-delimiter">/</span><span class="token regex-flags">gi</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> isIPhone <span class="token operator">=</span> win<span class="token punctuation">.</span>navigator<span class="token punctuation">.</span>appVersion<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">iphone</span><span class="token regex-delimiter">/</span><span class="token regex-flags">gi</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> devicePixelRatio <span class="token operator">=</span> win<span class="token punctuation">.</span>devicePixelRatio<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>isIPhone<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">// iOS下，3和3以上的屏，用3倍的方案，2用2倍方案，其余的用1倍方案</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>devicePixelRatio <span class="token operator">>=</span> <span class="token number">3</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span><span class="token operator">!</span>dpr <span class="token operator">||</span> dpr <span class="token operator">>=</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>                
+            dpr <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>devicePixelRatio <span class="token operator">>=</span> <span class="token number">2</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span><span class="token operator">!</span>dpr <span class="token operator">||</span> dpr <span class="token operator">>=</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+            dpr <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+            dpr <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">// 其他设备下，仍旧使用1倍的方案</span>
+        dpr <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    scale <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">/</span> dpr<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<h4 id="2-改写页面meta标签"><a href="#2-改写页面meta标签" class="headerlink" title="2. 改写页面meta标签"></a>2. 改写页面meta标签</h4><p><code>flexible</code>实际上就是能过JS来动态改写<code>meta</code>标签，代码类似这样：</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> metaEl <span class="token operator">=</span> doc<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'meta'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> scale <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">/</span> dpr<span class="token punctuation">;</span>
+metaEl<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">'name'</span><span class="token punctuation">,</span> <span class="token string">'viewport'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+metaEl<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">'content'</span><span class="token punctuation">,</span> <span class="token string">'initial-scale='</span> <span class="token operator">+</span> scale <span class="token operator">+</span> <span class="token string">', maximum-scale='</span> <span class="token operator">+</span> scale <span class="token operator">+</span> <span class="token string">', minimum-scale='</span> <span class="token operator">+</span> scale <span class="token operator">+</span> <span class="token string">', user-scalable=no'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>docEl<span class="token punctuation">.</span>firstElementChild<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    document<span class="token punctuation">.</span>documentElement<span class="token punctuation">.</span>firstElementChild<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>metaEl<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">var</span> wrap <span class="token operator">=</span> doc<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'div'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    wrap<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>metaEl<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    documen<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>wrap<span class="token punctuation">.</span>innerHTML<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<h3 id="如何转换rem"><a href="#如何转换rem" class="headerlink" title="如何转换rem"></a>如何转换rem</h3><p>对于使用webpack的来说，其实也是有一个postcss插件的<code>px2rem</code>，可以很轻松的配置相关属性，转换成相对于的rem单位。比如我们的<code>.postcssrc</code> 配置如下：</p>
+<pre class="language-js" data-language="js"><code class="language-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+  <span class="token string-property property">"plugins"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token string-property property">"postcss-px2rem"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token literal-property property">baseDpr</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">remUnit</span><span class="token operator">:</span> <span class="token number">37.5</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">onePxComment</span><span class="token operator">:</span> <span class="token string">'1px'</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">forcePxComment</span><span class="token operator">:</span> <span class="token string">'!px'</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">keepComment</span><span class="token operator">:</span> <span class="token string">'!no'</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">forcePxProperty</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'font-size'</span><span class="token punctuation">]</span> <span class="token comment">// font-size强制使用px单位</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<h4 id="1-文本字号不建议使用rem"><a href="#1-文本字号不建议使用rem" class="headerlink" title="1. 文本字号不建议使用rem"></a>1. 文本字号不建议使用rem</h4><p>前面大家都见证了如何使用rem来完成H5适配。那么文本又将如何处理适配。是不是也通过rem来做自动适配。</p>
+<p>显然，我们在iPhone3G和iPhone4的Retina屏下面，希望看到的文本字号是相同的。也就是说，我们不希望文本在Retina屏幕下变小，另外，我们希望在大屏手机上看到更多文本，以及，现在绝大多数的字体文件都自带一些点阵尺寸，通常是16px和24px，所以我们不希望出现13px和15px这样的奇葩尺寸。</p>
+<p>如此一来，就决定了在制作H5的页面中，rem并不适合用到段落文本上。所以在Flexible整个适配方案中，考虑文本还是使用px作为单位。只不过使用<code>[data-dpr]</code>属性来区分不同dpr下的文本字号大小。</p>
+<p>配置完成之后，在实际使用时，你只要像下面这样使用：</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token punctuation">.</span>selector <span class="token punctuation">&#123;</span>
+    <span class="token literal-property property">width</span><span class="token operator">:</span> 150px<span class="token punctuation">;</span>
+    <span class="token literal-property property">height</span><span class="token operator">:</span> 150px<span class="token punctuation">;</span> 
+    font<span class="token operator">-</span>size<span class="token operator">:</span> 12px<span class="token punctuation">;</span> 
+    <span class="token literal-property property">border</span><span class="token operator">:</span> 1px solid #ddd<span class="token punctuation">;</span> 
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>px2rem处理之后将会变成：</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token punctuation">.</span>selector <span class="token punctuation">&#123;</span>
+    <span class="token literal-property property">width</span><span class="token operator">:</span> 2rem<span class="token punctuation">;</span>
+   <span class="token literal-property property">height</span><span class="token operator">:</span> 2rem<span class="token punctuation">;</span>
+    <span class="token literal-property property">border</span><span class="token operator">:</span> 1px solid #ddd<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token punctuation">[</span>data<span class="token operator">-</span>dpr<span class="token operator">=</span><span class="token string">"1"</span><span class="token punctuation">]</span> <span class="token punctuation">.</span>selector <span class="token punctuation">&#123;</span>
+    font<span class="token operator">-</span>size<span class="token operator">:</span> 12px<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token punctuation">[</span>data<span class="token operator">-</span>dpr<span class="token operator">=</span><span class="token string">"2"</span><span class="token punctuation">]</span> <span class="token punctuation">.</span>selector <span class="token punctuation">&#123;</span>
+    font<span class="token operator">-</span>size<span class="token operator">:</span> 28px<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token punctuation">[</span>data<span class="token operator">-</span>dpr<span class="token operator">=</span><span class="token string">"3"</span><span class="token punctuation">]</span> <span class="token punctuation">.</span>selector <span class="token punctuation">&#123;</span>
+    font<span class="token operator">-</span>size<span class="token operator">:</span> 42px<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>因为不同的dpr，屏幕会缩成不同比例，所以这里的字号会根据dpr进行相应的放大。举个例子，如果<code>data-dpr = 2</code> 那么页面的viewport会被缩小，所以字号需要相应的乘以比例进行放大。</p>
+]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>适配</tag>
+        <tag>rem</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>JavaScript 函数继承的几种方法</title>
     <url>/2019/06/27/90627.html</url>
     <content><![CDATA[<h3 id="一、原型链继承"><a href="#一、原型链继承" class="headerlink" title="一、原型链继承"></a>一、原型链继承</h3><blockquote>
@@ -889,99 +982,6 @@ console.log(child2.friends); &#x2F;&#x2F; [&quot;rose&quot;, &quot;lily&quot;, &
       </tags>
   </entry>
   <entry>
-    <title>手淘rem的适配方案详解</title>
-    <url>/2019/06/18/90618.html</url>
-    <content><![CDATA[<h1 id="手淘rem的适配方案详解"><a href="#手淘rem的适配方案详解" class="headerlink" title="手淘rem的适配方案详解"></a>手淘rem的适配方案详解</h1><h2 id="什么是rem？"><a href="#什么是rem？" class="headerlink" title="什么是rem？"></a>什么是rem？</h2><p>CSS3新增的一个相对单位rem（root em，根em）。rem是相对于根节点（或者是html节点）。如果根节点设置了font-size:10px;那么font-size:1.5rem;字体大小等于15px。</p>
-<p>想想看，因为rem是一个相对单位，那么只要根节点的font-size属性随着屏幕自适应，那么下面通过rem设置的单位便可以达到自适应的目的！<br>当我们拿到设计稿的时候，主要会将视觉稿分成100份（主要为了以后能更好的兼容vh和vw），而每一份被称为一个单位a。同时1rem单位被认定为10a。就相当于1rem可以定为宽度为屏幕的10%。那么针对一个750px宽的设计稿，我们可以算出：</p>
-<pre class="language-js" data-language="js"><code class="language-js">1a   <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">.</span>5px
-1rem <span class="token operator">=</span> 75px </code></pre>
-
-<p>那么这个设计稿也就被分成了10rem份。此时淘宝开源库<code>lib-flexible</code>会为根节点的html和body元素设置一个<code>data-dpr</code>和<code>font-size</code>两个属性。其中dpr在IOS内会根据不同型号的机器动态的计算生成，大多数机型的<code>data-dpr=2</code>但是对于安卓来说，由于其机型特别复杂多样，dpr会全部设置成1。<br><code>font-size = 1rem</code>，对于一个750的设计稿来说，<code>font-size=75px</code>，而这个就是rem的基准值。这样一来，对于视觉稿上的元素尺寸换算，只需要原始的px值除以rem基准值即可。例如此例视觉稿中的图片，其尺寸是176px * 176px,转换成为2.346667rem * 2.346667rem。</p>
-<h3 id="lib-flexible-原理"><a href="#lib-flexible-原理" class="headerlink" title="lib-flexible 原理"></a>lib-flexible 原理</h3><h4 id="1-计算页面的dpr"><a href="#1-计算页面的dpr" class="headerlink" title="1. 计算页面的dpr"></a>1. 计算页面的dpr</h4><pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>dpr <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>scale<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">var</span> isAndroid <span class="token operator">=</span> win<span class="token punctuation">.</span>navigator<span class="token punctuation">.</span>appVersion<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">android</span><span class="token regex-delimiter">/</span><span class="token regex-flags">gi</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">var</span> isIPhone <span class="token operator">=</span> win<span class="token punctuation">.</span>navigator<span class="token punctuation">.</span>appVersion<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">iphone</span><span class="token regex-delimiter">/</span><span class="token regex-flags">gi</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">var</span> devicePixelRatio <span class="token operator">=</span> win<span class="token punctuation">.</span>devicePixelRatio<span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>isIPhone<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token comment">// iOS下，3和3以上的屏，用3倍的方案，2用2倍方案，其余的用1倍方案</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>devicePixelRatio <span class="token operator">>=</span> <span class="token number">3</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span><span class="token operator">!</span>dpr <span class="token operator">||</span> dpr <span class="token operator">>=</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>                
-            dpr <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>devicePixelRatio <span class="token operator">>=</span> <span class="token number">2</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span><span class="token operator">!</span>dpr <span class="token operator">||</span> dpr <span class="token operator">>=</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-            dpr <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-            dpr <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-        <span class="token comment">// 其他设备下，仍旧使用1倍的方案</span>
-        dpr <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    scale <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">/</span> dpr<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-
-<h4 id="2-改写页面meta标签"><a href="#2-改写页面meta标签" class="headerlink" title="2. 改写页面meta标签"></a>2. 改写页面meta标签</h4><p><code>flexible</code>实际上就是能过JS来动态改写<code>meta</code>标签，代码类似这样：</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> metaEl <span class="token operator">=</span> doc<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'meta'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">var</span> scale <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">/</span> dpr<span class="token punctuation">;</span>
-metaEl<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">'name'</span><span class="token punctuation">,</span> <span class="token string">'viewport'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-metaEl<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">'content'</span><span class="token punctuation">,</span> <span class="token string">'initial-scale='</span> <span class="token operator">+</span> scale <span class="token operator">+</span> <span class="token string">', maximum-scale='</span> <span class="token operator">+</span> scale <span class="token operator">+</span> <span class="token string">', minimum-scale='</span> <span class="token operator">+</span> scale <span class="token operator">+</span> <span class="token string">', user-scalable=no'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">if</span> <span class="token punctuation">(</span>docEl<span class="token punctuation">.</span>firstElementChild<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    document<span class="token punctuation">.</span>documentElement<span class="token punctuation">.</span>firstElementChild<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>metaEl<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">var</span> wrap <span class="token operator">=</span> doc<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'div'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    wrap<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>metaEl<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    documen<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>wrap<span class="token punctuation">.</span>innerHTML<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-
-<h3 id="如何转换rem"><a href="#如何转换rem" class="headerlink" title="如何转换rem"></a>如何转换rem</h3><p>对于使用webpack的来说，其实也是有一个postcss插件的<code>px2rem</code>，可以很轻松的配置相关属性，转换成相对于的rem单位。比如我们的<code>.postcssrc</code> 配置如下：</p>
-<pre class="language-js" data-language="js"><code class="language-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-  <span class="token string-property property">"plugins"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-    <span class="token string-property property">"postcss-px2rem"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-      <span class="token literal-property property">baseDpr</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
-      <span class="token literal-property property">remUnit</span><span class="token operator">:</span> <span class="token number">37.5</span><span class="token punctuation">,</span>
-      <span class="token literal-property property">onePxComment</span><span class="token operator">:</span> <span class="token string">'1px'</span><span class="token punctuation">,</span>
-      <span class="token literal-property property">forcePxComment</span><span class="token operator">:</span> <span class="token string">'!px'</span><span class="token punctuation">,</span>
-      <span class="token literal-property property">keepComment</span><span class="token operator">:</span> <span class="token string">'!no'</span><span class="token punctuation">,</span>
-      <span class="token literal-property property">forcePxProperty</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'font-size'</span><span class="token punctuation">]</span> <span class="token comment">// font-size强制使用px单位</span>
-    <span class="token punctuation">&#125;</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-
-<h4 id="1-文本字号不建议使用rem"><a href="#1-文本字号不建议使用rem" class="headerlink" title="1. 文本字号不建议使用rem"></a>1. 文本字号不建议使用rem</h4><p>前面大家都见证了如何使用rem来完成H5适配。那么文本又将如何处理适配。是不是也通过rem来做自动适配。</p>
-<p>显然，我们在iPhone3G和iPhone4的Retina屏下面，希望看到的文本字号是相同的。也就是说，我们不希望文本在Retina屏幕下变小，另外，我们希望在大屏手机上看到更多文本，以及，现在绝大多数的字体文件都自带一些点阵尺寸，通常是16px和24px，所以我们不希望出现13px和15px这样的奇葩尺寸。</p>
-<p>如此一来，就决定了在制作H5的页面中，rem并不适合用到段落文本上。所以在Flexible整个适配方案中，考虑文本还是使用px作为单位。只不过使用<code>[data-dpr]</code>属性来区分不同dpr下的文本字号大小。</p>
-<p>配置完成之后，在实际使用时，你只要像下面这样使用：</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token punctuation">.</span>selector <span class="token punctuation">&#123;</span>
-    <span class="token literal-property property">width</span><span class="token operator">:</span> 150px<span class="token punctuation">;</span>
-    <span class="token literal-property property">height</span><span class="token operator">:</span> 150px<span class="token punctuation">;</span> 
-    font<span class="token operator">-</span>size<span class="token operator">:</span> 12px<span class="token punctuation">;</span> 
-    <span class="token literal-property property">border</span><span class="token operator">:</span> 1px solid #ddd<span class="token punctuation">;</span> 
-<span class="token punctuation">&#125;</span></code></pre>
-
-<p>px2rem处理之后将会变成：</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token punctuation">.</span>selector <span class="token punctuation">&#123;</span>
-    <span class="token literal-property property">width</span><span class="token operator">:</span> 2rem<span class="token punctuation">;</span>
-   <span class="token literal-property property">height</span><span class="token operator">:</span> 2rem<span class="token punctuation">;</span>
-    <span class="token literal-property property">border</span><span class="token operator">:</span> 1px solid #ddd<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token punctuation">[</span>data<span class="token operator">-</span>dpr<span class="token operator">=</span><span class="token string">"1"</span><span class="token punctuation">]</span> <span class="token punctuation">.</span>selector <span class="token punctuation">&#123;</span>
-    font<span class="token operator">-</span>size<span class="token operator">:</span> 12px<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token punctuation">[</span>data<span class="token operator">-</span>dpr<span class="token operator">=</span><span class="token string">"2"</span><span class="token punctuation">]</span> <span class="token punctuation">.</span>selector <span class="token punctuation">&#123;</span>
-    font<span class="token operator">-</span>size<span class="token operator">:</span> 28px<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token punctuation">[</span>data<span class="token operator">-</span>dpr<span class="token operator">=</span><span class="token string">"3"</span><span class="token punctuation">]</span> <span class="token punctuation">.</span>selector <span class="token punctuation">&#123;</span>
-    font<span class="token operator">-</span>size<span class="token operator">:</span> 42px<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-
-<p>因为不同的dpr，屏幕会缩成不同比例，所以这里的字号会根据dpr进行相应的放大。举个例子，如果<code>data-dpr = 2</code> 那么页面的viewport会被缩小，所以字号需要相应的乘以比例进行放大。</p>
-]]></content>
-      <categories>
-        <category>CSS</category>
-      </categories>
-      <tags>
-        <tag>适配</tag>
-        <tag>rem</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>VScode文件顶部加入作者信息、日期和函数注释设置</title>
     <url>/2019/06/28/90628.html</url>
     <content><![CDATA[<h1 id="VScode文件顶部加入作者信息、日期和函数注释设置"><a href="#VScode文件顶部加入作者信息、日期和函数注释设置" class="headerlink" title="VScode文件顶部加入作者信息、日期和函数注释设置"></a>VScode文件顶部加入作者信息、日期和函数注释设置</h1><h3 id="1-vscode安装插件KoroFileHeader"><a href="#1-vscode安装插件KoroFileHeader" class="headerlink" title="1.vscode安装插件KoroFileHeader"></a>1.vscode安装插件KoroFileHeader</h3><h3 id="2-左上角选择文件–首选项—设置—输入”fileheader”—点击”在setting-json中编辑”"><a href="#2-左上角选择文件–首选项—设置—输入”fileheader”—点击”在setting-json中编辑”" class="headerlink" title="2.左上角选择文件–首选项—设置—输入”fileheader”—点击”在setting.json中编辑”"></a>2.左上角选择文件–首选项—设置—输入”fileheader”—点击”在setting.json中编辑”</h3><h3 id="3-”fileheader-configObj”同级输入"><a href="#3-”fileheader-configObj”同级输入" class="headerlink" title="3.”fileheader.configObj”同级输入"></a>3.”fileheader.configObj”同级输入</h3><pre class="language-js" data-language="js"><code class="language-js"><span class="token comment">// 文件头部注释</span>
@@ -1059,6 +1059,66 @@ metaEl<span class="token punctuation">.</span><span class="token function">setAt
       </categories>
       <tags>
         <tag>markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git 克隆非 master 分支的代码</title>
+    <url>/2020/02/14/140.html</url>
+    <content><![CDATA[<h1 id="Git-克隆非-master-分支的代码"><a href="#Git-克隆非-master-分支的代码" class="headerlink" title="Git 克隆非 master 分支的代码"></a>Git 克隆非 master 分支的代码</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>我们每次使用命令</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> clone git@gitlab.xxx.com:xxxxx.git</code></pre>
+
+<p>默认 clone 的是这个仓库的 master 分支。如果最新的代码不在 master 分支上，该如何拿到呢？如下图所示，最新的代码可能在<code>daily/1.4.1</code>分支上，我们希望拿到这个分支上的代码。</p>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p><strong>直接使用命令</strong></p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> branch -r <span class="token comment">#查看远程分支</span></code></pre>
+
+<p>或</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> branch -a <span class="token comment">#查看所有分支</span></code></pre>
+
+<p>会显示</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">origin/HEAD -<span class="token operator">></span> origin/master
+origin/daily/1.2.2
+origin/daily/1.3.0
+origin/daily/1.4.1
+origin/develop
+origin/feature/daily-1.0.0
+origin/master</code></pre>
+
+<p>然后直接</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> checkout origin/daily/1.4.1</code></pre>
+
+<p>就好了。。。</p>
+<h2 id="原来的解决方案"><a href="#原来的解决方案" class="headerlink" title="原来的解决方案"></a>原来的解决方案</h2><p><strong>其实我原来写的这个方法更多的是：设置已有的本地分支跟踪一个刚刚拉取下来的远程分支，或者想要修改正在跟踪的上游分支。</strong></p>
+<p>我们在本地先建立一个分支，建议名称和远程的想要同步的分支名称一样。</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> branch daily/1.4.1</code></pre>
+
+<p>在切换到这个本地分支</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> checkout daily/1.4.1
+<span class="token comment"># Switched to branch 'daily/1.4.1'</span></code></pre>
+
+<p>接下来就可以去建立上游分支的关联了，但是这个命令比较长，不好记，我们可以直接先<code>pull</code>一下，git 会提示我们相应的操作和命令。</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> pull
+There is no tracking information <span class="token keyword">for</span> the current branch.
+Please specify <span class="token function">which</span> branch you want to merge with.
+See git-pull<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token keyword">for</span> details.
+
+    <span class="token function">git</span> pull <span class="token operator">&lt;</span>remote<span class="token operator">></span> <span class="token operator">&lt;</span>branch<span class="token operator">></span>
+
+If you wish to <span class="token builtin class-name">set</span> tracking information <span class="token keyword">for</span> this branch you can <span class="token keyword">do</span> so with:
+
+    <span class="token function">git</span> branch --set-upstream-to<span class="token operator">=</span>origin/<span class="token operator">&lt;</span>branch<span class="token operator">></span> daily/1.4.1</code></pre>
+
+<p>我们看到最后一行，执行这个命令，即可完成与上游分支的关联。</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> branch --set-upstream-to<span class="token operator">=</span>origin/daily/1.4.1 daily/1.4.1
+<span class="token comment"># Branch daily/1.4.1 set up to track remote branch daily/1.4.1 from origin.</span></code></pre>
+
+<p>然后再<code>pull</code>一下就好了！</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> pull</code></pre>]]></content>
+      <categories>
+        <category>GitHub</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+        <tag>GitHub分支</tag>
       </tags>
   </entry>
   <entry>
@@ -1572,66 +1632,6 @@ metaEl<span class="token punctuation">.</span><span class="token function">setAt
       <tags>
         <tag>markdown</tag>
         <tag>emoji</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Git 克隆非 master 分支的代码</title>
-    <url>/2020/02/14/140.html</url>
-    <content><![CDATA[<h1 id="Git-克隆非-master-分支的代码"><a href="#Git-克隆非-master-分支的代码" class="headerlink" title="Git 克隆非 master 分支的代码"></a>Git 克隆非 master 分支的代码</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>我们每次使用命令</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> clone git@gitlab.xxx.com:xxxxx.git</code></pre>
-
-<p>默认 clone 的是这个仓库的 master 分支。如果最新的代码不在 master 分支上，该如何拿到呢？如下图所示，最新的代码可能在<code>daily/1.4.1</code>分支上，我们希望拿到这个分支上的代码。</p>
-<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p><strong>直接使用命令</strong></p>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> branch -r <span class="token comment">#查看远程分支</span></code></pre>
-
-<p>或</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> branch -a <span class="token comment">#查看所有分支</span></code></pre>
-
-<p>会显示</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">origin/HEAD -<span class="token operator">></span> origin/master
-origin/daily/1.2.2
-origin/daily/1.3.0
-origin/daily/1.4.1
-origin/develop
-origin/feature/daily-1.0.0
-origin/master</code></pre>
-
-<p>然后直接</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> checkout origin/daily/1.4.1</code></pre>
-
-<p>就好了。。。</p>
-<h2 id="原来的解决方案"><a href="#原来的解决方案" class="headerlink" title="原来的解决方案"></a>原来的解决方案</h2><p><strong>其实我原来写的这个方法更多的是：设置已有的本地分支跟踪一个刚刚拉取下来的远程分支，或者想要修改正在跟踪的上游分支。</strong></p>
-<p>我们在本地先建立一个分支，建议名称和远程的想要同步的分支名称一样。</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> branch daily/1.4.1</code></pre>
-
-<p>在切换到这个本地分支</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> checkout daily/1.4.1
-<span class="token comment"># Switched to branch 'daily/1.4.1'</span></code></pre>
-
-<p>接下来就可以去建立上游分支的关联了，但是这个命令比较长，不好记，我们可以直接先<code>pull</code>一下，git 会提示我们相应的操作和命令。</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> pull
-There is no tracking information <span class="token keyword">for</span> the current branch.
-Please specify <span class="token function">which</span> branch you want to merge with.
-See git-pull<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token keyword">for</span> details.
-
-    <span class="token function">git</span> pull <span class="token operator">&lt;</span>remote<span class="token operator">></span> <span class="token operator">&lt;</span>branch<span class="token operator">></span>
-
-If you wish to <span class="token builtin class-name">set</span> tracking information <span class="token keyword">for</span> this branch you can <span class="token keyword">do</span> so with:
-
-    <span class="token function">git</span> branch --set-upstream-to<span class="token operator">=</span>origin/<span class="token operator">&lt;</span>branch<span class="token operator">></span> daily/1.4.1</code></pre>
-
-<p>我们看到最后一行，执行这个命令，即可完成与上游分支的关联。</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> branch --set-upstream-to<span class="token operator">=</span>origin/daily/1.4.1 daily/1.4.1
-<span class="token comment"># Branch daily/1.4.1 set up to track remote branch daily/1.4.1 from origin.</span></code></pre>
-
-<p>然后再<code>pull</code>一下就好了！</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> pull</code></pre>]]></content>
-      <categories>
-        <category>GitHub</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-        <tag>GitHub分支</tag>
       </tags>
   </entry>
   <entry>
@@ -4208,6 +4208,155 @@ export default IntervalCouterHooks</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>React Hooks 系列之 useMemo</title>
+    <url>/2020/06/21/401.html</url>
+    <content><![CDATA[<p>掌握 React Hooks api 将更好的帮助你在工作中使用，对 React 的掌握更上一层楼。</p>
+<p>我们学习了 useCallback 来进行性能优化，关于性能优化还有另一个 hook api，那就是 useMemo，下面我们一起通过一个例子来看看。</p>
+<h2 id="计数器示例"><a href="#计数器示例" class="headerlink" title="计数器示例"></a>计数器示例</h2><p>依然是计数器示例，创建2个计数器，并能区分当前是奇数或者偶数，为了模拟点击按钮时包含大量的计算逻辑影响性能，在判断偶数的方法中添加了没有用的计算逻辑，为了让性能差的明显。代码如下</p>
+<p>Counter.tsx</p>
+<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> useState <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'react'</span>
+
+<span class="token keyword">function</span> <span class="token function">Counter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>counterOne<span class="token punctuation">,</span> setCounterOne<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>counterTwo<span class="token punctuation">,</span> setCounterTwo<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+
+  <span class="token keyword">const</span> <span class="token function-variable function">incrementOne</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token function">setCounterOne</span><span class="token punctuation">(</span>counterOne <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">const</span> <span class="token function-variable function">incrementTwo</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token function">setCounterTwo</span><span class="token punctuation">(</span>counterTwo <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">const</span> <span class="token function-variable function">isEven</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> <span class="token number">1000000000</span><span class="token punctuation">)</span> i <span class="token operator">+=</span> <span class="token number">1</span>
+    <span class="token keyword">return</span> counterOne <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">0</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span>
+        <span class="token attr-name">onClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>incrementOne<span class="token punctuation">&#125;</span></span>
+      <span class="token punctuation">></span></span><span class="token plain-text">Count One = </span><span class="token punctuation">&#123;</span>counterOne<span class="token punctuation">&#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token punctuation">&#123;</span>
+          <span class="token function">isEven</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token string">'even'</span> <span class="token operator">:</span> <span class="token string">'odd'</span>
+        <span class="token punctuation">&#125;</span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span> <span class="token punctuation">/></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span>
+        <span class="token attr-name">onClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>incrementTwo<span class="token punctuation">&#125;</span></span>
+      <span class="token punctuation">></span></span><span class="token plain-text">Count Two = </span><span class="token punctuation">&#123;</span>counterTwo<span class="token punctuation">&#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> Counter</code></pre>
+
+<p>App.tsx</p>
+<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">'react'</span>
+<span class="token keyword">import</span> <span class="token string">'./App.css'</span>
+
+<span class="token keyword">import</span> Counter <span class="token keyword">from</span> <span class="token string">'./components/27.Counter'</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">App</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>App<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Counter</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> App</code></pre>
+
+<p>页面展示如下</p>
+<p><img src="https://gw.alicdn.com/tfs/TB1r2l1GND1gK0jSZFKXXcJrVXa-702-286.gif" alt="img"></p>
+<p>我们发现点击第一个按钮有较长的延迟，因为我们的判断偶数的逻辑中包含了大量的计算逻辑。但是，我们点击第二个按钮，也有较长的延迟！这很奇怪。</p>
+<p>这是因为，每次 state 更新时，组件会 rerender，isEven 会被执行，这就是我们点击第二个按钮时，也会卡的原因。我们需要优化，告诉 React 不要有不必要的计算，特别是这种计算量复杂的。</p>
+<p>在我们的示例中，我们要告诉 React，在点击第二个按钮时，不要执行 isEven 方法。这时就需要 useMemo hook 登场了。</p>
+<h2 id="useMemo"><a href="#useMemo" class="headerlink" title="useMemo"></a>useMemo</h2><h3 id="优化示例"><a href="#优化示例" class="headerlink" title="优化示例"></a>优化示例</h3><p>与 useCallback 的用法类似。</p>
+<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">const</span> memoizedValue <span class="token operator">=</span> <span class="token function">useMemo</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">computeExpensiveValue</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>a<span class="token punctuation">,</span> b<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<blockquote>
+<p>返回一个 memoized 值。 把“创建”函数和依赖项数组作为参数传入 <code>useMemo</code>，它仅会在某个依赖项改变时才重新计算 memoized 值。这种优化有助于避免在每次渲染时都进行高开销的计算。</p>
+<p>记住，传入 <code>useMemo</code> 的函数会在渲染期间执行。请不要在这个函数内部执行与渲染无关的操作，诸如副作用这类的操作属于 <code>useEffect</code> 的适用范畴，而不是 <code>useMemo</code>。</p>
+<p>如果没有提供依赖项数组，<code>useMemo</code> 在每次渲染时都会计算新的值。</p>
+<p><strong>你可以把 useMemo 作为性能优化的手段，但不要把它当成语义上的保证。</strong> 将来，React 可能会选择“遗忘”以前的一些 memoized 值，并在下次渲染时重新计算它们，比如为离屏组件释放内存。先编写在没有 useMemo 的情况下也可以执行的代码 —— 之后再在你的代码中添加 useMemo，以达到优化性能的目的。</p>
+</blockquote>
+<p>首先引入 useMemo</p>
+<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> useState<span class="token punctuation">,</span> useMemo <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'react'</span></code></pre>
+
+<p>然后将 isEven 方法使用 useMemo 改写，返回值赋给 isEven</p>
+<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">const</span> isEven <span class="token operator">=</span> <span class="token function">useMemo</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span>
+  <span class="token keyword">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> <span class="token number">1000000000</span><span class="token punctuation">)</span> i <span class="token operator">+=</span> <span class="token number">1</span>
+  <span class="token keyword">return</span> counterOne <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">0</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>counterOne<span class="token punctuation">]</span><span class="token punctuation">)</span></code></pre>
+
+<p>最后记得修改 isEven 使用的地方，已经从一个方法变为了一个变量</p>
+<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token punctuation">&#123;</span>
+  isEven <span class="token operator">?</span> <span class="token string">'even'</span> <span class="token operator">:</span> <span class="token string">'odd'</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>完整代码如下</p>
+<p>Counter.tsx</p>
+<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> useState<span class="token punctuation">,</span> useMemo <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'react'</span>
+
+<span class="token keyword">function</span> <span class="token function">Counter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>counterOne<span class="token punctuation">,</span> setCounterOne<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>counterTwo<span class="token punctuation">,</span> setCounterTwo<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+
+  <span class="token keyword">const</span> <span class="token function-variable function">incrementOne</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token function">setCounterOne</span><span class="token punctuation">(</span>counterOne <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">const</span> <span class="token function-variable function">incrementTwo</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token function">setCounterTwo</span><span class="token punctuation">(</span>counterTwo <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">const</span> isEven <span class="token operator">=</span> <span class="token function">useMemo</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> <span class="token number">1000000000</span><span class="token punctuation">)</span> i <span class="token operator">+=</span> <span class="token number">1</span>
+    <span class="token keyword">return</span> counterOne <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">0</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>counterOne<span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span>
+        <span class="token attr-name">onClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>incrementOne<span class="token punctuation">&#125;</span></span>
+      <span class="token punctuation">></span></span><span class="token plain-text">Count One = </span><span class="token punctuation">&#123;</span>counterOne<span class="token punctuation">&#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token punctuation">&#123;</span>
+          isEven <span class="token operator">?</span> <span class="token string">'even'</span> <span class="token operator">:</span> <span class="token string">'odd'</span>
+        <span class="token punctuation">&#125;</span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span> <span class="token punctuation">/></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span>
+        <span class="token attr-name">onClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>incrementTwo<span class="token punctuation">&#125;</span></span>
+      <span class="token punctuation">></span></span><span class="token plain-text">Count Two = </span><span class="token punctuation">&#123;</span>counterTwo<span class="token punctuation">&#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> Counter</code></pre>
+
+<p>效果如下</p>
+<p><img src="https://gw.alicdn.com/tfs/TB1Oz_bb5cKOu4jSZKbXXc19XXa-702-286.gif" alt="img"></p>
+<p>我们看到点击第二个按钮时，不会有任何卡顿，这是因为使用了 useMemo 只依赖了 counterOne 变量，点击第二个按钮时，isEven 读取的是缓存值，不需要再重新计算是否为偶数。</p>
+<h3 id="useMemo-与-useCallback-的区别"><a href="#useMemo-与-useCallback-的区别" class="headerlink" title="useMemo 与 useCallback 的区别"></a>useMemo 与 useCallback 的区别</h3><p>useCallback 是缓存了函数自身，而 useMemo 是缓存了函数的返回值。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本章通过示例展示了 useMemo 在性能优化中的作用。通过缓存函数的返回值，避免不必要的调用，从而避免了组件 rerender。</p>
+<p>最后有分析了 useMemo 与 useCallback 的区别，即 useMemo 是缓存了函数的返回值，useCallback 是缓存了函数自身。这两个 api 都是性能优化的方法。</p>
+]]></content>
+      <categories>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>React</tag>
+        <tag>hooks</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>React Hooks 系列之 useReducer</title>
     <url>/2020/06/13/395.html</url>
     <content><![CDATA[<p>掌握 React Hooks api 将更好的帮助你在工作中使用，对 React 的掌握更上一层楼。</p>
@@ -5069,339 +5218,6 @@ export default B</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>React Hooks 系列之 useRef</title>
-    <url>/2020/06/25/405.html</url>
-    <content><![CDATA[<p>掌握 React Hooks api 将更好的帮助你在工作中使用，对 React 的掌握更上一层楼。</p>
-<p>接下来我们要一起学习 useRef hook，它可以让我们直接访问到组件中的的 Dom 节点。我们今天通过一个 input 输入框获取焦点的需求为例，来学习一下 useRef。</p>
-<h2 id="页面载入-input-获取焦点示例"><a href="#页面载入-input-获取焦点示例" class="headerlink" title="页面载入 input 获取焦点示例"></a>页面载入 input 获取焦点示例</h2><p>FocusInput.tsx</p>
-<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> useEffect<span class="token punctuation">,</span> useRef<span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'react'</span>
-
-<span class="token keyword">function</span> <span class="token function">FocusInput</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">const</span> inputRef <span class="token operator">=</span> <span class="token generic-function"><span class="token function">useRef</span><span class="token generic class-name"><span class="token operator">&lt;</span>HTMLInputElement<span class="token operator">></span></span></span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span>
-  <span class="token function">useEffect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    inputRef<span class="token punctuation">.</span>current <span class="token operator">&amp;&amp;</span> inputRef<span class="token punctuation">.</span>current<span class="token punctuation">.</span><span class="token function">focus</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-
-  <span class="token keyword">return</span> <span class="token punctuation">(</span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">ref</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>inputRef<span class="token punctuation">&#125;</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
-    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-  <span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">export</span> <span class="token keyword">default</span> FocusInput</code></pre>
-
-<p>App.tsx</p>
-<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">'react'</span>
-<span class="token keyword">import</span> <span class="token string">'./App.css'</span>
-
-<span class="token keyword">import</span> FocusInput <span class="token keyword">from</span> <span class="token string">'./components/28FocusInput'</span>
-
-<span class="token keyword">const</span> <span class="token function-variable function">App</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">return</span> <span class="token punctuation">(</span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>App<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">FocusInput</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
-    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-  <span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">export</span> <span class="token keyword">default</span> App</code></pre>
-
-<p>页面展示效果</p>
-<p><img src="https://gw.alicdn.com/tfs/TB1lxWlHkY2gK0jSZFgXXc5OFXa-363-125.gif" alt="img"></p>
-<p>注意与 TypeScript 结合使用时的方式，需要先声明好泛型</p>
-<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">const</span> inputRef <span class="token operator">=</span> <span class="token generic-function"><span class="token function">useRef</span><span class="token generic class-name"><span class="token operator">&lt;</span>HTMLInputElement<span class="token operator">></span></span></span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span></code></pre>
-
-<p>同时使用时需要判空</p>
-<pre class="language-tsx" data-language="tsx"><code class="language-tsx">inputRef<span class="token punctuation">.</span>current <span class="token operator">&amp;&amp;</span> inputRef<span class="token punctuation">.</span>current<span class="token punctuation">.</span><span class="token function">focus</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
-
-<p>关于 ts 和 hooks 结合的方式可以参考文章 <a href="https://fettblog.eu/typescript-react/hooks/#useref">TypeScript and React: Hooks</a>。</p>
-<blockquote>
-<p><code>useRef</code> 返回一个可变的 ref 对象，其 <code>.current</code> 属性被初始化为传入的参数（initialValue）。返回的 ref 对象在组件的整个生命周期内保持不变。</p>
-</blockquote>
-<p>Refs 提供了一种方式，允许我们访问 DOM 节点或在 render 方法中创建的 React 元素。</p>
-<p>在典型的 React 数据流中，props 是父组件与子组件交互的唯一方式。要修改一个子组件，你需要使用新的 props 来重新渲染它。但是，在某些情况下，你需要在典型数据流之外强制修改子组件。被修改的子组件可能是一个 React 组件的实例，也可能是一个 DOM 元素。对于这两种情况，React 都提供了解决办法。</p>
-<h3 id="下面是几个适合使用-refs-的情况"><a href="#下面是几个适合使用-refs-的情况" class="headerlink" title="下面是几个适合使用 refs 的情况"></a>下面是几个适合使用 refs 的情况</h3><ul>
-<li>管理焦点，文本选择或媒体播放。</li>
-<li>触发强制动画。</li>
-<li>集成第三方 DOM 库。</li>
-</ul>
-<p>避免使用 refs 来做任何可以通过声明式实现来完成的事情。举个例子，避免在 Dialog 组件里暴露 open() 和 close() 方法，最好传递 isOpen 属性。</p>
-<h3 id="勿过度使用-Refs"><a href="#勿过度使用-Refs" class="headerlink" title="勿过度使用 Refs"></a>勿过度使用 Refs</h3><p>你可能首先会想到使用 refs 在你的 app 中“让事情发生”。如果是这种情况，请花一点时间，认真再考虑一下 state 属性应该被安排在哪个组件层中。通常你会想明白，让更高的组件层级拥有这个 state，是更恰当的。查看 状态提升 以获取更多有关示例。</p>
-<p>更多关于 refs 和 Dom 的相关信息可以访问 React 官网 <a href="https://zh-hans.reactjs.org/docs/refs-and-the-dom.html">Refs and the DOM</a></p>
-<p>下面我们再来学习一下 useRef 在另一个场景的使用。</p>
-<h2 id="可以停止的计时器示例"><a href="#可以停止的计时器示例" class="headerlink" title="可以停止的计时器示例"></a>可以停止的计时器示例</h2><p>需求是页面上有一个每隔1秒自动加一的计时器，并且有个按钮，点击后计时器停止，先使用 Class 组件完成这样的需求</p>
-<h3 id="Class-组件示例"><a href="#Class-组件示例" class="headerlink" title="Class 组件示例"></a>Class 组件示例</h3><p>ClassTimer.tsx</p>
-<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> Component <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'react'</span>
-
-<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">class</span> <span class="token class-name">ClassTimer</span> <span class="token keyword">extends</span> <span class="token class-name">Component<span class="token operator">&lt;</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> timer<span class="token operator">:</span> <span class="token builtin">number</span> <span class="token punctuation">&#125;</span><span class="token operator">></span></span> <span class="token punctuation">&#123;</span>
-  interval<span class="token operator">!</span><span class="token operator">:</span> <span class="token builtin">number</span>
-  <span class="token function">constructor</span><span class="token punctuation">(</span>props<span class="token operator">:</span> Readonly<span class="token operator">&lt;</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token operator">></span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">super</span><span class="token punctuation">(</span>props<span class="token punctuation">)</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>state <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-      timer<span class="token operator">:</span> <span class="token number">0</span>
-    <span class="token punctuation">&#125;</span>
-  <span class="token punctuation">&#125;</span>
-
-  <span class="token function">componentDidMount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>interval <span class="token operator">=</span> window<span class="token punctuation">.</span><span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span>prevState <span class="token operator">=></span> <span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
-        timer<span class="token operator">:</span> prevState<span class="token punctuation">.</span>timer <span class="token operator">+</span> <span class="token number">1</span>
-      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span>
-
-  <span class="token function">componentWillUnmount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token function">clearInterval</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>interval<span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span>
-
-  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token punctuation">(</span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
-        Timer - </span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>timer<span class="token punctuation">&#125;</span><span class="token plain-text">
-        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span><span class="token plain-text">
-        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span>
-          <span class="token attr-name">onClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-            <span class="token function">clearInterval</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>interval<span class="token punctuation">)</span>
-          <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span></span>
-        <span class="token punctuation">></span></span><span class="token plain-text">Clear Timer</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-    <span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-
-<p>App.tsx</p>
-<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">'react'</span>
-<span class="token keyword">import</span> <span class="token string">'./App.css'</span>
-
-<span class="token keyword">import</span> ClassTimer <span class="token keyword">from</span> <span class="token string">'./components/29ClassTimer'</span>
-
-<span class="token keyword">const</span> <span class="token function-variable function">App</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">return</span> <span class="token punctuation">(</span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>App<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">ClassTimer</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
-    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-  <span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">export</span> <span class="token keyword">default</span> App</code></pre>
-
-<p>页面展示如下</p>
-<p><img src="https://gw.alicdn.com/tfs/TB1J31IHHr1gK0jSZFDXXb9yVXa-437-179.gif" alt="img"></p>
-<h3 id="Function-组件示例"><a href="#Function-组件示例" class="headerlink" title="Function 组件示例"></a>Function 组件示例</h3><p>HookTimer.tsx</p>
-<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> useState<span class="token punctuation">,</span> useEffect<span class="token punctuation">,</span> useRef <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'react'</span>
-
-<span class="token keyword">function</span> <span class="token function">HookTimer</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">const</span> <span class="token punctuation">[</span>timer<span class="token punctuation">,</span> setTimer<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
-
-  <span class="token comment">//  @ts-ignore</span>
-  <span class="token keyword">const</span> intervalRef <span class="token operator">=</span> <span class="token function">useRef</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token punctuation">&#123;</span> current<span class="token operator">:</span> <span class="token builtin">number</span> <span class="token punctuation">&#125;</span>
-
-  <span class="token function">useEffect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    intervalRef<span class="token punctuation">.</span>current <span class="token operator">=</span> window<span class="token punctuation">.</span><span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-      <span class="token function">setTimer</span><span class="token punctuation">(</span>pre <span class="token operator">=></span> pre <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span>
-    <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-      <span class="token function">clearInterval</span><span class="token punctuation">(</span>intervalRef<span class="token punctuation">.</span>current<span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-  <span class="token keyword">return</span> <span class="token punctuation">(</span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
-      HookTimer - </span><span class="token punctuation">&#123;</span>timer<span class="token punctuation">&#125;</span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span> <span class="token punctuation">/></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span>
-        <span class="token attr-name">onClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-          <span class="token function">clearInterval</span><span class="token punctuation">(</span>intervalRef<span class="token punctuation">.</span>current<span class="token punctuation">)</span>
-        <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span></span>
-      <span class="token punctuation">></span></span><span class="token plain-text">Clear Hook Timer</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><span class="token plain-text">
-    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-  <span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">export</span> <span class="token keyword">default</span> HookTimer</code></pre>
-
-<p>App.tsx</p>
-<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">'react'</span>
-<span class="token keyword">import</span> <span class="token string">'./App.css'</span>
-
-<span class="token keyword">import</span> ClassTimer <span class="token keyword">from</span> <span class="token string">'./components/29ClassTimer'</span>
-<span class="token keyword">import</span> HookTimer <span class="token keyword">from</span> <span class="token string">'./components/29HookTimer'</span>
-
-<span class="token keyword">const</span> <span class="token function-variable function">App</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">return</span> <span class="token punctuation">(</span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>App<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">ClassTimer</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>hr</span> <span class="token punctuation">/></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">HookTimer</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
-    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-  <span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">export</span> <span class="token keyword">default</span> App</code></pre>
-
-<p>页面展示如下</p>
-<p><img src="https://gw.alicdn.com/tfs/TB1v51OHQL0gK0jSZFxXXXWHVXa-437-227.gif" alt="img"></p>
-<p>这就是 useRef 的第二种用法，可以用它创建一个通用的容器，用来保存变量。</p>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本章我们学习了 useRef 的两种用法：一是让我们允许访问 Dom 节点；二是成为一个容器，用来缓存变量。第二种用法较为少见，需要多加注意，遇到类似的场景可以尝试使用。</p>
-]]></content>
-      <categories>
-        <category>JavaScript</category>
-      </categories>
-      <tags>
-        <tag>React</tag>
-        <tag>hooks</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>React Hooks 系列之 useMemo</title>
-    <url>/2020/06/21/401.html</url>
-    <content><![CDATA[<p>掌握 React Hooks api 将更好的帮助你在工作中使用，对 React 的掌握更上一层楼。</p>
-<p>我们学习了 useCallback 来进行性能优化，关于性能优化还有另一个 hook api，那就是 useMemo，下面我们一起通过一个例子来看看。</p>
-<h2 id="计数器示例"><a href="#计数器示例" class="headerlink" title="计数器示例"></a>计数器示例</h2><p>依然是计数器示例，创建2个计数器，并能区分当前是奇数或者偶数，为了模拟点击按钮时包含大量的计算逻辑影响性能，在判断偶数的方法中添加了没有用的计算逻辑，为了让性能差的明显。代码如下</p>
-<p>Counter.tsx</p>
-<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> useState <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'react'</span>
-
-<span class="token keyword">function</span> <span class="token function">Counter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">const</span> <span class="token punctuation">[</span>counterOne<span class="token punctuation">,</span> setCounterOne<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
-  <span class="token keyword">const</span> <span class="token punctuation">[</span>counterTwo<span class="token punctuation">,</span> setCounterTwo<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
-
-  <span class="token keyword">const</span> <span class="token function-variable function">incrementOne</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    <span class="token function">setCounterOne</span><span class="token punctuation">(</span>counterOne <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span>
-
-  <span class="token keyword">const</span> <span class="token function-variable function">incrementTwo</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    <span class="token function">setCounterTwo</span><span class="token punctuation">(</span>counterTwo <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span>
-
-  <span class="token keyword">const</span> <span class="token function-variable function">isEven</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span>
-    <span class="token keyword">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> <span class="token number">1000000000</span><span class="token punctuation">)</span> i <span class="token operator">+=</span> <span class="token number">1</span>
-    <span class="token keyword">return</span> counterOne <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">0</span>
-  <span class="token punctuation">&#125;</span>
-
-  <span class="token keyword">return</span> <span class="token punctuation">(</span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span>
-        <span class="token attr-name">onClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>incrementOne<span class="token punctuation">&#125;</span></span>
-      <span class="token punctuation">></span></span><span class="token plain-text">Count One = </span><span class="token punctuation">&#123;</span>counterOne<span class="token punctuation">&#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
-        </span><span class="token punctuation">&#123;</span>
-          <span class="token function">isEven</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token string">'even'</span> <span class="token operator">:</span> <span class="token string">'odd'</span>
-        <span class="token punctuation">&#125;</span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span> <span class="token punctuation">/></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span>
-        <span class="token attr-name">onClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>incrementTwo<span class="token punctuation">&#125;</span></span>
-      <span class="token punctuation">></span></span><span class="token plain-text">Count Two = </span><span class="token punctuation">&#123;</span>counterTwo<span class="token punctuation">&#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><span class="token plain-text">
-    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-  <span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">export</span> <span class="token keyword">default</span> Counter</code></pre>
-
-<p>App.tsx</p>
-<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">'react'</span>
-<span class="token keyword">import</span> <span class="token string">'./App.css'</span>
-
-<span class="token keyword">import</span> Counter <span class="token keyword">from</span> <span class="token string">'./components/27.Counter'</span>
-
-<span class="token keyword">const</span> <span class="token function-variable function">App</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">return</span> <span class="token punctuation">(</span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>App<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Counter</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
-    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-  <span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">export</span> <span class="token keyword">default</span> App</code></pre>
-
-<p>页面展示如下</p>
-<p><img src="https://gw.alicdn.com/tfs/TB1r2l1GND1gK0jSZFKXXcJrVXa-702-286.gif" alt="img"></p>
-<p>我们发现点击第一个按钮有较长的延迟，因为我们的判断偶数的逻辑中包含了大量的计算逻辑。但是，我们点击第二个按钮，也有较长的延迟！这很奇怪。</p>
-<p>这是因为，每次 state 更新时，组件会 rerender，isEven 会被执行，这就是我们点击第二个按钮时，也会卡的原因。我们需要优化，告诉 React 不要有不必要的计算，特别是这种计算量复杂的。</p>
-<p>在我们的示例中，我们要告诉 React，在点击第二个按钮时，不要执行 isEven 方法。这时就需要 useMemo hook 登场了。</p>
-<h2 id="useMemo"><a href="#useMemo" class="headerlink" title="useMemo"></a>useMemo</h2><h3 id="优化示例"><a href="#优化示例" class="headerlink" title="优化示例"></a>优化示例</h3><p>与 useCallback 的用法类似。</p>
-<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">const</span> memoizedValue <span class="token operator">=</span> <span class="token function">useMemo</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">computeExpensiveValue</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>a<span class="token punctuation">,</span> b<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-
-<blockquote>
-<p>返回一个 memoized 值。 把“创建”函数和依赖项数组作为参数传入 <code>useMemo</code>，它仅会在某个依赖项改变时才重新计算 memoized 值。这种优化有助于避免在每次渲染时都进行高开销的计算。</p>
-<p>记住，传入 <code>useMemo</code> 的函数会在渲染期间执行。请不要在这个函数内部执行与渲染无关的操作，诸如副作用这类的操作属于 <code>useEffect</code> 的适用范畴，而不是 <code>useMemo</code>。</p>
-<p>如果没有提供依赖项数组，<code>useMemo</code> 在每次渲染时都会计算新的值。</p>
-<p><strong>你可以把 useMemo 作为性能优化的手段，但不要把它当成语义上的保证。</strong> 将来，React 可能会选择“遗忘”以前的一些 memoized 值，并在下次渲染时重新计算它们，比如为离屏组件释放内存。先编写在没有 useMemo 的情况下也可以执行的代码 —— 之后再在你的代码中添加 useMemo，以达到优化性能的目的。</p>
-</blockquote>
-<p>首先引入 useMemo</p>
-<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> useState<span class="token punctuation">,</span> useMemo <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'react'</span></code></pre>
-
-<p>然后将 isEven 方法使用 useMemo 改写，返回值赋给 isEven</p>
-<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">const</span> isEven <span class="token operator">=</span> <span class="token function">useMemo</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span>
-  <span class="token keyword">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> <span class="token number">1000000000</span><span class="token punctuation">)</span> i <span class="token operator">+=</span> <span class="token number">1</span>
-  <span class="token keyword">return</span> counterOne <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">0</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>counterOne<span class="token punctuation">]</span><span class="token punctuation">)</span></code></pre>
-
-<p>最后记得修改 isEven 使用的地方，已经从一个方法变为了一个变量</p>
-<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token punctuation">&#123;</span>
-  isEven <span class="token operator">?</span> <span class="token string">'even'</span> <span class="token operator">:</span> <span class="token string">'odd'</span>
-<span class="token punctuation">&#125;</span></code></pre>
-
-<p>完整代码如下</p>
-<p>Counter.tsx</p>
-<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> useState<span class="token punctuation">,</span> useMemo <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'react'</span>
-
-<span class="token keyword">function</span> <span class="token function">Counter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">const</span> <span class="token punctuation">[</span>counterOne<span class="token punctuation">,</span> setCounterOne<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
-  <span class="token keyword">const</span> <span class="token punctuation">[</span>counterTwo<span class="token punctuation">,</span> setCounterTwo<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
-
-  <span class="token keyword">const</span> <span class="token function-variable function">incrementOne</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    <span class="token function">setCounterOne</span><span class="token punctuation">(</span>counterOne <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span>
-
-  <span class="token keyword">const</span> <span class="token function-variable function">incrementTwo</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    <span class="token function">setCounterTwo</span><span class="token punctuation">(</span>counterTwo <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span>
-
-  <span class="token keyword">const</span> isEven <span class="token operator">=</span> <span class="token function">useMemo</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span>
-    <span class="token keyword">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> <span class="token number">1000000000</span><span class="token punctuation">)</span> i <span class="token operator">+=</span> <span class="token number">1</span>
-    <span class="token keyword">return</span> counterOne <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">0</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>counterOne<span class="token punctuation">]</span><span class="token punctuation">)</span>
-
-  <span class="token keyword">return</span> <span class="token punctuation">(</span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span>
-        <span class="token attr-name">onClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>incrementOne<span class="token punctuation">&#125;</span></span>
-      <span class="token punctuation">></span></span><span class="token plain-text">Count One = </span><span class="token punctuation">&#123;</span>counterOne<span class="token punctuation">&#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
-        </span><span class="token punctuation">&#123;</span>
-          isEven <span class="token operator">?</span> <span class="token string">'even'</span> <span class="token operator">:</span> <span class="token string">'odd'</span>
-        <span class="token punctuation">&#125;</span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span> <span class="token punctuation">/></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span>
-        <span class="token attr-name">onClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>incrementTwo<span class="token punctuation">&#125;</span></span>
-      <span class="token punctuation">></span></span><span class="token plain-text">Count Two = </span><span class="token punctuation">&#123;</span>counterTwo<span class="token punctuation">&#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><span class="token plain-text">
-    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-  <span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">export</span> <span class="token keyword">default</span> Counter</code></pre>
-
-<p>效果如下</p>
-<p><img src="https://gw.alicdn.com/tfs/TB1Oz_bb5cKOu4jSZKbXXc19XXa-702-286.gif" alt="img"></p>
-<p>我们看到点击第二个按钮时，不会有任何卡顿，这是因为使用了 useMemo 只依赖了 counterOne 变量，点击第二个按钮时，isEven 读取的是缓存值，不需要再重新计算是否为偶数。</p>
-<h3 id="useMemo-与-useCallback-的区别"><a href="#useMemo-与-useCallback-的区别" class="headerlink" title="useMemo 与 useCallback 的区别"></a>useMemo 与 useCallback 的区别</h3><p>useCallback 是缓存了函数自身，而 useMemo 是缓存了函数的返回值。</p>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本章通过示例展示了 useMemo 在性能优化中的作用。通过缓存函数的返回值，避免不必要的调用，从而避免了组件 rerender。</p>
-<p>最后有分析了 useMemo 与 useCallback 的区别，即 useMemo 是缓存了函数的返回值，useCallback 是缓存了函数自身。这两个 api 都是性能优化的方法。</p>
-]]></content>
-      <categories>
-        <category>JavaScript</category>
-      </categories>
-      <tags>
-        <tag>React</tag>
-        <tag>hooks</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>React Hooks 系列之 useCallback</title>
     <url>/2020/06/15/397.html</url>
     <content><![CDATA[<p>掌握 React Hooks api 将更好的帮助你在工作中使用，对 React 的掌握更上一层楼。</p>
@@ -5641,6 +5457,190 @@ Rendering button Increment salary</code></pre>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本章我们从一个组件多次被复用的的例子说起，一步一步对其进行性能优化，核心是阻止不必要的 rerender。</p>
 <p>学习使用了 React.memo 在 props 或 state 没有变化时，阻止组件的 rerender。</p>
 <p>学习了什么是 useCallback，如何使用 useCallback 缓存一个方法，只依赖某几个变量变化才更新，避免了每次传递给子组件的 props 都被更新，最终也是阻止了子组件不必要的 rerender。</p>
+]]></content>
+      <categories>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>React</tag>
+        <tag>hooks</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>React Hooks 系列之 useRef</title>
+    <url>/2020/06/25/405.html</url>
+    <content><![CDATA[<p>掌握 React Hooks api 将更好的帮助你在工作中使用，对 React 的掌握更上一层楼。</p>
+<p>接下来我们要一起学习 useRef hook，它可以让我们直接访问到组件中的的 Dom 节点。我们今天通过一个 input 输入框获取焦点的需求为例，来学习一下 useRef。</p>
+<h2 id="页面载入-input-获取焦点示例"><a href="#页面载入-input-获取焦点示例" class="headerlink" title="页面载入 input 获取焦点示例"></a>页面载入 input 获取焦点示例</h2><p>FocusInput.tsx</p>
+<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> useEffect<span class="token punctuation">,</span> useRef<span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'react'</span>
+
+<span class="token keyword">function</span> <span class="token function">FocusInput</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">const</span> inputRef <span class="token operator">=</span> <span class="token generic-function"><span class="token function">useRef</span><span class="token generic class-name"><span class="token operator">&lt;</span>HTMLInputElement<span class="token operator">></span></span></span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span>
+  <span class="token function">useEffect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    inputRef<span class="token punctuation">.</span>current <span class="token operator">&amp;&amp;</span> inputRef<span class="token punctuation">.</span>current<span class="token punctuation">.</span><span class="token function">focus</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">ref</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>inputRef<span class="token punctuation">&#125;</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> FocusInput</code></pre>
+
+<p>App.tsx</p>
+<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">'react'</span>
+<span class="token keyword">import</span> <span class="token string">'./App.css'</span>
+
+<span class="token keyword">import</span> FocusInput <span class="token keyword">from</span> <span class="token string">'./components/28FocusInput'</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">App</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>App<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">FocusInput</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> App</code></pre>
+
+<p>页面展示效果</p>
+<p><img src="https://gw.alicdn.com/tfs/TB1lxWlHkY2gK0jSZFgXXc5OFXa-363-125.gif" alt="img"></p>
+<p>注意与 TypeScript 结合使用时的方式，需要先声明好泛型</p>
+<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">const</span> inputRef <span class="token operator">=</span> <span class="token generic-function"><span class="token function">useRef</span><span class="token generic class-name"><span class="token operator">&lt;</span>HTMLInputElement<span class="token operator">></span></span></span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span></code></pre>
+
+<p>同时使用时需要判空</p>
+<pre class="language-tsx" data-language="tsx"><code class="language-tsx">inputRef<span class="token punctuation">.</span>current <span class="token operator">&amp;&amp;</span> inputRef<span class="token punctuation">.</span>current<span class="token punctuation">.</span><span class="token function">focus</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+
+<p>关于 ts 和 hooks 结合的方式可以参考文章 <a href="https://fettblog.eu/typescript-react/hooks/#useref">TypeScript and React: Hooks</a>。</p>
+<blockquote>
+<p><code>useRef</code> 返回一个可变的 ref 对象，其 <code>.current</code> 属性被初始化为传入的参数（initialValue）。返回的 ref 对象在组件的整个生命周期内保持不变。</p>
+</blockquote>
+<p>Refs 提供了一种方式，允许我们访问 DOM 节点或在 render 方法中创建的 React 元素。</p>
+<p>在典型的 React 数据流中，props 是父组件与子组件交互的唯一方式。要修改一个子组件，你需要使用新的 props 来重新渲染它。但是，在某些情况下，你需要在典型数据流之外强制修改子组件。被修改的子组件可能是一个 React 组件的实例，也可能是一个 DOM 元素。对于这两种情况，React 都提供了解决办法。</p>
+<h3 id="下面是几个适合使用-refs-的情况"><a href="#下面是几个适合使用-refs-的情况" class="headerlink" title="下面是几个适合使用 refs 的情况"></a>下面是几个适合使用 refs 的情况</h3><ul>
+<li>管理焦点，文本选择或媒体播放。</li>
+<li>触发强制动画。</li>
+<li>集成第三方 DOM 库。</li>
+</ul>
+<p>避免使用 refs 来做任何可以通过声明式实现来完成的事情。举个例子，避免在 Dialog 组件里暴露 open() 和 close() 方法，最好传递 isOpen 属性。</p>
+<h3 id="勿过度使用-Refs"><a href="#勿过度使用-Refs" class="headerlink" title="勿过度使用 Refs"></a>勿过度使用 Refs</h3><p>你可能首先会想到使用 refs 在你的 app 中“让事情发生”。如果是这种情况，请花一点时间，认真再考虑一下 state 属性应该被安排在哪个组件层中。通常你会想明白，让更高的组件层级拥有这个 state，是更恰当的。查看 状态提升 以获取更多有关示例。</p>
+<p>更多关于 refs 和 Dom 的相关信息可以访问 React 官网 <a href="https://zh-hans.reactjs.org/docs/refs-and-the-dom.html">Refs and the DOM</a></p>
+<p>下面我们再来学习一下 useRef 在另一个场景的使用。</p>
+<h2 id="可以停止的计时器示例"><a href="#可以停止的计时器示例" class="headerlink" title="可以停止的计时器示例"></a>可以停止的计时器示例</h2><p>需求是页面上有一个每隔1秒自动加一的计时器，并且有个按钮，点击后计时器停止，先使用 Class 组件完成这样的需求</p>
+<h3 id="Class-组件示例"><a href="#Class-组件示例" class="headerlink" title="Class 组件示例"></a>Class 组件示例</h3><p>ClassTimer.tsx</p>
+<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> Component <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'react'</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">class</span> <span class="token class-name">ClassTimer</span> <span class="token keyword">extends</span> <span class="token class-name">Component<span class="token operator">&lt;</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> timer<span class="token operator">:</span> <span class="token builtin">number</span> <span class="token punctuation">&#125;</span><span class="token operator">></span></span> <span class="token punctuation">&#123;</span>
+  interval<span class="token operator">!</span><span class="token operator">:</span> <span class="token builtin">number</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span>props<span class="token operator">:</span> Readonly<span class="token operator">&lt;</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token operator">></span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">super</span><span class="token punctuation">(</span>props<span class="token punctuation">)</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>state <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+      timer<span class="token operator">:</span> <span class="token number">0</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token function">componentDidMount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>interval <span class="token operator">=</span> window<span class="token punctuation">.</span><span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span>prevState <span class="token operator">=></span> <span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+        timer<span class="token operator">:</span> prevState<span class="token punctuation">.</span>timer <span class="token operator">+</span> <span class="token number">1</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token function">componentWillUnmount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">clearInterval</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>interval<span class="token punctuation">)</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+        Timer - </span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>timer<span class="token punctuation">&#125;</span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span>
+          <span class="token attr-name">onClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+            <span class="token function">clearInterval</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>interval<span class="token punctuation">)</span>
+          <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span></span>
+        <span class="token punctuation">></span></span><span class="token plain-text">Clear Timer</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token punctuation">)</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>App.tsx</p>
+<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">'react'</span>
+<span class="token keyword">import</span> <span class="token string">'./App.css'</span>
+
+<span class="token keyword">import</span> ClassTimer <span class="token keyword">from</span> <span class="token string">'./components/29ClassTimer'</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">App</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>App<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">ClassTimer</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> App</code></pre>
+
+<p>页面展示如下</p>
+<p><img src="https://gw.alicdn.com/tfs/TB1J31IHHr1gK0jSZFDXXb9yVXa-437-179.gif" alt="img"></p>
+<h3 id="Function-组件示例"><a href="#Function-组件示例" class="headerlink" title="Function 组件示例"></a>Function 组件示例</h3><p>HookTimer.tsx</p>
+<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> useState<span class="token punctuation">,</span> useEffect<span class="token punctuation">,</span> useRef <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'react'</span>
+
+<span class="token keyword">function</span> <span class="token function">HookTimer</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>timer<span class="token punctuation">,</span> setTimer<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+
+  <span class="token comment">//  @ts-ignore</span>
+  <span class="token keyword">const</span> intervalRef <span class="token operator">=</span> <span class="token function">useRef</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token punctuation">&#123;</span> current<span class="token operator">:</span> <span class="token builtin">number</span> <span class="token punctuation">&#125;</span>
+
+  <span class="token function">useEffect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    intervalRef<span class="token punctuation">.</span>current <span class="token operator">=</span> window<span class="token punctuation">.</span><span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+      <span class="token function">setTimer</span><span class="token punctuation">(</span>pre <span class="token operator">=></span> pre <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+      <span class="token function">clearInterval</span><span class="token punctuation">(</span>intervalRef<span class="token punctuation">.</span>current<span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+      HookTimer - </span><span class="token punctuation">&#123;</span>timer<span class="token punctuation">&#125;</span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span> <span class="token punctuation">/></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span>
+        <span class="token attr-name">onClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+          <span class="token function">clearInterval</span><span class="token punctuation">(</span>intervalRef<span class="token punctuation">.</span>current<span class="token punctuation">)</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span></span>
+      <span class="token punctuation">></span></span><span class="token plain-text">Clear Hook Timer</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> HookTimer</code></pre>
+
+<p>App.tsx</p>
+<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">'react'</span>
+<span class="token keyword">import</span> <span class="token string">'./App.css'</span>
+
+<span class="token keyword">import</span> ClassTimer <span class="token keyword">from</span> <span class="token string">'./components/29ClassTimer'</span>
+<span class="token keyword">import</span> HookTimer <span class="token keyword">from</span> <span class="token string">'./components/29HookTimer'</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">App</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>App<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">ClassTimer</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>hr</span> <span class="token punctuation">/></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">HookTimer</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> App</code></pre>
+
+<p>页面展示如下</p>
+<p><img src="https://gw.alicdn.com/tfs/TB1v51OHQL0gK0jSZFxXXXWHVXa-437-227.gif" alt="img"></p>
+<p>这就是 useRef 的第二种用法，可以用它创建一个通用的容器，用来保存变量。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本章我们学习了 useRef 的两种用法：一是让我们允许访问 Dom 节点；二是成为一个容器，用来缓存变量。第二种用法较为少见，需要多加注意，遇到类似的场景可以尝试使用。</p>
 ]]></content>
       <categories>
         <category>JavaScript</category>
@@ -7395,46 +7395,6 @@ module<span class="token punctuation">.</span><span class="token function-variab
       </tags>
   </entry>
   <entry>
-    <title>了解XSS和CSRF攻击</title>
-    <url>/2021/08/26/31410.html</url>
-    <content><![CDATA[<h1 id="了解XSS和CSRF攻击"><a href="#了解XSS和CSRF攻击" class="headerlink" title="了解XSS和CSRF攻击"></a>了解XSS和CSRF攻击</h1><h2 id="XSS-和-CSRF-介绍"><a href="#XSS-和-CSRF-介绍" class="headerlink" title="XSS 和 CSRF 介绍"></a>XSS 和 CSRF 介绍</h2><p>在 Web 安全领域中，XSS 和 CSRF 是最常见的攻击方式。那么本文就带你认识一下 XSS 和 CSRF 的攻防问题。</p>
-<h3 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h3><h4 id="概念："><a href="#概念：" class="headerlink" title="概念："></a>概念：</h4><p>XSS , 全称：<code>Cross Site Scripting</code> ，译为<strong>跨域脚本攻击</strong>。</p>
-<h4 id="原理："><a href="#原理：" class="headerlink" title="原理："></a>原理：</h4><p>不需要你做任何的登录验证，它会通过合法的操作 (比如在<code>url</code>中输入、在评论框中输入)，向用户的页面注入脚本 (可能是 <code>js</code>、<code>html</code>代码块等)。</p>
-<h4 id="防范："><a href="#防范：" class="headerlink" title="防范："></a>防范：</h4><p>1.编码：对于用户输入进行编码。</p>
-<p>2.过滤：移除用户输入和事件相关的属性。(过滤 <code>script</code>、<code>style</code>、<code>iframe</code>等节点)</p>
-<p>3.校正：使用<code>DOM Parse</code>转换，校正不配对的 <code>DOM</code>标签。</p>
-<p>4.使用 <code>HttpOnly</code>。</p>
-<h4 id="分类："><a href="#分类：" class="headerlink" title="分类："></a>分类：</h4><ul>
-<li>反射性 (非持久)：点击链接，执行脚本</li>
-<li>存储型 (持久)：恶意输入保存数据库，其他用户访问，执行脚本</li>
-<li>基于 <code>DOM</code>：而已修改 <code>DOM</code> 结构，基于客户端</li>
-</ul>
-<h3 id="CSRF-攻击"><a href="#CSRF-攻击" class="headerlink" title="CSRF 攻击"></a>CSRF 攻击</h3><h4 id="概念：-1"><a href="#概念：-1" class="headerlink" title="概念："></a>概念：</h4><p>CSRF , 全称：<code>Cross-site request forgery</code> ，译为<strong>跨站请求伪造</strong>。</p>
-<h4 id="原理：-1"><a href="#原理：-1" class="headerlink" title="原理："></a>原理：</h4><ol>
-<li><p>登录受信任的网站 A ，并在本地生成  <code>Cookie</code>。(如果用户没有登录网站 A,那么网站 B 在诱导的时候，请求网站 A 的 <code>api</code> 接口时，会提示你登录)。</p>
-</li>
-<li><p>在不登出 A  的情况下，访问危险网站 B (其实是利用了 网站 A 的漏洞)。</p>
-</li>
-</ol>
-<h4 id="防范：-1"><a href="#防范：-1" class="headerlink" title="防范："></a>防范：</h4><ol>
-<li><code>token</code> 验证；</li>
-<li>隐藏令牌，把 <code>token</code>隐藏在 <code>http</code> 请求的 <code>head</code> 中。</li>
-<li><code>referer</code> 验证，验证页面来源。</li>
-</ol>
-<h3 id="两者区别"><a href="#两者区别" class="headerlink" title="两者区别"></a>两者区别</h3><ol>
-<li>CSRF：需要用户先登录网站 A ，获取 <code>cookie</code>。XSS：不需要登录而是通过注入脚本等方式。</li>
-<li>CSRF：是利用网站 A 本身的漏洞，去请求网站 A 的 <code>api</code>。XSS:是向网站 A 注入 <code>JS</code>代码，然后执行 <code>JS</code>里的代码，篡改网站 A 的内容。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>网络攻击</category>
-      </categories>
-      <tags>
-        <tag>浏览器</tag>
-        <tag>网络安全</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>学习 Vue3 基础</title>
     <url>/2021/08/21/27130.html</url>
     <content><![CDATA[<h1 id="学习-Vue3-基础"><a href="#学习-Vue3-基础" class="headerlink" title="学习 Vue3 基础"></a>学习 Vue3 基础</h1><h2 id="Vue3-基本概述"><a href="#Vue3-基本概述" class="headerlink" title="Vue3 基本概述"></a>Vue3 基本概述</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a><strong>介绍</strong></h3><p><img src="https://s4.ax1x.com/2022/01/24/7TyMPs.png" width="200"></img></p>
@@ -8852,6 +8812,46 @@ app<span class="token punctuation">.</span><span class="token function">mixin</s
       <tags>
         <tag>前端</tag>
         <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>了解XSS和CSRF攻击</title>
+    <url>/2021/08/26/31410.html</url>
+    <content><![CDATA[<h1 id="了解XSS和CSRF攻击"><a href="#了解XSS和CSRF攻击" class="headerlink" title="了解XSS和CSRF攻击"></a>了解XSS和CSRF攻击</h1><h2 id="XSS-和-CSRF-介绍"><a href="#XSS-和-CSRF-介绍" class="headerlink" title="XSS 和 CSRF 介绍"></a>XSS 和 CSRF 介绍</h2><p>在 Web 安全领域中，XSS 和 CSRF 是最常见的攻击方式。那么本文就带你认识一下 XSS 和 CSRF 的攻防问题。</p>
+<h3 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h3><h4 id="概念："><a href="#概念：" class="headerlink" title="概念："></a>概念：</h4><p>XSS , 全称：<code>Cross Site Scripting</code> ，译为<strong>跨域脚本攻击</strong>。</p>
+<h4 id="原理："><a href="#原理：" class="headerlink" title="原理："></a>原理：</h4><p>不需要你做任何的登录验证，它会通过合法的操作 (比如在<code>url</code>中输入、在评论框中输入)，向用户的页面注入脚本 (可能是 <code>js</code>、<code>html</code>代码块等)。</p>
+<h4 id="防范："><a href="#防范：" class="headerlink" title="防范："></a>防范：</h4><p>1.编码：对于用户输入进行编码。</p>
+<p>2.过滤：移除用户输入和事件相关的属性。(过滤 <code>script</code>、<code>style</code>、<code>iframe</code>等节点)</p>
+<p>3.校正：使用<code>DOM Parse</code>转换，校正不配对的 <code>DOM</code>标签。</p>
+<p>4.使用 <code>HttpOnly</code>。</p>
+<h4 id="分类："><a href="#分类：" class="headerlink" title="分类："></a>分类：</h4><ul>
+<li>反射性 (非持久)：点击链接，执行脚本</li>
+<li>存储型 (持久)：恶意输入保存数据库，其他用户访问，执行脚本</li>
+<li>基于 <code>DOM</code>：而已修改 <code>DOM</code> 结构，基于客户端</li>
+</ul>
+<h3 id="CSRF-攻击"><a href="#CSRF-攻击" class="headerlink" title="CSRF 攻击"></a>CSRF 攻击</h3><h4 id="概念：-1"><a href="#概念：-1" class="headerlink" title="概念："></a>概念：</h4><p>CSRF , 全称：<code>Cross-site request forgery</code> ，译为<strong>跨站请求伪造</strong>。</p>
+<h4 id="原理：-1"><a href="#原理：-1" class="headerlink" title="原理："></a>原理：</h4><ol>
+<li><p>登录受信任的网站 A ，并在本地生成  <code>Cookie</code>。(如果用户没有登录网站 A,那么网站 B 在诱导的时候，请求网站 A 的 <code>api</code> 接口时，会提示你登录)。</p>
+</li>
+<li><p>在不登出 A  的情况下，访问危险网站 B (其实是利用了 网站 A 的漏洞)。</p>
+</li>
+</ol>
+<h4 id="防范：-1"><a href="#防范：-1" class="headerlink" title="防范："></a>防范：</h4><ol>
+<li><code>token</code> 验证；</li>
+<li>隐藏令牌，把 <code>token</code>隐藏在 <code>http</code> 请求的 <code>head</code> 中。</li>
+<li><code>referer</code> 验证，验证页面来源。</li>
+</ol>
+<h3 id="两者区别"><a href="#两者区别" class="headerlink" title="两者区别"></a>两者区别</h3><ol>
+<li>CSRF：需要用户先登录网站 A ，获取 <code>cookie</code>。XSS：不需要登录而是通过注入脚本等方式。</li>
+<li>CSRF：是利用网站 A 本身的漏洞，去请求网站 A 的 <code>api</code>。XSS:是向网站 A 注入 <code>JS</code>代码，然后执行 <code>JS</code>里的代码，篡改网站 A 的内容。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>网络攻击</category>
+      </categories>
+      <tags>
+        <tag>浏览器</tag>
+        <tag>网络安全</tag>
       </tags>
   </entry>
 </search>
