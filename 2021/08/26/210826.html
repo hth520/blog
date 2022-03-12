@@ -4,11 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="浅谈React性能优化方案, feico の 博客">
-    <meta name="description" content="浅谈React性能优化方案
- 前言: 性能优化一直是大家比较关注的问题，开发React项目中，也会遇到一些可以优化的点，结合网上学习看到的，加上自己的一个总结，谈谈React中的性能优化
-
-React diff算法机制React 凭借 vi">
+    <meta name="keywords" content="了解XSS和CSRF攻击, feico の 博客">
+    <meta name="description" content="了解XSS和CSRF攻击XSS 和 CSRF 介绍在 Web 安全领域中，XSS 和 CSRF 是最常见的攻击方式。那么本文就带你认识一下 XSS 和 CSRF 的攻防问题。
+XSS概念：XSS , 全称：Cross Site Script">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +18,7 @@ React diff算法机制React 凭借 vi">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>浅谈React性能优化方案 | feico の 博客</title>
+    <title>了解XSS和CSRF攻击 | feico の 博客</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -249,12 +247,12 @@ React diff算法机制React 凭借 vi">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://blog-1309278058.cos.ap-shanghai.myqcloud.com/20-08-10.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://s4.ax1x.com/2022/01/26/7qB34J.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">浅谈React性能优化方案</h1>
+                    <h1 class="description center-align post-title">了解XSS和CSRF攻击</h1>
                 </div>
             </div>
         </div>
@@ -370,8 +368,12 @@ React diff算法机制React 凭借 vi">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
-                                <span class="chip bg-color">性能优化</span>
+                            <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/">
+                                <span class="chip bg-color">浏览器</span>
+                            </a>
+                        
+                            <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">
+                                <span class="chip bg-color">网络安全</span>
                             </a>
                         
                     </div>
@@ -382,8 +384,8 @@ React diff算法机制React 凭借 vi">
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/React/" class="post-category">
-                                React
+                            <a href="/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB/" class="post-category">
+                                网络攻击
                             </a>
                         
                     </div>
@@ -395,7 +397,7 @@ React diff算法机制React 凭借 vi">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-08-10
+                    2021-08-26
                 </div>
                 
 
@@ -419,119 +421,34 @@ React diff算法机制React 凭借 vi">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="浅谈React性能优化方案"><a href="#浅谈React性能优化方案" class="headerlink" title="浅谈React性能优化方案"></a>浅谈React性能优化方案</h1><blockquote>
-<p> 前言: 性能优化一直是大家比较关注的问题，开发React项目中，也会遇到一些可以优化的点，结合网上学习看到的，加上自己的一个总结，谈谈React中的性能优化</p>
-</blockquote>
-<h2 id="React-diff算法机制"><a href="#React-diff算法机制" class="headerlink" title="React diff算法机制"></a>React diff算法机制</h2><p>React 凭借 <strong>virtual DOM</strong> 和 <strong>diff</strong> 算法拥有高效的性能，但在某些情况下，性能明显可以进一步提高</p>
-<p>在类组件中通过调用 <strong>setState</strong> 方法，就会导致 render，父组件一旦发生render 渲染，子组件一定也会执行 render渲染 </p>
-<p>当我们想要更新一个子组件的时候，如下图绿色部分</p>
-<img src="https://s1.ax1x.com/2022/03/12/bThYse.png"/>
-
-<p>理想状态只调用该路径下的组件 render：</p>
-<img src="https://s1.ax1x.com/2022/03/12/bThJMD.png">
-
-<p>但是react 的默认做法是调用所有组件的render，再对生成的虚拟DOM进行对比(黄色部分) ，如不变则不进行更新</p>
-<img src="https://s1.ax1x.com/2022/03/12/bTh8xO.png"/>
-
-<h2 id="怎么降低diff，提高性能"><a href="#怎么降低diff，提高性能" class="headerlink" title="怎么降低diff，提高性能"></a>怎么降低diff，提高性能</h2><p>在 React 要如何避免不必要的render，我们了解到如何避免不必要的render 来应付上面的问题，主要手段是通过 <code>shouldComponentUpdate</code>、<code>PureComponent</code>、<code>React.memo</code>，这三种形式这里就不再复述</p>
-<p>除此之外，常见性能优化常见的手段有如下：</p>
-<ul>
-<li>避免使用内联函数</li>
-<li>使用 React Fragments 避免额外标记</li>
-<li>使用 Immutable</li>
-<li>懒加载组件</li>
-<li>事件绑定方式</li>
-<li>服务端渲染</li>
+                <h1 id="了解XSS和CSRF攻击"><a href="#了解XSS和CSRF攻击" class="headerlink" title="了解XSS和CSRF攻击"></a>了解XSS和CSRF攻击</h1><h2 id="XSS-和-CSRF-介绍"><a href="#XSS-和-CSRF-介绍" class="headerlink" title="XSS 和 CSRF 介绍"></a>XSS 和 CSRF 介绍</h2><p>在 Web 安全领域中，XSS 和 CSRF 是最常见的攻击方式。那么本文就带你认识一下 XSS 和 CSRF 的攻防问题。</p>
+<h3 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h3><h4 id="概念："><a href="#概念：" class="headerlink" title="概念："></a>概念：</h4><p>XSS , 全称：<code>Cross Site Scripting</code> ，译为<strong>跨域脚本攻击</strong>。</p>
+<h4 id="原理："><a href="#原理：" class="headerlink" title="原理："></a>原理：</h4><p>不需要你做任何的登录验证，它会通过合法的操作 (比如在<code>url</code>中输入、在评论框中输入)，向用户的页面注入脚本 (可能是 <code>js</code>、<code>html</code>代码块等)。</p>
+<h4 id="防范："><a href="#防范：" class="headerlink" title="防范："></a>防范：</h4><p>1.编码：对于用户输入进行编码。</p>
+<p>2.过滤：移除用户输入和事件相关的属性。(过滤 <code>script</code>、<code>style</code>、<code>iframe</code>等节点)</p>
+<p>3.校正：使用<code>DOM Parse</code>转换，校正不配对的 <code>DOM</code>标签。</p>
+<p>4.使用 <code>HttpOnly</code>。</p>
+<h4 id="分类："><a href="#分类：" class="headerlink" title="分类："></a>分类：</h4><ul>
+<li>反射性 (非持久)：点击链接，执行脚本</li>
+<li>存储型 (持久)：恶意输入保存数据库，其他用户访问，执行脚本</li>
+<li>基于 <code>DOM</code>：而已修改 <code>DOM</code> 结构，基于客户端</li>
 </ul>
-<h3 id="避免使用内联函数"><a href="#避免使用内联函数" class="headerlink" title="避免使用内联函数"></a>避免使用内联函数</h3><p>如果我们使用内联函数，则每次调用 render 函数时都会创建一个新的函数实例，如下：</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">"react"</span>
-
-<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">class</span> <span class="token class-name">InlineFunctionComponent</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span> <span class="token punctuation">&#123;</span>
-    <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span><span class="token punctuation">(</span>
-        <span class="token operator">&lt;</span>div<span class="token operator">></span>
-         <span class="token operator">&lt;</span>h1<span class="token operator">></span>Welcome Guest<span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span>
-         <span class="token operator">&lt;</span>input type<span class="token operator">=</span><span class="token string">"button"</span> onClick<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span><span class="token operator">=></span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token literal-property property">inputValue</span><span class="token operator">:</span>e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span> value<span class="token operator">=</span><span class="token string">"Click For Inline Function"</span> <span class="token operator">/</span><span class="token operator">></span>
-         <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
-        <span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-
-<p>我们应该在组件内部创建一个函数，并将事件绑定到该函数本身，这样每次调用 render 时就不会创建单独的函数实例，如下：</p>
-<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">"react"</span>
-
-<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">class</span> <span class="token class-name">InlineFunctionComponent</span> <span class="token keyword">extends</span> <span class="token class-name">React</span><span class="token punctuation">.</span>Component <span class="token punctuation">&#123;</span>
-    setNewStateData <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
-        inputValue<span class="token operator">:</span>e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value
-    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token punctuation">(</span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
-</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span><span class="token plain-text">Welcome Guest</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span><span class="token plain-text">
-        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token attr-name">onClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>setNewStateData<span class="token punctuation">&#125;</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Click For Inline Function<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">  
-    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-    <span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span></code></pre>
-
-<p>使用 React Fragments 避免额外标记</p>
-<p>用户创建新组件时，每个组件应具有单个父标签。父级不能有两个标签，所以顶部要有一个公共标签，所以我们经常在组件顶部添加额外标签 <code>div</code></p>
-<p>这个额外标签除了充当父标签之外，并没有其他作用，这时候则可以使用 Fragement</p>
-<p>其不会向组件引入任何额外标记，但它可以作为父级标签的作用，如下所示：</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">class</span> <span class="token class-name">NestedRoutingComponent</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span> <span class="token punctuation">&#123;</span>
-    <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> <span class="token punctuation">(</span>
-        <span class="token operator">&lt;</span><span class="token operator">></span>
-        <span class="token operator">&lt;</span>h1<span class="token operator">></span> This is the Header Component<span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span>
-        <span class="token operator">&lt;</span>h2<span class="token operator">></span>Welcome To Demo Page<span class="token operator">&lt;</span><span class="token operator">/</span>h2<span class="token operator">></span>
-        <span class="token operator">&lt;</span><span class="token operator">/</span><span class="token operator">></span>
-        <span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-
-<h3 id="事件绑定方式"><a href="#事件绑定方式" class="headerlink" title="事件绑定方式"></a>事件绑定方式</h3><p>在事件绑定方式中，我们了解到四种事件绑定的方式</p>
-<p>从性能方面考虑，在render方法中使用bind 和 render 方法中使用箭头函数这两种形式在每次组件render 的时候都会生成新的方法实例，性能欠缺</p>
-<p>而constructor中bind事件与定义阶段使用箭头函数绑定这两种形式只会生成一个方法实例，性能发方面会有所改善</p>
-<h3 id="使用Immutable"><a href="#使用Immutable" class="headerlink" title="使用Immutable"></a>使用Immutable</h3><p>在理解Immutable中，我们了解到使用Immutable可以给React应用带来性能的优化，主要体现在减少渲染的次数</p>
-<p>在做react性能优化的时候，为了避免重复渲染，我们会在shouldComponentUpdate()中做，当返回true执行render方法Immutable通过is方法则可以完成对比，而无需通过深度比较的方式比较</p>
-<h3 id="懒加载组件"><a href="#懒加载组件" class="headerlink" title="懒加载组件"></a>懒加载组件</h3><p>从工程方面考虑，webpack存在代码拆分能力，可以为应用创建多个包，并在运行时，动态加载，减少初始包的大小</p>
-<p>而在react中使用到了Suspense和lazy组件实现代码拆分功能，基本使用如下：</p>
-<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">const</span> johanComponent <span class="token operator">=</span> React<span class="token punctuation">.</span><span class="token function">lazy</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=></span><span class="token keyword">import</span><span class="token punctuation">(</span><span class="token string">'./myAwesome.component'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-
-<span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token function-variable function">johanAsyncComponent</span> <span class="token operator">=</span> props <span class="token operator">=></span> <span class="token punctuation">(</span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">React.Suspense</span></span> <span class="token attr-name">fallback</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Spinner</span></span><span class="token punctuation">/></span></span><span class="token punctuation">&#125;</span></span><span class="token punctuation">></span></span><span class="token plain-text">
-    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>johanComponent</span> <span class="token spread"><span class="token punctuation">&#123;</span><span class="token operator">...</span>props<span class="token punctuation">&#125;</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
-    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">React.Suspense</span></span><span class="token punctuation">></span></span>
-<span class="token punctuation">)</span></code></pre>
-
-<p>服务端渲染</p>
-<p>采用服务端渲染方式，可以使用户更快的看到渲染完成的页面</p>
-<p>服务端渲染，需要起一个node服务，可以使用express、koa等，调用react的renderToString方法，将根组件渲染成字符串，再输出到响应中</p>
-<p>例如：</p>
-<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">import</span> <span class="token punctuation">&#123;</span>renderToString<span class="token punctuation">&#125;</span> form <span class="token string">'react-dom/sever'</span>
-<span class="token keyword">import</span> MyPage <span class="token keyword">from</span> <span class="token string">'./MyPage'</span>
-app<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"/"</span><span class="token punctuation">,</span><span class="token punctuation">(</span>req<span class="token punctuation">,</span>res<span class="token punctuation">)</span><span class="token operator">=></span><span class="token punctuation">&#123;</span>
-    res<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"&lt;!DOCTYPE html>&lt;html>&lt;head>&lt;title>My Page&lt;/title>&lt;/head>&lt;body>"</span><span class="token punctuation">)</span>
-    res<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"&lt;div id='content>"</span><span class="token punctuation">)</span>
-    res<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token function">renderToString</span><span class="token punctuation">(</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">MyPage</span></span><span class="token punctuation">/></span></span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    res<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">'&lt;div/>&lt;body>&lt;/html>'</span><span class="token punctuation">)</span>
-    res<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">)</span></code></pre>
-
-<p>客户端使用render方法来生成HTML</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">import</span> ReactDOM <span class="token keyword">from</span> <span class="token string">'react-dom'</span>
-<span class="token keyword">import</span> MyPage <span class="token keyword">from</span> <span class="token string">'./MyPage'</span>
-ReactDOM<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token operator">&lt;</span>MyPage<span class="token operator">/</span><span class="token operator">></span><span class="token punctuation">,</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'app'</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
-
-<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>除此之外，还存在的优化手段有组件拆分、合理使用<code>hooks</code>等性能优化手段…</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>通过上面初步学习，我们了解到<code>react</code>常见的性能优化可以分成三个层面：</p>
-<ul>
-<li>代码层面</li>
-<li>工程层面</li>
-<li>框架机制层面</li>
-</ul>
-<p>通过这三个层面的优化结合，能够使基于<code>react</code>项目的性能更上一层楼</p>
+<h3 id="CSRF-攻击"><a href="#CSRF-攻击" class="headerlink" title="CSRF 攻击"></a>CSRF 攻击</h3><h4 id="概念：-1"><a href="#概念：-1" class="headerlink" title="概念："></a>概念：</h4><p>CSRF , 全称：<code>Cross-site request forgery</code> ，译为<strong>跨站请求伪造</strong>。</p>
+<h4 id="原理：-1"><a href="#原理：-1" class="headerlink" title="原理："></a>原理：</h4><ol>
+<li><p>登录受信任的网站 A ，并在本地生成  <code>Cookie</code>。(如果用户没有登录网站 A,那么网站 B 在诱导的时候，请求网站 A 的 <code>api</code> 接口时，会提示你登录)。</p>
+</li>
+<li><p>在不登出 A  的情况下，访问危险网站 B (其实是利用了 网站 A 的漏洞)。</p>
+</li>
+</ol>
+<h4 id="防范：-1"><a href="#防范：-1" class="headerlink" title="防范："></a>防范：</h4><ol>
+<li><code>token</code> 验证；</li>
+<li>隐藏令牌，把 <code>token</code>隐藏在 <code>http</code> 请求的 <code>head</code> 中。</li>
+<li><code>referer</code> 验证，验证页面来源。</li>
+</ol>
+<h3 id="两者区别"><a href="#两者区别" class="headerlink" title="两者区别"></a>两者区别</h3><ol>
+<li>CSRF：需要用户先登录网站 A ，获取 <code>cookie</code>。XSS：不需要登录而是通过注入脚本等方式。</li>
+<li>CSRF：是利用网站 A 本身的漏洞，去请求网站 A 的 <code>api</code>。XSS:是向网站 A 注入 <code>JS</code>代码，然后执行 <code>JS</code>里的代码，篡改网站 A 的内容。</li>
+</ol>
 
                 
             </div>
@@ -558,7 +475,7 @@ ReactDOM<span class="token punctuation">.</span><span class="token function">ren
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://hth520.github.io/2020/08/10/200810.html">https://hth520.github.io/2020/08/10/200810.html</a>
+                    <a href="https://hth520.github.io/2021/08/26/210826.html">https://hth520.github.io/2021/08/26/210826.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -596,8 +513,12 @@ ReactDOM<span class="token punctuation">.</span><span class="token function">ren
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
-                                    <span class="chip bg-color">性能优化</span>
+                                <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/">
+                                    <span class="chip bg-color">浏览器</span>
+                                </a>
+                            
+                                <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">
+                                    <span class="chip bg-color">网络安全</span>
                                 </a>
                             
                         </div>
@@ -768,7 +689,7 @@ ReactDOM<span class="token punctuation">.</span><span class="token function">ren
         repo: 'hth520.github.io',
         owner: 'hth520',
         admin: ["hth520"],
-        id: '2020-08-10T00-00-00',
+        id: '2021-08-26T14-03-56',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -802,6 +723,58 @@ ReactDOM<span class="token punctuation">.</span><span class="token function">ren
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
+                <a href="/2022/03/10/220310.html">
+                    <div class="card-image">
+                        
+                        <img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-03-10.png" class="responsive-img" alt="React 脚手架开发之Umi框架的使用">
+                        
+                        <span class="card-title">React 脚手架开发之Umi框架的使用</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-03-10
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/React-js/" class="post-category">
+                                    React.js
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Umi/">
+                        <span class="chip bg-color">Umi</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%A1%86%E6%9E%B6/">
+                        <span class="chip bg-color">框架</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
                 <a href="/2021/08/21/210821.html">
                     <div class="card-image">
                         
@@ -817,9 +790,9 @@ ReactDOM<span class="token punctuation">.</span><span class="token function">ren
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-08-21
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-21
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -841,58 +814,6 @@ ReactDOM<span class="token punctuation">.</span><span class="token function">ren
                     
                     <a href="/tags/Vue/">
                         <span class="chip bg-color">Vue</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2020/07/24/468.html">
-                    <div class="card-image">
-                        
-                        <img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/20-07-24.jpg" class="responsive-img" alt="关于webpack loader">
-                        
-                        <span class="card-title">关于webpack loader</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-24
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Webpack/" class="post-category">
-                                    Webpack
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/loader/">
-                        <span class="chip bg-color">loader</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%8A%A0%E8%BD%BD%E5%99%A8/">
-                        <span class="chip bg-color">加载器</span>
                     </a>
                     
                 </div>

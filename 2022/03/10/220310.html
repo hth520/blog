@@ -4,9 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="了解XSS和CSRF攻击, feico の 博客">
-    <meta name="description" content="了解XSS和CSRF攻击XSS 和 CSRF 介绍在 Web 安全领域中，XSS 和 CSRF 是最常见的攻击方式。那么本文就带你认识一下 XSS 和 CSRF 的攻防问题。
-XSS概念：XSS , 全称：Cross Site Script">
+    <meta name="keywords" content="React 脚手架开发之Umi框架的使用, feico の 博客">
+    <meta name="description" content="React 脚手架开发之Umi框架的使用
+ 前言：最近面试，有面试官问到我，react脚手架开发用过哪些，我心想难道不就只有官方推荐的 **create-react-app**吗？然后面试官就说，公司使用Umi(乌米)作为脚手架进行开发的，">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +18,7 @@ XSS概念：XSS , 全称：Cross Site Script">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>了解XSS和CSRF攻击 | feico の 博客</title>
+    <title>React 脚手架开发之Umi框架的使用 | feico の 博客</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -247,12 +247,12 @@ XSS概念：XSS , 全称：Cross Site Script">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://s4.ax1x.com/2022/01/26/7qB34J.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-03-10.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">了解XSS和CSRF攻击</h1>
+                    <h1 class="description center-align post-title">React 脚手架开发之Umi框架的使用</h1>
                 </div>
             </div>
         </div>
@@ -368,12 +368,12 @@ XSS概念：XSS , 全称：Cross Site Script">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/">
-                                <span class="chip bg-color">浏览器</span>
+                            <a href="/tags/Umi/">
+                                <span class="chip bg-color">Umi</span>
                             </a>
                         
-                            <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">
-                                <span class="chip bg-color">网络安全</span>
+                            <a href="/tags/%E6%A1%86%E6%9E%B6/">
+                                <span class="chip bg-color">框架</span>
                             </a>
                         
                     </div>
@@ -384,8 +384,8 @@ XSS概念：XSS , 全称：Cross Site Script">
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB/" class="post-category">
-                                网络攻击
+                            <a href="/categories/React-js/" class="post-category">
+                                React.js
                             </a>
                         
                     </div>
@@ -397,7 +397,7 @@ XSS概念：XSS , 全称：Cross Site Script">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-08-26
+                    2022-03-10
                 </div>
                 
 
@@ -421,34 +421,104 @@ XSS概念：XSS , 全称：Cross Site Script">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="了解XSS和CSRF攻击"><a href="#了解XSS和CSRF攻击" class="headerlink" title="了解XSS和CSRF攻击"></a>了解XSS和CSRF攻击</h1><h2 id="XSS-和-CSRF-介绍"><a href="#XSS-和-CSRF-介绍" class="headerlink" title="XSS 和 CSRF 介绍"></a>XSS 和 CSRF 介绍</h2><p>在 Web 安全领域中，XSS 和 CSRF 是最常见的攻击方式。那么本文就带你认识一下 XSS 和 CSRF 的攻防问题。</p>
-<h3 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h3><h4 id="概念："><a href="#概念：" class="headerlink" title="概念："></a>概念：</h4><p>XSS , 全称：<code>Cross Site Scripting</code> ，译为<strong>跨域脚本攻击</strong>。</p>
-<h4 id="原理："><a href="#原理：" class="headerlink" title="原理："></a>原理：</h4><p>不需要你做任何的登录验证，它会通过合法的操作 (比如在<code>url</code>中输入、在评论框中输入)，向用户的页面注入脚本 (可能是 <code>js</code>、<code>html</code>代码块等)。</p>
-<h4 id="防范："><a href="#防范：" class="headerlink" title="防范："></a>防范：</h4><p>1.编码：对于用户输入进行编码。</p>
-<p>2.过滤：移除用户输入和事件相关的属性。(过滤 <code>script</code>、<code>style</code>、<code>iframe</code>等节点)</p>
-<p>3.校正：使用<code>DOM Parse</code>转换，校正不配对的 <code>DOM</code>标签。</p>
-<p>4.使用 <code>HttpOnly</code>。</p>
-<h4 id="分类："><a href="#分类：" class="headerlink" title="分类："></a>分类：</h4><ul>
-<li>反射性 (非持久)：点击链接，执行脚本</li>
-<li>存储型 (持久)：恶意输入保存数据库，其他用户访问，执行脚本</li>
-<li>基于 <code>DOM</code>：而已修改 <code>DOM</code> 结构，基于客户端</li>
+                <h1 id="React-脚手架开发之Umi框架的使用"><a href="#React-脚手架开发之Umi框架的使用" class="headerlink" title="React 脚手架开发之Umi框架的使用"></a>React 脚手架开发之Umi框架的使用</h1><blockquote>
+<p> 前言：最近面试，有面试官问到我，react脚手架开发用过哪些，我心想难道不就只有官方推荐的 <code>**create-react-app**</code>吗？然后面试官就说，公司使用Umi(乌米)作为脚手架进行开发的，我当时懵了，可能确实没有用过，就马上去了解了一下，在此做个笔记，加深一下影响以免怕会用到，话不多说，go！</p>
+</blockquote>
+<h2 id="Umi-介绍"><a href="#Umi-介绍" class="headerlink" title="Umi 介绍"></a>Umi 介绍</h2><p>umi 以路由为基础的，支持<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://umijs.org/zh/guide/router.html">类 next.js 的约定式路由</a>，以及各种进阶的路由功能，并以此进行功能扩展，比如<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://umijs.org/zh/plugin/umi-plugin-react.html%23dynamicimport">支持路由级的按需加载</a>。然后配以完善的<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://umijs.org/zh/plugin/">插件体系</a>，覆盖从源码到构建产物的每个生命周期，支持各种功能扩展和业务需求，目前内外部加起来已有 50+ 的插件。</p>
+<p>这是官方对 Umi 的介绍</p>
+<h2 id="Umi-优势"><a href="#Umi-优势" class="headerlink" title="Umi 优势"></a>Umi 优势</h2><ul>
+<li>能做到开箱即用，内置了react、react-router等</li>
+<li>类 next.js 且功能完备的路由约定，同时支持配置的路由方式</li>
+<li>完善的插件体系，覆盖从源码到构建产物的每个生命周期</li>
+<li>高性能，通过插件支持 PWA、以路由为单元的 code splitting 等</li>
+<li>支持静态页面导出，适配各种环境，比如中台业务、无线业务、<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/eggjs/egg">egg</a>、支付宝钱包、云凤蝶等</li>
+<li><strong>开发启动快</strong>，支持一键开启 <a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://umijs.org/zh/plugin/umi-plugin-react.html%23dll">dll</a> 等</li>
+<li><strong>一键兼容到 IE9</strong>，基于 <a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://umijs.org/zh/plugin/umi-plugin-react.html%23polyfills">umi-plugin-polyfills</a></li>
+<li><strong>完善的 TypeScript 支持</strong>，包括 d.ts 定义和 umi test</li>
+<li><strong>与 dva 数据流的深入融合</strong>，支持 duck directory、model 的自动加载、code splitting 等等</li>
 </ul>
-<h3 id="CSRF-攻击"><a href="#CSRF-攻击" class="headerlink" title="CSRF 攻击"></a>CSRF 攻击</h3><h4 id="概念：-1"><a href="#概念：-1" class="headerlink" title="概念："></a>概念：</h4><p>CSRF , 全称：<code>Cross-site request forgery</code> ，译为<strong>跨站请求伪造</strong>。</p>
-<h4 id="原理：-1"><a href="#原理：-1" class="headerlink" title="原理："></a>原理：</h4><ol>
-<li><p>登录受信任的网站 A ，并在本地生成  <code>Cookie</code>。(如果用户没有登录网站 A,那么网站 B 在诱导的时候，请求网站 A 的 <code>api</code> 接口时，会提示你登录)。</p>
-</li>
-<li><p>在不登出 A  的情况下，访问危险网站 B (其实是利用了 网站 A 的漏洞)。</p>
-</li>
+<h2 id="搭建流程"><a href="#搭建流程" class="headerlink" title="搭建流程"></a>搭建流程</h2><h2 id="第一步：环境检测及安装"><a href="#第一步：环境检测及安装" class="headerlink" title="第一步：环境检测及安装"></a>第一步：环境检测及安装</h2><p>首先需要node, 并确保 node 版本是 8.10 或以上。（mac 下推荐使用 <a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/creationix/nvm">nvm</a> 来管理 node 版本）<br> 而包管理器，这里推荐使用使用 <strong>yarn</strong> 管理 npm 依赖<br> 1.安装yarn<br> 可根据官网介绍选择安装方式 <a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://yarnpkg.com/zh-Hans/docs/install%23windows-stable">https://yarnpkg.com/zh-Hans/docs/install#windows-stable</a><br> 2.全局安装 umi，并确保版本是 2.0.0 或以上。</p>
+<pre class="language-csharp" data-language="csharp"><code class="language-csharp">$ yarn <span class="token keyword">global</span> <span class="token keyword">add</span> umi</code></pre>
+
+<h2 id="第二步：通过脚手架创建项目"><a href="#第二步：通过脚手架创建项目" class="headerlink" title="第二步：通过脚手架创建项目"></a>第二步：通过脚手架创建项目</h2><p>umi 通过 <a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/umijs/create-umi">create-umi</a> 提供脚手架能力</p>
+<ol>
+<li>在需要生成项目的文件夹下，打开CMD or 终端 命令行输入 yarn create umi</li>
 </ol>
-<h4 id="防范：-1"><a href="#防范：-1" class="headerlink" title="防范："></a>防范：</h4><ol>
-<li><code>token</code> 验证；</li>
-<li>隐藏令牌，把 <code>token</code>隐藏在 <code>http</code> 请求的 <code>head</code> 中。</li>
-<li><code>referer</code> 验证，验证页面来源。</li>
+<pre class="language-ruby" data-language="ruby"><code class="language-ruby">$ yarn create umi</code></pre>
+
+<ol>
+<li>选择需要生成的项目类型</li>
 </ol>
-<h3 id="两者区别"><a href="#两者区别" class="headerlink" title="两者区别"></a>两者区别</h3><ol>
-<li>CSRF：需要用户先登录网站 A ，获取 <code>cookie</code>。XSS：不需要登录而是通过注入脚本等方式。</li>
-<li>CSRF：是利用网站 A 本身的漏洞，去请求网站 A 的 <code>api</code>。XSS:是向网站 A 注入 <code>JS</code>代码，然后执行 <code>JS</code>里的代码，篡改网站 A 的内容。</li>
+<pre class="language-dart" data-language="dart"><code class="language-dart"><span class="token operator">?</span> <span class="token class-name">Select</span> the boilerplate type <span class="token punctuation">(</span><span class="token class-name">Use</span> arrow keys<span class="token punctuation">)</span>
+  ant<span class="token operator">-</span>design<span class="token operator">-</span>pro  <span class="token operator">-</span> <span class="token class-name">Create</span> project <span class="token keyword">with</span> an layout<span class="token operator">-</span>only ant<span class="token operator">-</span>design<span class="token operator">-</span>pro boilerplate<span class="token punctuation">,</span> use together <span class="token keyword">with</span> umi block<span class="token punctuation">.</span>
+❯ app             <span class="token operator">-</span> <span class="token class-name">Create</span> project <span class="token keyword">with</span> a simple boilerplate<span class="token punctuation">,</span> support typescript<span class="token punctuation">.</span>
+  block           <span class="token operator">-</span> <span class="token class-name">Create</span> a umi block<span class="token punctuation">.</span>
+  <span class="token keyword">library</span>         <span class="token operator">-</span> <span class="token class-name">Create</span> a <span class="token keyword">library</span> <span class="token keyword">with</span> umi<span class="token punctuation">.</span>
+  plugin          <span class="token operator">-</span> <span class="token class-name">Create</span> a umi plugin<span class="token punctuation">.</span></code></pre>
+
+<ul>
+<li> <strong>app</strong>，通用项目脚手架，支持选择是否启用 TypeScript，以及 <a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://umijs.org/zh/plugin/umi-plugin-react.html">umi-plugin-react</a> 包含的功能</li>
+<li> <strong>ant-design-pro</strong>，仅包含 <a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/ant-design/ant-design-pro">ant-design-pro</a> 布局的脚手架，具体页面可通过 <a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://umijs.org/zh/guide/block.html">umi block</a> 添加</li>
+<li> <strong>block</strong>，区块脚手架</li>
+<li> <strong>plugin</strong>，插件脚手架</li>
+<li><strong>library</strong>，依赖（组件）库脚手架，基于 <a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/umijs/umi-plugin-library">umi-plugin-library</a><br> 在此我们 上下箭头切换到 app 并回车确定选择。</li>
+</ul>
+<ol>
+<li>其他选项<br> 此时会出现提示是否需要支持Typescript, 可根据实际项目开发情况选择是否使用。</li>
 </ol>
+<pre class="language-php" data-language="php"><code class="language-php"><span class="token operator">?</span> <span class="token keyword">Do</span> you want to <span class="token keyword">use</span> <span class="token package">typescript</span><span class="token operator">?</span> <span class="token punctuation">(</span>y<span class="token operator">/</span><span class="token constant">N</span><span class="token punctuation">)</span></code></pre>
+
+<p>选择Typescript支持后再选择你需要的功能（多选），功能介绍详见 <a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://umijs.org/zh/plugin/umi-plugin-react.html">plugin/umi-plugin-react</a>。</p>
+<pre class="language-xml" data-language="xml"><code class="language-xml">? What functionality do you want to enable? (Press <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>space</span><span class="token punctuation">></span></span> to select, <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span><span class="token punctuation">></span></span> to toggle all, <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>i</span><span class="token punctuation">></span></span> to invert selection)
+❯◯ antd
+ ◯ dva
+ ◯ code splitting
+ ◯ dll</code></pre>
+
+<p>同样按上下箭头移动，并按 空格 键选中需要的功能。<br> antd: UI框架，启用后实现antd, antd-mobile 和 antd-pro 的按需编译，无需要手动配置。<br> dva: 基于 <a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/reduxjs/redux">redux</a> 和 <a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/redux-saga/redux-saga">redux-saga</a> 的数据流方案，然后为了简化开发体验，dva 还额外内置了 <a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/ReactTraining/react-router">react-router</a> 和 <a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/github/fetch">fetch</a>，所以也可以理解为一个轻量级的应用框架<br> code splitting: 是否代码分包<br> dll: 通过 webpack 的 dll 插件预打包一份 dll 文件来达到二次启动提速的目的<br> 注意 此处多选项未选择，后期也可以在配置文件中配置。</p>
+<p>确定后，会根据你的选择自动创建好目录和文件。</p>
+<h2 id="第三步：运行及编译"><a href="#第三步：运行及编译" class="headerlink" title="第三步：运行及编译"></a>第三步：运行及编译</h2><p>安装依赖</p>
+<pre class="language-ruby" data-language="ruby"><code class="language-ruby">$ yarn</code></pre>
+
+<p>启动项目</p>
+<pre class="language-ruby" data-language="ruby"><code class="language-ruby">$ yarn start</code></pre>
+
+<p>这样我们就可以愉快的开发和调试了。</p>
+<p>当我们开发好要编译项目发布测试or生产时，执行：</p>
+<pre class="language-ruby" data-language="ruby"><code class="language-ruby">$ yarn build</code></pre>
+
+<h2 id="目录结构说明"><a href="#目录结构说明" class="headerlink" title="目录结构说明"></a>目录结构说明</h2><p>.<br> ├── dist/                          // 默认的 build 输出目录<br> ├── mock/                          // mock 文件所在目录，基于 express<br> ├── config/<br> ├── config.js                  // umi 配置，同 .umirc.js，二选一， 建议配置.umirc.js<br> └── src/                           // 源码目录，可选<br> ├── layouts/index.js           // 全局布局<br> ├── pages/                     // 页面目录，里面的文件即路由<br> ├── .umi/                  // dev 临时目录，需添加到 .gitignore<br> ├── .umi-production/       // build 临时目录，会自动删除<br> ├── document.ejs           // HTML 模板<br> ├── 404.js                    // 404 页面<br> ├── page1.js               // 页面 1，任意命名，导出 react 组件<br> ├── page1.test.js          // 用例文件，umi test 会匹配所有 .test.js 和 .e2e.js 结尾的文件<br> └── page2.js               // 页面 2，任意命名<br> ├── global.css                 // 约定的全局样式文件，自动引入，也可以用 global.less<br> ├── global.js                  // 可以在这里加入 polyfill<br> ├── app.js                     // 运行时配置文件<br> ├── .umirc.js                      // umi 配置，同 config/config.js，二选一<br> ├── .umirc.js                      // umi 配置，同 config/config.js，二选一<br> ├── .env                           // 环境变量<br> └── package.json</p>
+<h2 id="开发提示"><a href="#开发提示" class="headerlink" title="开发提示"></a>开发提示</h2><p>.umirc.js 配置，<br> 该文件中可以配置项目基本情况，如上面安装步骤中出现是否选用antd, dva等，在此文件中都可以更改为true, 另外还可以配置 webpack 打包配置，具体的配置项详见<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://umijs.org/zh/config/">.umirc.js 配置</a>。</p>
+<p>设置.umirc.local.js 文件<br> 由于.umirc里的配置众多而且为了优化项目必然会分包代码抽离等，而在本地运行时无需这些，便可配置.umirc.local.js 文件，注意此文件中的选项配置和.umirc.js 配置一样，不要提交到 git，所以通常需要配置到 .gitignore。本地运行时会和 .umirc.js 合并后再返回。</p>
+<p>由于umi 会根据 pages 目录自动生成路由配置，所以无需要手动配置路由，会根据 src / pages 下 文件名自动生成路由，但是你也可以配置.umirc.js中的 routes 属性，此配置项存在时则不会对 src/pages 目录做约定式的解析。</p>
+<p>常用路由操作</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> PureComponent <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'react'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> Link <span class="token keyword">from</span> <span class="token string">'umi/link'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> router <span class="token keyword">from</span> <span class="token string">'umi/router'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Examples</span> <span class="token keyword">extends</span> <span class="token class-name">PureComponent</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">render</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+                </span><span class="token punctuation">&#123;</span><span class="token comment">/* 普通使用 */</span><span class="token punctuation">&#125;</span><span class="token plain-text">
+                </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Link</span></span> <span class="token attr-name">to</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>/list<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token plain-text">跳转</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">Link</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+
+                </span><span class="token punctuation">&#123;</span><span class="token comment">/* 带参数 */</span><span class="token punctuation">&#125;</span><span class="token plain-text">
+                </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Link</span></span> <span class="token attr-name">to</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>/list?a=b<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token plain-text">跳转</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">Link</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+
+                </span><span class="token punctuation">&#123;</span><span class="token comment">/* 包含子组件 */</span><span class="token punctuation">&#125;</span><span class="token plain-text">
+                </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Link</span></span> <span class="token attr-name">to</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>/list?a=b<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span><span class="token punctuation">></span></span><span class="token plain-text">跳转</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">Link</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+
+                </span><span class="token punctuation">&#123;</span><span class="token comment">/* 点击跳转 */</span><span class="token punctuation">&#125;</span><span class="token plain-text">
+                </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">onClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> router<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token string">'/list'</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span></span><span class="token punctuation">></span></span><span class="token plain-text">跳转</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><span class="token plain-text">
+            </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span></span><span class="token punctuation">></span></span>
+        <span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> Examples<span class="token punctuation">;</span></code></pre>
+
+<p>更多查看<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://umijs.org/zh/api/%23%25E8%25B7%25AF%25E7%2594%25B1">路由配置</a></p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>通过文档了解到，umi框架开发项目提升了效率，而其本身也在不断的升级完善中，在2.8.0+版本，umi 可配置ssr 服务器端渲染，相信umi还将越来越完善。<br> 更多查看官方文档<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://umijs.org/">https://umijs.org/</a></p>
 
                 
             </div>
@@ -475,7 +545,7 @@ XSS概念：XSS , 全称：Cross Site Script">
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://hth520.github.io/2021/08/26/31410.html">https://hth520.github.io/2021/08/26/31410.html</a>
+                    <a href="https://hth520.github.io/2022/03/10/220310.html">https://hth520.github.io/2022/03/10/220310.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -513,12 +583,12 @@ XSS概念：XSS , 全称：Cross Site Script">
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/">
-                                    <span class="chip bg-color">浏览器</span>
+                                <a href="/tags/Umi/">
+                                    <span class="chip bg-color">Umi</span>
                                 </a>
                             
-                                <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">
-                                    <span class="chip bg-color">网络安全</span>
+                                <a href="/tags/%E6%A1%86%E6%9E%B6/">
+                                    <span class="chip bg-color">框架</span>
                                 </a>
                             
                         </div>
@@ -689,7 +759,7 @@ XSS概念：XSS , 全称：Cross Site Script">
         repo: 'hth520.github.io',
         owner: 'hth520',
         admin: ["hth520"],
-        id: '2021-08-26T14-03-56',
+        id: '2022-03-10T14-09-13',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -724,7 +794,60 @@ XSS概念：XSS , 全称：Cross Site Script">
                 <i class="far fa-dot-circle"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/2021/08/26/31410.html">
+                <a href="/2022/03/10/220310.html">
+                    <div class="card-image">
+                        
+                        <img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-03-10.png" class="responsive-img" alt="React 脚手架开发之Umi框架的使用">
+                        
+                        <span class="card-title">React 脚手架开发之Umi框架的使用</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-10
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/React-js/" class="post-category">
+                                    React.js
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Umi/">
+                        <span class="chip bg-color">Umi</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%A1%86%E6%9E%B6/">
+                        <span class="chip bg-color">框架</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/08/26/210826.html">
                     <div class="card-image">
                         
                         <img src="https://s4.ax1x.com/2022/01/26/7qB34J.png" class="responsive-img" alt="了解XSS和CSRF攻击">
@@ -754,7 +877,6 @@ XSS概念：XSS , 全称：Cross Site Script">
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -764,58 +886,6 @@ XSS概念：XSS , 全称：Cross Site Script">
                     
                     <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">
                         <span class="chip bg-color">网络安全</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2021/08/21/27130.html">
-                    <div class="card-image">
-                        
-                        <img src="https://s4.ax1x.com/2022/01/24/7TrH6f.jpg" class="responsive-img" alt="学习 Vue3 基础">
-                        
-                        <span class="card-title">学习 Vue3 基础</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-21
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Vue-js/" class="post-category">
-                                    Vue.js
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E5%89%8D%E7%AB%AF/">
-                        <span class="chip bg-color">前端</span>
-                    </a>
-                    
-                    <a href="/tags/Vue/">
-                        <span class="chip bg-color">Vue</span>
                     </a>
                     
                 </div>
