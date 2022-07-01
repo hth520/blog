@@ -4,9 +4,13 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="React Hooks 系列之 useMemo, feico の 博客">
-    <meta name="description" content="掌握 React Hooks api 将更好的帮助你在工作中使用，对 React 的掌握更上一层楼。
-我们学习了 useCallback 来进行性能优化，关于性能优化还有另一个 hook api，那就是 useMemo，下面我们一起通过一个">
+    <meta name="keywords" content="Umi 4 诞生啦，快来看看吧, feico の 博客">
+    <meta name="description" content="
+最近看React生态发现 Umi在两个月前发布了Umi4 ，目前是RC.24版本，蚂蚁内网框架的主体功能已非常稳定，目前上线近100应用，并且可以在npm上使用了，一起来看看有哪些好东西吧！
+
+
+
+一、新增功能相比 Umi 2 到 Umi">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +22,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>React Hooks 系列之 useMemo | feico の 博客</title>
+    <title>Umi 4 诞生啦，快来看看吧 | feico の 博客</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -247,12 +251,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://blog-1309278058.cos.ap-shanghai.myqcloud.com/hook_useMemo.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-07-01_banner.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">React Hooks 系列之 useMemo</h1>
+                    <h1 class="description center-align post-title">Umi 4 诞生啦，快来看看吧</h1>
                 </div>
             </div>
         </div>
@@ -368,12 +372,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/hooks/">
-                                <span class="chip bg-color">hooks</span>
-                            </a>
-                        
-                            <a href="/tags/React/">
-                                <span class="chip bg-color">React</span>
+                            <a href="/tags/umi/">
+                                <span class="chip bg-color">umi</span>
                             </a>
                         
                     </div>
@@ -384,8 +384,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/JavaScript/" class="post-category">
-                                JavaScript
+                            <a href="/categories/React-js/" class="post-category">
+                                React.js
                             </a>
                         
                     </div>
@@ -397,7 +397,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-06-21
+                    2022-07-01
                 </div>
                 
 
@@ -421,143 +421,108 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>掌握 React Hooks api 将更好的帮助你在工作中使用，对 React 的掌握更上一层楼。</p>
-<p>我们学习了 useCallback 来进行性能优化，关于性能优化还有另一个 hook api，那就是 useMemo，下面我们一起通过一个例子来看看。</p>
-<h2 id="计数器示例"><a href="#计数器示例" class="headerlink" title="计数器示例"></a>计数器示例</h2><p>依然是计数器示例，创建2个计数器，并能区分当前是奇数或者偶数，为了模拟点击按钮时包含大量的计算逻辑影响性能，在判断偶数的方法中添加了没有用的计算逻辑，为了让性能差的明显。代码如下</p>
-<p>Counter.tsx</p>
-<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> useState <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'react'</span>
-
-<span class="token keyword">function</span> <span class="token function">Counter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">const</span> <span class="token punctuation">[</span>counterOne<span class="token punctuation">,</span> setCounterOne<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
-  <span class="token keyword">const</span> <span class="token punctuation">[</span>counterTwo<span class="token punctuation">,</span> setCounterTwo<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
-
-  <span class="token keyword">const</span> <span class="token function-variable function">incrementOne</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    <span class="token function">setCounterOne</span><span class="token punctuation">(</span>counterOne <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span>
-
-  <span class="token keyword">const</span> <span class="token function-variable function">incrementTwo</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    <span class="token function">setCounterTwo</span><span class="token punctuation">(</span>counterTwo <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span>
-
-  <span class="token keyword">const</span> <span class="token function-variable function">isEven</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span>
-    <span class="token keyword">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> <span class="token number">1000000000</span><span class="token punctuation">)</span> i <span class="token operator">+=</span> <span class="token number">1</span>
-    <span class="token keyword">return</span> counterOne <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">0</span>
-  <span class="token punctuation">&#125;</span>
-
-  <span class="token keyword">return</span> <span class="token punctuation">(</span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span>
-        <span class="token attr-name">onClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>incrementOne<span class="token punctuation">&#125;</span></span>
-      <span class="token punctuation">></span></span><span class="token plain-text">Count One = </span><span class="token punctuation">&#123;</span>counterOne<span class="token punctuation">&#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
-        </span><span class="token punctuation">&#123;</span>
-          <span class="token function">isEven</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token string">'even'</span> <span class="token operator">:</span> <span class="token string">'odd'</span>
-        <span class="token punctuation">&#125;</span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span> <span class="token punctuation">/></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span>
-        <span class="token attr-name">onClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>incrementTwo<span class="token punctuation">&#125;</span></span>
-      <span class="token punctuation">></span></span><span class="token plain-text">Count Two = </span><span class="token punctuation">&#123;</span>counterTwo<span class="token punctuation">&#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><span class="token plain-text">
-    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-  <span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">export</span> <span class="token keyword">default</span> Counter</code></pre>
-
-<p>App.tsx</p>
-<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">'react'</span>
-<span class="token keyword">import</span> <span class="token string">'./App.css'</span>
-
-<span class="token keyword">import</span> Counter <span class="token keyword">from</span> <span class="token string">'./components/27.Counter'</span>
-
-<span class="token keyword">const</span> <span class="token function-variable function">App</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">return</span> <span class="token punctuation">(</span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>App<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Counter</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
-    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-  <span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">export</span> <span class="token keyword">default</span> App</code></pre>
-
-<p>页面展示如下</p>
-<p><img src="https://gw.alicdn.com/tfs/TB1r2l1GND1gK0jSZFKXXcJrVXa-702-286.gif" alt="img"></p>
-<p>我们发现点击第一个按钮有较长的延迟，因为我们的判断偶数的逻辑中包含了大量的计算逻辑。但是，我们点击第二个按钮，也有较长的延迟！这很奇怪。</p>
-<p>这是因为，每次 state 更新时，组件会 rerender，isEven 会被执行，这就是我们点击第二个按钮时，也会卡的原因。我们需要优化，告诉 React 不要有不必要的计算，特别是这种计算量复杂的。</p>
-<p>在我们的示例中，我们要告诉 React，在点击第二个按钮时，不要执行 isEven 方法。这时就需要 useMemo hook 登场了。</p>
-<h2 id="useMemo"><a href="#useMemo" class="headerlink" title="useMemo"></a>useMemo</h2><h3 id="优化示例"><a href="#优化示例" class="headerlink" title="优化示例"></a>优化示例</h3><p>与 useCallback 的用法类似。</p>
-<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">const</span> memoizedValue <span class="token operator">=</span> <span class="token function">useMemo</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">computeExpensiveValue</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>a<span class="token punctuation">,</span> b<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-
-<blockquote>
-<p>返回一个 memoized 值。 把“创建”函数和依赖项数组作为参数传入 <code>useMemo</code>，它仅会在某个依赖项改变时才重新计算 memoized 值。这种优化有助于避免在每次渲染时都进行高开销的计算。</p>
-<p>记住，传入 <code>useMemo</code> 的函数会在渲染期间执行。请不要在这个函数内部执行与渲染无关的操作，诸如副作用这类的操作属于 <code>useEffect</code> 的适用范畴，而不是 <code>useMemo</code>。</p>
-<p>如果没有提供依赖项数组，<code>useMemo</code> 在每次渲染时都会计算新的值。</p>
-<p><strong>你可以把 useMemo 作为性能优化的手段，但不要把它当成语义上的保证。</strong> 将来，React 可能会选择“遗忘”以前的一些 memoized 值，并在下次渲染时重新计算它们，比如为离屏组件释放内存。先编写在没有 useMemo 的情况下也可以执行的代码 —— 之后再在你的代码中添加 useMemo，以达到优化性能的目的。</p>
+                <blockquote>
+<p>最近看React生态发现 Umi在两个月前发布了Umi4 ，目前是RC.24版本，蚂蚁内网框架的主体功能已非常稳定，目前上线近100应用，并且可以在npm上使用了，一起来看看有哪些好东西吧！</p>
 </blockquote>
-<p>首先引入 useMemo</p>
-<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> useState<span class="token punctuation">,</span> useMemo <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'react'</span></code></pre>
+<img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-07-01_umi4.png"/>
 
-<p>然后将 isEven 方法使用 useMemo 改写，返回值赋给 isEven</p>
-<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">const</span> isEven <span class="token operator">=</span> <span class="token function">useMemo</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span>
-  <span class="token keyword">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> <span class="token number">1000000000</span><span class="token punctuation">)</span> i <span class="token operator">+=</span> <span class="token number">1</span>
-  <span class="token keyword">return</span> counterOne <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">0</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>counterOne<span class="token punctuation">]</span><span class="token punctuation">)</span></code></pre>
-
-<p>最后记得修改 isEven 使用的地方，已经从一个方法变为了一个变量</p>
-<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token punctuation">&#123;</span>
-  isEven <span class="token operator">?</span> <span class="token string">'even'</span> <span class="token operator">:</span> <span class="token string">'odd'</span>
+<h2 id="一、新增功能"><a href="#一、新增功能" class="headerlink" title="一、新增功能"></a>一、新增功能</h2><p>相比 Umi 2 到 Umi 3，Umi 4 有着更宏大的目标，更版时间也长了很多，同时带来的变化是巨大的。</p>
+<h5 id="多构建引擎"><a href="#多构建引擎" class="headerlink" title="多构建引擎"></a><strong>多构建引擎</strong></h5><p> Umi 4 同时支持 Vite 和 Webpack 两种构建方式，并尽量确保他们之间功能的一致性，让开发者可以通过一行配置进行切换。可能有些同学会喜欢 dev 用 vite，build 用 webpack 这样的组合。</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">&#123;</span>
+  <span class="token literal-property property">vite</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span></code></pre>
 
-<p>完整代码如下</p>
-<p>Counter.tsx</p>
-<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> useState<span class="token punctuation">,</span> useMemo <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'react'</span>
+<h5 id="默认快"><a href="#默认快" class="headerlink" title="默认快"></a><strong>默认快</strong></h5><p> 默认快是多维度的，通过 MFSU V3 + Webpack 5 缓存解 Dev 时编译慢的问题；内网还有通过 Webpack 5 物理缓存和 CD 平台结合解 Build 时编译慢的问题；有使用 esbuild 做 js 和 css 的压缩器、配置和 MOCK 文件的读取、jest 的 transformer，让除构建之外的其他环节也飞快；此外还有运行时速度也有考虑。</p>
+<h5 id="MFSU-V3"><a href="#MFSU-V3" class="headerlink" title="MFSU V3"></a><strong>MFSU V3</strong></h5><p> Umi 3 的 MFSU 大家可能多少有接触过，虽然有用，但 DX 不够好。用的时候会遇到一些坑，以至于很多同学都掌握了一项特殊技能，遇到问题时 rm -rf src/.umi。大家可能会遇到 monorepo 不支持、热更新导致 Tab 卡死、请求多导致页面打开慢、一些语法不支持的问题。以上问题在 MFSU V3 中全解！基于此在 Umi 4 中默认开启 MFSU 功能。当然，如果你不喜欢，会保留手动配置 mfsu: false 关闭的口子。同时，MFSU V3 还可脱离 Umi 独立使用。</p>
+<img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-07-01_mfsu%E5%8E%9F%E7%90%86.png"/>
 
-<span class="token keyword">function</span> <span class="token function">Counter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">const</span> <span class="token punctuation">[</span>counterOne<span class="token punctuation">,</span> setCounterOne<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
-  <span class="token keyword">const</span> <span class="token punctuation">[</span>counterTwo<span class="token punctuation">,</span> setCounterTwo<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+<h5 id="Umi-Max"><a href="#Umi-Max" class="headerlink" title="Umi Max"></a><strong>Umi Max</strong></h5><p> 这是内部 Bigfish 框架的对外版本，同时也给社区另一个集中化框架的选择，定位是中后台框架，包含了中后台相关的大量最佳实践的插件。如果有定制需求，大家可以参考他来实现内网框架的定制，比如快手团队就有基于 Umi 4 的框架定制，还有 Alita 也是基于 Umi 定制的面向移动端的框架。</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">npm</span> i @umijs/max -D</code></pre>
 
-  <span class="token keyword">const</span> <span class="token function-variable function">incrementOne</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    <span class="token function">setCounterOne</span><span class="token punctuation">(</span>counterOne <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span>
+<h5 id="React-Router-6"><a href="#React-Router-6" class="headerlink" title="React Router 6"></a><strong>React Router 6</strong></h5><p> 升级了路由方案到 React Router 6，喜忧参半。好消息是，React Router 6 是 Remix 的基础库，面向框架层做了很多优化，路由实现层更优雅，Umi 得以删除大量路由渲染的代码；坏消息是，带来不少 Break Change，比如之前父路由渲染子路由用 children，得换成 。</p>
+<pre class="language-diff" data-language="diff"><code class="language-diff"><span class="token deleted-sign deleted"><span class="token prefix deleted">-</span><span class="token line"> &#123; props.children &#125;
+</span></span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line"> &lt;Outlet /></span></span></code></pre>
 
-  <span class="token keyword">const</span> <span class="token function-variable function">incrementTwo</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    <span class="token function">setCounterTwo</span><span class="token punctuation">(</span>counterTwo <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span>
+<h5 id="支持-Vue"><a href="#支持-Vue" class="headerlink" title="支持 Vue"></a><strong>支持 Vue</strong></h5><p> Umi 4 中提供了 Vue 支持，记得在 Umi 2 有一张架构图，其中就有 Vue 的一环，Umi 3 时也有过尝试，但那会 Vue 3 还不太成熟，接入时遇到不少坑，这个坑今天总算是补上了。此功能由社区同学操刀，只需装载一个 preset 即可切换到 Vue。</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">&#123;</span>
+  <span class="token literal-property property">presets</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'@umijs/preset-vue'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span></code></pre>
 
-  <span class="token keyword">const</span> isEven <span class="token operator">=</span> <span class="token function">useMemo</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span>
-    <span class="token keyword">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> <span class="token number">1000000000</span><span class="token punctuation">)</span> i <span class="token operator">+=</span> <span class="token number">1</span>
-    <span class="token keyword">return</span> counterOne <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">0</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>counterOne<span class="token punctuation">]</span><span class="token punctuation">)</span>
-
-  <span class="token keyword">return</span> <span class="token punctuation">(</span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span>
-        <span class="token attr-name">onClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>incrementOne<span class="token punctuation">&#125;</span></span>
-      <span class="token punctuation">></span></span><span class="token plain-text">Count One = </span><span class="token punctuation">&#123;</span>counterOne<span class="token punctuation">&#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
-        </span><span class="token punctuation">&#123;</span>
-          isEven <span class="token operator">?</span> <span class="token string">'even'</span> <span class="token operator">:</span> <span class="token string">'odd'</span>
-        <span class="token punctuation">&#125;</span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span> <span class="token punctuation">/></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span>
-        <span class="token attr-name">onClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>incrementTwo<span class="token punctuation">&#125;</span></span>
-      <span class="token punctuation">></span></span><span class="token plain-text">Count Two = </span><span class="token punctuation">&#123;</span>counterTwo<span class="token punctuation">&#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><span class="token plain-text">
-    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-  <span class="token punctuation">)</span>
+<h5 id="默认最快的-CSR-请求"><a href="#默认最快的-CSR-请求" class="headerlink" title="默认最快的 CSR 请求"></a><strong>默认最快的 CSR 请求</strong></h5><p> 项目构建快解的是 DX 问题，但同时也应该关注 UX。Client Loader 的目的是让应用加载默认快，避免 React 项目经典的 Render-Then-Fetch 的加载瀑布流问题。示例项目的从 9s 降到 6s，这 6s 还是之前截的图，上了 Preload 功能之后其实已更快。</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">// 使用请求数据</span>
+  <span class="token function">useClientLoaderData</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token punctuation">&#125;</span>
+<span class="token comment">// 声明请求</span>
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">clientLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span></code></pre>
 
-<span class="token keyword">export</span> <span class="token keyword">default</span> Counter</code></pre>
+<h5 id="白盒文档的-Lint"><a href="#白盒文档的-Lint" class="headerlink" title="白盒文档的 Lint"></a><strong>白盒文档的 Lint</strong></h5><p> Umi 4 里内置了 lint 规则，只有质量类不开可能会导致项目问题的规则，不包含风格类的规则，不包含 TypeScript 中 type-aware 类的规则，这类规则需要跑整个项目，会导致性能问题；同时通过 @rushstack/eslint-pach 的方式锁定了 config 里找 plugin 的规则，确保规则是长期稳定的。</p>
+<h5 id="SSR"><a href="#SSR" class="headerlink" title="SSR"></a><strong>SSR</strong></h5><p>Umi 4 重写了 SSR 功能，目前此功能还在 beta 阶段，请勿将其用于生产环境。Umi 4 的 SSR 有以下特点，1）server 代码的构建基于 esbuild，所以极快，2）请求的处理类似 next.js 的 getServerSideProps 和 remix 的 loader，只在服务端跑，3）基于 react 18 的 suspense 和 renderToPipeableStream。实现原因，部署层目前仅实现了 vercel 的 adapter。这里有个简单的 Todos 示例：<a href="https://link.juejin.cn/?target=https://test-vercel-chencheng.vercel.app/">test-vercel-chencheng.vercel.app/</a></p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">&#123;</span>
+  <span class="token literal-property property">ssr</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">platform</span><span class="token operator">:</span> <span class="token string">'vercel'</span> <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
 
-<p>效果如下</p>
-<p><img src="https://gw.alicdn.com/tfs/TB1Oz_bb5cKOu4jSZKbXXc19XXa-702-286.gif" alt="img"></p>
-<p>我们看到点击第二个按钮时，不会有任何卡顿，这是因为使用了 useMemo 只依赖了 counterOne 变量，点击第二个按钮时，isEven 读取的是缓存值，不需要再重新计算是否为偶数。</p>
-<h3 id="useMemo-与-useCallback-的区别"><a href="#useMemo-与-useCallback-的区别" class="headerlink" title="useMemo 与 useCallback 的区别"></a>useMemo 与 useCallback 的区别</h3><p>useCallback 是缓存了函数自身，而 useMemo 是缓存了函数的返回值。</p>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本章通过示例展示了 useMemo 在性能优化中的作用。通过缓存函数的返回值，避免不必要的调用，从而避免了组件 rerender。</p>
-<p>最后有分析了 useMemo 与 useCallback 的区别，即 useMemo 是缓存了函数的返回值，useCallback 是缓存了函数自身。这两个 api 都是性能优化的方法。</p>
+<h5 id="API-路由"><a href="#API-路由" class="headerlink" title="API 路由"></a><strong>API 路由</strong></h5><p> Umi 4 约定 src/api 目录下存放的 Serverless Function 格式的文件即为 API 路由。这部分路由会打包成不同平台支持的 Serverless Function 产物。场景比如带 token 的 API 调用、动态数据源、基于 Notion API 的 Blog、Hackernews Clone 等等。基于此，Umi 能做的事的边界就大了很多。不再只是写写中后台，实现静态页面。</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">&#123;</span>
+  <span class="token literal-property property">apiRoute</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<h5 id="微生成器"><a href="#微生成器" class="headerlink" title="微生成器"></a><strong>微生成器</strong></h5><p> 此概念来自 Modern.js。Modern.js 引入很多新概念，其中「微生成器」还是非常贴切的。他包含两个功能，1）小型脚手架，2）功能的开启与关闭。Umi 3 虽然也有 generate 命令，但只包含功能 1。Umi 4 拓展了下 generate（alias 为 g）命令。除了支持更多类型的小型脚手架生成，还支持功能的开启与关闭，以及比如 Monorepo、react 和 antd 版本等的功能切换。</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ npx umi g
+? Pick generator <span class="token builtin class-name">type</span> › - Use arrow-keys. Return to submit.
+❯   创建页面 -- Create a umi page by page name
+    创建组件 -- <span class="token builtin class-name">.</span>
+    创建 mock 代码 -- <span class="token builtin class-name">.</span>
+    创建 model 代码 -- <span class="token builtin class-name">.</span>
+    启用 Prettier -- Setup Prettier Configurations
+    启用 Jest -- Setup Jest Configuration
+    启用 E2E 测试 -- <span class="token builtin class-name">.</span>
+    启用 Tailwind CSS -- Setup Tailwind CSS configuration
+    启用 SSR -- <span class="token builtin class-name">.</span>
+    启用 Low Import 研发模式 -- <span class="token builtin class-name">.</span>
+    启用权限方案 -- <span class="token builtin class-name">.</span>
+    启用 Monaco 编辑器 -- <span class="token builtin class-name">.</span>
+    关闭 Dva 数据流 -- Configuration, Dependencies, and Model Files <span class="token keyword">for</span> Dva
+    关闭 MFSU -- <span class="token builtin class-name">.</span>
+    切换为 Monorepo 项目 -- <span class="token builtin class-name">.</span>
+    切换 React 为 <span class="token number">18</span> -- <span class="token builtin class-name">.</span>
+    切换 Antd 为 <span class="token number">5</span> -- <span class="token builtin class-name">.</span></code></pre>
+
+<p>除此之外，还有非常多小而美的 DX 改进。</p>
+<h5 id="自动-https"><a href="#自动-https" class="headerlink" title="自动 https"></a><strong>自动 https</strong></h5><p> Umi 4 的 https dev server 的实现基于 mkcert，启动过程中会基于 hosts 自动生成对应的 key 和 cert。开发者除了安装前置的 mkcert，其他无需关心。</p>
+<h5 id="浏览器里的构建进度条"><a href="#浏览器里的构建进度条" class="headerlink" title="浏览器里的构建进度条"></a><strong>浏览器里的构建进度条</strong></h5><p> 如果首次构建没有完成就在浏览器里打开，你会看到一个构建进度条，支持 webpack 多实例，支持 MFSU，完成初始构建后会自动跳转到项目页。</p>
+<h5 id="项目级插件：plugin-ts"><a href="#项目级插件：plugin-ts" class="headerlink" title="项目级插件：plugin.ts"></a><strong>项目级插件：plugin.ts</strong></h5><p> 为进一步降低项目中使用插件的门槛，Umi 4 中约定项目根目录下的 plugin.ts 为插件，开发者可在此直接调用插件 API，无需注册，支持 TypeScript。有了这个文件，我们可以在项目级做很多事。比如，</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">import</span> <span class="token punctuation">&#123;</span> IApi <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'umi'</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">api</span><span class="token operator">:</span> IApi</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">// 比如修改 HTML</span>
+  api<span class="token punctuation">.</span><span class="token function">modifyHTML</span><span class="token punctuation">(</span><span class="token parameter">$</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> $<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// 比如在入口的 umi.ts 中添加代码</span>
+  api<span class="token punctuation">.</span><span class="token function">addEntryCodeAhead</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">[</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">console.log('entry code ahead')</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  api<span class="token punctuation">.</span><span class="token function">addEntryCode</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">[</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">console.log('entry code')</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// 比如在构建完成时做额外的事</span>
+  api<span class="token punctuation">.</span><span class="token function">onBuildComplete</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">opts</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// 比如在启动阶段做额外的事</span>
+  api<span class="token punctuation">.</span><span class="token function">onStart</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">opts</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// 比如校验每个 JavaScript/TypeScript 代码</span>
+  api<span class="token punctuation">.</span><span class="token function">onCheckCode</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">args</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// 比如动态修改路由</span>
+  api<span class="token punctuation">.</span><span class="token function">modifyRoutes</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">routes</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<h5 id="deadCode-检测"><a href="#deadCode-检测" class="headerlink" title="deadCode 检测"></a><strong>deadCode 检测</strong></h5><p> 项目中通常会有未使用的文件或导出，Umi 4 中通过配置 deadCode: {} 即可在 build 阶段做检测。如有发现，会有类似信息抛出。</p>
+<pre class="language-none"><code class="language-none">Warning: There are 3 unused files:
+ 1. &#x2F;mock&#x2F;a.ts
+ 2. &#x2F;mock&#x2F;b.ts
+ 3. &#x2F;pages&#x2F;index.module.less
+ Please be careful if you want to remove them (¬º-°)¬.</code></pre>
+
+<h5 id="Umi-UI-卷土重来？"><a href="#Umi-UI-卷土重来？" class="headerlink" title="Umi UI 卷土重来？"></a><strong>Umi UI 卷土重来？</strong></h5><p> 日常排查问题时，很多 Umi 框架的内部状态是看不到的，比如插件启用情况、appData 元数据、修改过的最终配置、修改过的最终 webpack 配置、修改过的最终路由、MFSU 的 module graph 信息等。Umi 4 提供了 /__umi/ 路由，dev 阶段可用，定位是开发辅助，大家也可以理解为是「丐版 Umi UI」。</p>
+<h2 id="二、如此多的更新该做点什么？"><a href="#二、如此多的更新该做点什么？" class="headerlink" title="二、如此多的更新该做点什么？"></a>二、如此多的更新该做点什么？</h2><h5 id="升级项目到-Umi-4"><a href="#升级项目到-Umi-4" class="headerlink" title="升级项目到 Umi 4"></a>升级项目到 Umi 4</h5><p>如果项目用的Umi并且有以上功能可以解决项目的难题何不试试换到Umi呢</p>
+<h5 id="使用-Umi-4-开启新项目"><a href="#使用-Umi-4-开启新项目" class="headerlink" title="使用 Umi 4 开启新项目"></a>使用 Umi 4 开启新项目</h5><p>使用Vue项目集成Umi，想想也很刺激呢</p>
+<p>**tip: ** Ant Design Pro 已完成到 Umi 4 的升级，不日将发布新版本。</p>
+<h2 id="三、想说的话"><a href="#三、想说的话" class="headerlink" title="三、想说的话"></a>三、想说的话</h2><p>技术方向有迭代才会更有生命力</p>
 
                 
             </div>
@@ -584,7 +549,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://hth520.github.io/2020/06/21/401.html">https://hth520.github.io/2020/06/21/401.html</a>
+                    <a href="https://hth520.github.io/2022/07/01/220701.html">https://hth520.github.io/2022/07/01/220701.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -622,12 +587,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/hooks/">
-                                    <span class="chip bg-color">hooks</span>
-                                </a>
-                            
-                                <a href="/tags/React/">
-                                    <span class="chip bg-color">React</span>
+                                <a href="/tags/umi/">
+                                    <span class="chip bg-color">umi</span>
                                 </a>
                             
                         </div>
@@ -798,7 +759,7 @@
         repo: 'hth520.github.io',
         owner: 'hth520',
         admin: ["hth520"],
-        id: '2020-06-21T00-00-00',
+        id: '2022-07-01T20-14-13',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -828,16 +789,17 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/06/25/405.html">
+                <a href="/2022/07/01/220701.html">
                     <div class="card-image">
                         
-                        <img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/hook_useRef.jpg" class="responsive-img" alt="React Hooks 系列之 useRef">
+                        <img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-07-01_banner.png" class="responsive-img" alt="Umi 4 诞生啦，快来看看吧">
                         
-                        <span class="card-title">React Hooks 系列之 useRef</span>
+                        <span class="card-title">Umi 4 诞生啦，快来看看吧</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -847,30 +809,27 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-06-25
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-01
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/JavaScript/" class="post-category">
-                                    JavaScript
+                            <a href="/categories/React-js/" class="post-category">
+                                    React.js
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/hooks/">
-                        <span class="chip bg-color">hooks</span>
-                    </a>
-                    
-                    <a href="/tags/React/">
-                        <span class="chip bg-color">React</span>
+                    <a href="/tags/umi/">
+                        <span class="chip bg-color">umi</span>
                     </a>
                     
                 </div>
@@ -884,12 +843,12 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/06/15/397.html">
+                <a href="/2022/06/01/220601.html">
                     <div class="card-image">
                         
-                        <img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/hook_useCallback.jpg" class="responsive-img" alt="React Hooks 系列之 useCallback">
+                        <img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-06-01_banner.jpg" class="responsive-img" alt="echarts-wordcloud 词云的用法">
                         
-                        <span class="card-title">React Hooks 系列之 useCallback</span>
+                        <span class="card-title">echarts-wordcloud 词云的用法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -900,14 +859,14 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-15
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-01
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/JavaScript/" class="post-category">
-                                    JavaScript
+                            <a href="/categories/React-js/" class="post-category">
+                                    React.js
                                 </a>
                             
                             
@@ -917,12 +876,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/hooks/">
-                        <span class="chip bg-color">hooks</span>
+                    <a href="/tags/echarts/">
+                        <span class="chip bg-color">echarts</span>
                     </a>
                     
-                    <a href="/tags/React/">
-                        <span class="chip bg-color">React</span>
+                    <a href="/tags/wordcloud/">
+                        <span class="chip bg-color">wordcloud</span>
                     </a>
                     
                 </div>
