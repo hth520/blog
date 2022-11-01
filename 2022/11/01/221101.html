@@ -4,9 +4,12 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="React Hooks 系列之 useMemo, feico の 博客">
-    <meta name="description" content="掌握 React Hooks api 将更好的帮助你在工作中使用，对 React 的掌握更上一层楼。
-我们学习了 useCallback 来进行性能优化，关于性能优化还有另一个 hook api，那就是 useMemo，下面我们一起通过一个">
+    <meta name="keywords" content="使用Nginx及简单部署, feico の 博客">
+    <meta name="description" content="
+作为前端，我们并不需要很熟练的使用Nginx，把前端的活干好才是硬道理，那有人会想，这个我们还需要了解吗，答案是肯定的，在日常开发中用不到，不代表不需要去了解它，知道它的强大，对接后端的时候也会更加轻松。
+
+
+Nginx 简言介绍Ngin">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +21,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>React Hooks 系列之 useMemo | feico の 博客</title>
+    <title>使用Nginx及简单部署 | feico の 博客</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -247,12 +250,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://blog-1309278058.cos.ap-shanghai.myqcloud.com/hook_useMemo.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_banner.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">React Hooks 系列之 useMemo</h1>
+                    <h1 class="description center-align post-title">使用Nginx及简单部署</h1>
                 </div>
             </div>
         </div>
@@ -368,12 +371,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/hooks/">
-                                <span class="chip bg-color">hooks</span>
+                            <a href="/tags/Vue-js/">
+                                <span class="chip bg-color">Vue.js</span>
                             </a>
                         
-                            <a href="/tags/React/">
-                                <span class="chip bg-color">React</span>
+                            <a href="/tags/Nginx/">
+                                <span class="chip bg-color">Nginx</span>
                             </a>
                         
                     </div>
@@ -384,8 +387,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/JavaScript/" class="post-category">
-                                JavaScript
+                            <a href="/categories/Nginx%E9%83%A8%E7%BD%B2/" class="post-category">
+                                Nginx部署
                             </a>
                         
                     </div>
@@ -397,7 +400,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-06-21
+                    2022-11-01
                 </div>
                 
 
@@ -421,143 +424,84 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>掌握 React Hooks api 将更好的帮助你在工作中使用，对 React 的掌握更上一层楼。</p>
-<p>我们学习了 useCallback 来进行性能优化，关于性能优化还有另一个 hook api，那就是 useMemo，下面我们一起通过一个例子来看看。</p>
-<h2 id="计数器示例"><a href="#计数器示例" class="headerlink" title="计数器示例"></a>计数器示例</h2><p>依然是计数器示例，创建2个计数器，并能区分当前是奇数或者偶数，为了模拟点击按钮时包含大量的计算逻辑影响性能，在判断偶数的方法中添加了没有用的计算逻辑，为了让性能差的明显。代码如下</p>
-<p>Counter.tsx</p>
-<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> useState <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'react'</span>
-
-<span class="token keyword">function</span> <span class="token function">Counter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">const</span> <span class="token punctuation">[</span>counterOne<span class="token punctuation">,</span> setCounterOne<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
-  <span class="token keyword">const</span> <span class="token punctuation">[</span>counterTwo<span class="token punctuation">,</span> setCounterTwo<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
-
-  <span class="token keyword">const</span> <span class="token function-variable function">incrementOne</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    <span class="token function">setCounterOne</span><span class="token punctuation">(</span>counterOne <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span>
-
-  <span class="token keyword">const</span> <span class="token function-variable function">incrementTwo</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    <span class="token function">setCounterTwo</span><span class="token punctuation">(</span>counterTwo <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span>
-
-  <span class="token keyword">const</span> <span class="token function-variable function">isEven</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span>
-    <span class="token keyword">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> <span class="token number">1000000000</span><span class="token punctuation">)</span> i <span class="token operator">+=</span> <span class="token number">1</span>
-    <span class="token keyword">return</span> counterOne <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">0</span>
-  <span class="token punctuation">&#125;</span>
-
-  <span class="token keyword">return</span> <span class="token punctuation">(</span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span>
-        <span class="token attr-name">onClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>incrementOne<span class="token punctuation">&#125;</span></span>
-      <span class="token punctuation">></span></span><span class="token plain-text">Count One = </span><span class="token punctuation">&#123;</span>counterOne<span class="token punctuation">&#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
-        </span><span class="token punctuation">&#123;</span>
-          <span class="token function">isEven</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token string">'even'</span> <span class="token operator">:</span> <span class="token string">'odd'</span>
-        <span class="token punctuation">&#125;</span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span> <span class="token punctuation">/></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span>
-        <span class="token attr-name">onClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>incrementTwo<span class="token punctuation">&#125;</span></span>
-      <span class="token punctuation">></span></span><span class="token plain-text">Count Two = </span><span class="token punctuation">&#123;</span>counterTwo<span class="token punctuation">&#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><span class="token plain-text">
-    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-  <span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">export</span> <span class="token keyword">default</span> Counter</code></pre>
-
-<p>App.tsx</p>
-<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">'react'</span>
-<span class="token keyword">import</span> <span class="token string">'./App.css'</span>
-
-<span class="token keyword">import</span> Counter <span class="token keyword">from</span> <span class="token string">'./components/27.Counter'</span>
-
-<span class="token keyword">const</span> <span class="token function-variable function">App</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">return</span> <span class="token punctuation">(</span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>App<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Counter</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
-    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-  <span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">export</span> <span class="token keyword">default</span> App</code></pre>
-
-<p>页面展示如下</p>
-<p><img src="https://gw.alicdn.com/tfs/TB1r2l1GND1gK0jSZFKXXcJrVXa-702-286.gif" alt="img"></p>
-<p>我们发现点击第一个按钮有较长的延迟，因为我们的判断偶数的逻辑中包含了大量的计算逻辑。但是，我们点击第二个按钮，也有较长的延迟！这很奇怪。</p>
-<p>这是因为，每次 state 更新时，组件会 rerender，isEven 会被执行，这就是我们点击第二个按钮时，也会卡的原因。我们需要优化，告诉 React 不要有不必要的计算，特别是这种计算量复杂的。</p>
-<p>在我们的示例中，我们要告诉 React，在点击第二个按钮时，不要执行 isEven 方法。这时就需要 useMemo hook 登场了。</p>
-<h2 id="useMemo"><a href="#useMemo" class="headerlink" title="useMemo"></a>useMemo</h2><h3 id="优化示例"><a href="#优化示例" class="headerlink" title="优化示例"></a>优化示例</h3><p>与 useCallback 的用法类似。</p>
-<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">const</span> memoizedValue <span class="token operator">=</span> <span class="token function">useMemo</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">computeExpensiveValue</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>a<span class="token punctuation">,</span> b<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-
-<blockquote>
-<p>返回一个 memoized 值。 把“创建”函数和依赖项数组作为参数传入 <code>useMemo</code>，它仅会在某个依赖项改变时才重新计算 memoized 值。这种优化有助于避免在每次渲染时都进行高开销的计算。</p>
-<p>记住，传入 <code>useMemo</code> 的函数会在渲染期间执行。请不要在这个函数内部执行与渲染无关的操作，诸如副作用这类的操作属于 <code>useEffect</code> 的适用范畴，而不是 <code>useMemo</code>。</p>
-<p>如果没有提供依赖项数组，<code>useMemo</code> 在每次渲染时都会计算新的值。</p>
-<p><strong>你可以把 useMemo 作为性能优化的手段，但不要把它当成语义上的保证。</strong> 将来，React 可能会选择“遗忘”以前的一些 memoized 值，并在下次渲染时重新计算它们，比如为离屏组件释放内存。先编写在没有 useMemo 的情况下也可以执行的代码 —— 之后再在你的代码中添加 useMemo，以达到优化性能的目的。</p>
+                <blockquote>
+<p>作为前端，我们并不需要很熟练的使用<code>Nginx</code>，把前端的活干好才是硬道理，那有人会想，这个我们还需要了解吗，答案是肯定的，在日常开发中用不到，不代表不需要去了解它，知道它的强大，对接后端的时候也会更加轻松。</p>
 </blockquote>
-<p>首先引入 useMemo</p>
-<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> useState<span class="token punctuation">,</span> useMemo <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'react'</span></code></pre>
+<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_01.png"></p>
+<h1 id="Nginx-简言介绍"><a href="#Nginx-简言介绍" class="headerlink" title="Nginx 简言介绍"></a>Nginx 简言介绍</h1><p><code>Nginx</code> 是一个<strong>轻量级、高性能的HTTP</strong>和<strong>反向代理服务器</strong>，并且还是一个<code>TCP/UDP/IMAP/POP3/SMTP</code>服务器(简称:<strong>通用代理服务器</strong>)。优点是 占用内存小、并发能力强、比同类型网页服务器处理并发表现更好。它还是一种轻量级Web服务器，可作为独立服务器部署网站、淘宝网站架构便是使用的<code>Nginx</code>。</p>
+<p>官网小tip：<code>Nginx</code>是由伊戈尔·赛索耶夫(<code>Igor Sysoev</code>)为俄罗斯访问量第二的<code>Rambler.ru</code> 站 (俄文为: <code>Рамблер</code>) 所开发。</p>
+<h1 id="正向代理和反向代理"><a href="#正向代理和反向代理" class="headerlink" title="正向代理和反向代理"></a>正向代理和反向代理</h1><p>我们前面说了，Nginx其实是一个反向代理服务器，何为正向代理，何为反向代理？</p>
+<p><strong>正向代理：</strong> 同一个局域网下的电脑用户想要直接访问网络行不通，只用通过代理服务器 Server去访问才行，那这种代理服务就称之为正向代理。</p>
+<p>换个白话理解：小明和小红在一起的时候可以直接沟通对话无障碍，但是异地了就需要譬如电话这种通讯设备来实现通讯，那这个通讯设备就是“代理服务器”，小红能通过来电号知道是小明，那么这种行为就称之为正向代理。</p>
+<p><strong>反向代理：</strong>客户端无法感知代理，客户端访问网络不需要配置，只需要把请求发送到服务器，<strong>反向代理服务器</strong>就去选择目标服务器获取对应数据，随之返回到客户端，此时的反向代理服务器和目标服务器就是一个服务，暴露在外的就是代理服务器的地址，隐藏了真实服务器的ip。</p>
+<p>白话理解：我们日常点外卖的童鞋可能会注意到，客户或者骑手使用的就是虚拟号码，在有效期内该号码是可以打通的，看不到机主真正的手机号码，暴露出一个虚拟号码保护隐私安全这种行为就是反向代理。</p>
+<h1 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h1><p><strong>负载均衡</strong> 这个词理解起来也很容易，就是将服务器压力均摊出去，给服务器减负，它是高可用网络基础架构的关键组件，通常用于将工作 <strong>负载分布到多个服务器</strong>来提高网站、应用、数据库或其他服务的性能和可靠性。</p>
+<p>假如正常没有负载均衡、那么客户端到服务端的操作通常就是 ：客户发送请求到服务端-&gt;服务端去数据库查询数据-&gt;数据库将结果返回服务端-&gt;最后服务端返回相应的结果给客户端。</p>
+<p>如果随着客户量的增多、数据的访问量过大、显然这种情况无法满足请求。那如果加大服务端的量让多个服务端均摊就来到了负载均衡的活了。</p>
+<p>反向代理服务器在客户端和和服务端中间当中间人，那么不管多少个客户端去访问的都是反向代理服务器，地址也是固定的，不会去关那个服务端有时间，只看结果不管过程，那么老大分配任务到每个服务端从而减轻服务端的压力</p>
+<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_02.png"></p>
+<p>客户端发送60个请求，反向代理服务器会平均分配给服务端，这个过程称之为：<strong>负载均衡</strong></p>
+<h1 id="动静分离"><a href="#动静分离" class="headerlink" title="动静分离"></a>动静分离</h1><p>客户端发起请求：</p>
+<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_03.png"></p>
+<p>生活中的场景也很多见，某宝某东客服会有机器客服，他们的话语一般比较官方、还有像sir、小爱等等的语音助手都是数据库写好的回答术语，回答都一样，那么这种就称之为 <strong>静态资源</strong> (<code>HTML、CSS或常量</code>)</p>
+<p>而你对它说、人工客服、那么人工客服来回答的都是不同的比较细的这种就是<strong>动态资源</strong>（变量）</p>
+<p>如果让每个客服都先回答机器人都可以回答的官方话术无疑是增加了人工客服的工作量，服务端处理请求也是同理、我们将动态资源和静态资源分离出来去请求，交给不同的服务器去解析、不仅加快了解析速度还降低了单个服务器的压力。</p>
+<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_04.png"></p>
+<h1 id="安装Nginx"><a href="#安装Nginx" class="headerlink" title="安装Nginx"></a>安装Nginx</h1><p>**<code>Nginx</code>**官网下载地址：<a target="_blank" rel="noopener" href="http://nginx.org/en/download.html">http://nginx.org/en/download.html</a> </p>
+<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_05.png"></p>
+<p>下载完后，解压出来的目录如下图：</p>
+<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_06.png"></p>
+<p>在该目录下<code>cmd</code>  输入启动命令 <code>start nginx</code> 然后在浏览器localhost（默认监听80端口，可在<code>nginx.conf</code>文件中修改）</p>
+<pre class="language-js" data-language="js"><code class="language-js">server <span class="token punctuation">&#123;</span>
+       listen       <span class="token number">80</span><span class="token punctuation">;</span>          <span class="token comment">// 默认端口修改</span>
+       server_name  localhost<span class="token punctuation">;</span>
+   <span class="token punctuation">&#125;</span></code></pre>
 
-<p>然后将 isEven 方法使用 useMemo 改写，返回值赋给 isEven</p>
-<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">const</span> isEven <span class="token operator">=</span> <span class="token function">useMemo</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span>
-  <span class="token keyword">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> <span class="token number">1000000000</span><span class="token punctuation">)</span> i <span class="token operator">+=</span> <span class="token number">1</span>
-  <span class="token keyword">return</span> counterOne <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">0</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>counterOne<span class="token punctuation">]</span><span class="token punctuation">)</span></code></pre>
+<p>如果出现一下界面则表示安装成功</p>
+<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_07.png"></p>
+<h1 id="Nginx命令介绍"><a href="#Nginx命令介绍" class="headerlink" title="Nginx命令介绍"></a><code>Nginx</code>命令介绍</h1><ol>
+<li><code>start nginx</code>开启<code>nginx</code>服务</li>
+<li><code>nginx -s stop</code> 关闭<code>nginx</code> 服务，快速停止<code>nginx</code>，可能并不保存相关信息</li>
+<li><code>nginx -s quit</code> 关闭<code>nginx</code>服务，完整有序的停止<code>nginx</code>，并且保存相关信息</li>
+<li><code>nginx -s reload</code> 重载<code>nginx</code>服务，当你改变了<code>nginx</code>配置信息并需要重新载入这些配置时可以使用此命令重载<code>nginx</code></li>
+<li>使用<code>taskkill /F /IM nginx.exe &gt; nul</code>命令强制关停<code>nginx</code>服务器</li>
+</ol>
+<h1 id="部署测试"><a href="#部署测试" class="headerlink" title="部署测试"></a>部署测试</h1><p>本地打包一个项目然后将 <strong>dsit</strong>放进html文件，当然放入什么文件夹可以自己决定，同样也是在<code>nginx.conf</code>文件中配置</p>
+<pre class="language-js" data-language="js"><code class="language-js">location <span class="token operator">/</span> <span class="token punctuation">&#123;</span>
+            root   html<span class="token punctuation">;</span>           <span class="token comment">//默认以html文件夹为根文件夹</span>
+            index  index<span class="token punctuation">.</span>html index<span class="token punctuation">.</span>htm<span class="token punctuation">;</span> <span class="token comment">//默认启动文件</span>
+        <span class="token punctuation">&#125;</span></code></pre>
 
-<p>最后记得修改 isEven 使用的地方，已经从一个方法变为了一个变量</p>
-<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token punctuation">&#123;</span>
-  isEven <span class="token operator">?</span> <span class="token string">'even'</span> <span class="token operator">:</span> <span class="token string">'odd'</span>
+<p>我本地测试一个网易云音乐的小demo打包后放入html，看看能否启动成功</p>
+<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_08.png"></p>
+<p><code>html</code>文件夹中有两个默认的<code>html</code>文件，<code>50x.html</code>是报错文件，<code>index.html</code>是欢迎页，那么我们直接浏览器访问dist 里面就去自动去找<code>index.html</code>的文件了</p>
+<p>但结果却报错白屏了</p>
+<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_09.png"></p>
+<p>那为什么会报错白屏呢？？这个项目我本地是能正常运行的，可是部署到<code>nginx</code>中就报错了…</p>
+<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_10.png"></p>
+<p>查询解决方案我了解到</p>
+<blockquote>
+<p>若项目没有直接部署在Nginx主目录下,而是在其子目录，如：<br><code>Nginx</code>配置root路径为:<code>nginx/html</code>，子目录路径为：<code>nginx/html/dist</code>,此时<code>Nginx</code>应该这样配置:</p>
+</blockquote>
+<pre class="language-js" data-language="js"><code class="language-js">location <span class="token operator">/</span> <span class="token punctuation">&#123;</span>
+  try_files $uri $uri<span class="token operator">/</span> <span class="token operator">/</span>dist<span class="token operator">/</span>index<span class="token punctuation">.</span>html<span class="token punctuation">;</span>    #解决刷新<span class="token number">404</span>
 <span class="token punctuation">&#125;</span></code></pre>
 
-<p>完整代码如下</p>
-<p>Counter.tsx</p>
-<pre class="language-tsx" data-language="tsx"><code class="language-tsx"><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> useState<span class="token punctuation">,</span> useMemo <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'react'</span>
+<p>配置好后，我们重启<code>nginx</code>服务，再次打开</p>
+<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_11.png"></p>
+<p>这次的错误是 <code>意外的标记 &lt;</code>,可能是路径问题，通过查看引入的文件不难发现，它直接在根目录下面去请求需要的<code>js</code>文件，所以找不到文件报了该错误</p>
+<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_12.png"></p>
+<p>那么找到问题我们就去解决文件路径的问题，修改<code>nginx</code>配置</p>
+<pre class="language-js" data-language="js"><code class="language-js">location <span class="token operator">/</span> <span class="token punctuation">&#123;</span>
+    root   html<span class="token operator">/</span>dist<span class="token punctuation">;</span>       #将启动文件改为dist目录下即可
+    index  index<span class="token punctuation">.</span>html index<span class="token punctuation">.</span>htm<span class="token punctuation">;</span>
+    try_files $uri $uri<span class="token operator">/</span> <span class="token operator">/</span>dist<span class="token operator">/</span>index<span class="token punctuation">.</span>html<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
 
-<span class="token keyword">function</span> <span class="token function">Counter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">const</span> <span class="token punctuation">[</span>counterOne<span class="token punctuation">,</span> setCounterOne<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
-  <span class="token keyword">const</span> <span class="token punctuation">[</span>counterTwo<span class="token punctuation">,</span> setCounterTwo<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
-
-  <span class="token keyword">const</span> <span class="token function-variable function">incrementOne</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    <span class="token function">setCounterOne</span><span class="token punctuation">(</span>counterOne <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span>
-
-  <span class="token keyword">const</span> <span class="token function-variable function">incrementTwo</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    <span class="token function">setCounterTwo</span><span class="token punctuation">(</span>counterTwo <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span>
-
-  <span class="token keyword">const</span> isEven <span class="token operator">=</span> <span class="token function">useMemo</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span>
-    <span class="token keyword">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> <span class="token number">1000000000</span><span class="token punctuation">)</span> i <span class="token operator">+=</span> <span class="token number">1</span>
-    <span class="token keyword">return</span> counterOne <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">0</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>counterOne<span class="token punctuation">]</span><span class="token punctuation">)</span>
-
-  <span class="token keyword">return</span> <span class="token punctuation">(</span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span>
-        <span class="token attr-name">onClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>incrementOne<span class="token punctuation">&#125;</span></span>
-      <span class="token punctuation">></span></span><span class="token plain-text">Count One = </span><span class="token punctuation">&#123;</span>counterOne<span class="token punctuation">&#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
-        </span><span class="token punctuation">&#123;</span>
-          isEven <span class="token operator">?</span> <span class="token string">'even'</span> <span class="token operator">:</span> <span class="token string">'odd'</span>
-        <span class="token punctuation">&#125;</span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span> <span class="token punctuation">/></span></span><span class="token plain-text">
-      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span>
-        <span class="token attr-name">onClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>incrementTwo<span class="token punctuation">&#125;</span></span>
-      <span class="token punctuation">></span></span><span class="token plain-text">Count Two = </span><span class="token punctuation">&#123;</span>counterTwo<span class="token punctuation">&#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><span class="token plain-text">
-    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-  <span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">export</span> <span class="token keyword">default</span> Counter</code></pre>
-
-<p>效果如下</p>
-<p><img src="https://gw.alicdn.com/tfs/TB1Oz_bb5cKOu4jSZKbXXc19XXa-702-286.gif" alt="img"></p>
-<p>我们看到点击第二个按钮时，不会有任何卡顿，这是因为使用了 useMemo 只依赖了 counterOne 变量，点击第二个按钮时，isEven 读取的是缓存值，不需要再重新计算是否为偶数。</p>
-<h3 id="useMemo-与-useCallback-的区别"><a href="#useMemo-与-useCallback-的区别" class="headerlink" title="useMemo 与 useCallback 的区别"></a>useMemo 与 useCallback 的区别</h3><p>useCallback 是缓存了函数自身，而 useMemo 是缓存了函数的返回值。</p>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本章通过示例展示了 useMemo 在性能优化中的作用。通过缓存函数的返回值，避免不必要的调用，从而避免了组件 rerender。</p>
-<p>最后有分析了 useMemo 与 useCallback 的区别，即 useMemo 是缓存了函数的返回值，useCallback 是缓存了函数自身。这两个 api 都是性能优化的方法。</p>
+<p>OK,可以看到项目正常启动啦~</p>
+<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_13.png"></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>关于<code>Nginx</code>一些基础知识点已经前端经常把<code>dist</code>文件交给后端，这回我们自己部署，而这些对于前端而言，也足够啦，如果意犹未尽的小伙伴可以去参考一位博主写的: <strong><a target="_blank" rel="noopener" href="https://juejin.cn/post/7052952117425733663">写给前端新人的nginx教程</a></strong></p>
+<p>里面会有详细的搭建服务器及<code>Linux搭建的一些知识点</code>写的很不错，好啦，这就是我学习的<code>Nginx</code>基础知识点，回见！</p>
 
                 
             </div>
@@ -584,7 +528,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://hth520.github.io/2020/06/21/401.html">https://hth520.github.io/2020/06/21/401.html</a>
+                    <a href="https://hth520.github.io/2022/11/01/221101.html">https://hth520.github.io/2022/11/01/221101.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -622,12 +566,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/hooks/">
-                                    <span class="chip bg-color">hooks</span>
+                                <a href="/tags/Vue-js/">
+                                    <span class="chip bg-color">Vue.js</span>
                                 </a>
                             
-                                <a href="/tags/React/">
-                                    <span class="chip bg-color">React</span>
+                                <a href="/tags/Nginx/">
+                                    <span class="chip bg-color">Nginx</span>
                                 </a>
                             
                         </div>
@@ -798,7 +742,7 @@
         repo: 'hth520.github.io',
         owner: 'hth520',
         admin: ["hth520"],
-        id: '2020-06-21T00-00-00',
+        id: '2022-11-01T10-02-20',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -828,16 +772,17 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/06/25/405.html">
+                <a href="/2022/11/01/221101.html">
                     <div class="card-image">
                         
-                        <img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/hook_useRef.jpg" class="responsive-img" alt="React Hooks 系列之 useRef">
+                        <img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_banner.png" class="responsive-img" alt="使用Nginx及简单部署">
                         
-                        <span class="card-title">React Hooks 系列之 useRef</span>
+                        <span class="card-title">使用Nginx及简单部署</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -847,30 +792,31 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-06-25
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-11-01
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/JavaScript/" class="post-category">
-                                    JavaScript
+                            <a href="/categories/Nginx%E9%83%A8%E7%BD%B2/" class="post-category">
+                                    Nginx部署
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/hooks/">
-                        <span class="chip bg-color">hooks</span>
+                    <a href="/tags/Vue-js/">
+                        <span class="chip bg-color">Vue.js</span>
                     </a>
                     
-                    <a href="/tags/React/">
-                        <span class="chip bg-color">React</span>
+                    <a href="/tags/Nginx/">
+                        <span class="chip bg-color">Nginx</span>
                     </a>
                     
                 </div>
@@ -884,12 +830,12 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/06/15/397.html">
+                <a href="/2022/10/05/221005.html">
                     <div class="card-image">
                         
-                        <img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/hook_useCallback.jpg" class="responsive-img" alt="React Hooks 系列之 useCallback">
+                        <img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-10-05_banner.png" class="responsive-img" alt="前端主题切换方案简易版">
                         
-                        <span class="card-title">React Hooks 系列之 useCallback</span>
+                        <span class="card-title">前端主题切换方案简易版</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -900,14 +846,22 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-15
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-05
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/JavaScript/" class="post-category">
-                                    JavaScript
+                            <a href="/categories/SCSS/" class="post-category">
+                                    SCSS
+                                </a>
+                            
+                            <a href="/categories/SCSS/CSS/" class="post-category">
+                                    CSS
+                                </a>
+                            
+                            <a href="/categories/SCSS/CSS/mixin/" class="post-category">
+                                    mixin
                                 </a>
                             
                             
@@ -917,12 +871,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/hooks/">
-                        <span class="chip bg-color">hooks</span>
+                    <a href="/tags/HTML%E4%B8%BB%E9%A2%98/">
+                        <span class="chip bg-color">HTML主题</span>
                     </a>
                     
-                    <a href="/tags/React/">
-                        <span class="chip bg-color">React</span>
+                    <a href="/tags/Vue-js/">
+                        <span class="chip bg-color">Vue.js</span>
                     </a>
                     
                 </div>
