@@ -9,7 +9,7 @@
 作为前端，我们并不需要很熟练的使用Nginx，把前端的活干好才是硬道理，那有人会想，这个我们还需要了解吗，答案是肯定的，在日常开发中用不到，不代表不需要去了解它，知道它的强大，对接后端的时候也会更加轻松。
 
 
-Nginx 简言介绍Ngin">
+一、Nginx 简言介绍Ng">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -428,26 +428,26 @@ Nginx 简言介绍Ngin">
 <p>作为前端，我们并不需要很熟练的使用<code>Nginx</code>，把前端的活干好才是硬道理，那有人会想，这个我们还需要了解吗，答案是肯定的，在日常开发中用不到，不代表不需要去了解它，知道它的强大，对接后端的时候也会更加轻松。</p>
 </blockquote>
 <p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_01.png"></p>
-<h2 id="Nginx-简言介绍"><a href="#Nginx-简言介绍" class="headerlink" title="Nginx 简言介绍"></a>Nginx 简言介绍</h2><p><code>Nginx</code> 是一个<strong>轻量级、高性能的HTTP</strong>和<strong>反向代理服务器</strong>，并且还是一个<code>TCP/UDP/IMAP/POP3/SMTP</code>服务器(简称:<strong>通用代理服务器</strong>)。优点是 占用内存小、并发能力强、比同类型网页服务器处理并发表现更好。它还是一种轻量级Web服务器，可作为独立服务器部署网站、淘宝网站架构便是使用的<code>Nginx</code>。</p>
+<h2 id="一、Nginx-简言介绍"><a href="#一、Nginx-简言介绍" class="headerlink" title="一、Nginx 简言介绍"></a>一、Nginx 简言介绍</h2><p><code>Nginx</code> 是一个<strong>轻量级、高性能的HTTP</strong>和<strong>反向代理服务器</strong>，并且还是一个<code>TCP/UDP/IMAP/POP3/SMTP</code>服务器(简称:<strong>通用代理服务器</strong>)。优点是 占用内存小、并发能力强、比同类型网页服务器处理并发表现更好。它还是一种轻量级Web服务器，可作为独立服务器部署网站、淘宝网站架构便是使用的<code>Nginx</code>。</p>
 <p>官网小tip：<code>Nginx</code>是由伊戈尔·赛索耶夫(<code>Igor Sysoev</code>)为俄罗斯访问量第二的<code>Rambler.ru</code> 站 (俄文为: <code>Рамблер</code>) 所开发。</p>
-<h2 id="正向代理和反向代理"><a href="#正向代理和反向代理" class="headerlink" title="正向代理和反向代理"></a>正向代理和反向代理</h2><p>我们前面说了，Nginx其实是一个反向代理服务器，何为正向代理，何为反向代理？</p>
+<h2 id="二、正向代理和反向代理"><a href="#二、正向代理和反向代理" class="headerlink" title="二、正向代理和反向代理"></a>二、正向代理和反向代理</h2><p>我们前面说了，Nginx其实是一个反向代理服务器，何为正向代理，何为反向代理？</p>
 <p><strong>正向代理：</strong> 同一个局域网下的电脑用户想要直接访问网络行不通，只用通过代理服务器 Server去访问才行，那这种代理服务就称之为正向代理。</p>
 <p>换个白话理解：小明和小红在一起的时候可以直接沟通对话无障碍，但是异地了就需要譬如电话这种通讯设备来实现通讯，那这个通讯设备就是“代理服务器”，小红能通过来电号知道是小明，那么这种行为就称之为正向代理。</p>
 <p><strong>反向代理：</strong>客户端无法感知代理，客户端访问网络不需要配置，只需要把请求发送到服务器，<strong>反向代理服务器</strong>就去选择目标服务器获取对应数据，随之返回到客户端，此时的反向代理服务器和目标服务器就是一个服务，暴露在外的就是代理服务器的地址，隐藏了真实服务器的ip。</p>
 <p>白话理解：我们日常点外卖的童鞋可能会注意到，客户或者骑手使用的就是虚拟号码，在有效期内该号码是可以打通的，看不到机主真正的手机号码，暴露出一个虚拟号码保护隐私安全这种行为就是反向代理。</p>
-<h2 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h2><p><strong>负载均衡</strong> 这个词理解起来也很容易，就是将服务器压力均摊出去，给服务器减负，它是高可用网络基础架构的关键组件，通常用于将工作 <strong>负载分布到多个服务器</strong>来提高网站、应用、数据库或其他服务的性能和可靠性。</p>
+<h2 id="三、负载均衡"><a href="#三、负载均衡" class="headerlink" title="三、负载均衡"></a>三、负载均衡</h2><p><strong>负载均衡</strong> 这个词理解起来也很容易，就是将服务器压力均摊出去，给服务器减负，它是高可用网络基础架构的关键组件，通常用于将工作 <strong>负载分布到多个服务器</strong>来提高网站、应用、数据库或其他服务的性能和可靠性。</p>
 <p>假如正常没有负载均衡、那么客户端到服务端的操作通常就是 ：客户发送请求到服务端-&gt;服务端去数据库查询数据-&gt;数据库将结果返回服务端-&gt;最后服务端返回相应的结果给客户端。</p>
 <p>如果随着客户量的增多、数据的访问量过大、显然这种情况无法满足请求。那如果加大服务端的量让多个服务端均摊就来到了负载均衡的活了。</p>
 <p>反向代理服务器在客户端和和服务端中间当中间人，那么不管多少个客户端去访问的都是反向代理服务器，地址也是固定的，不会去关那个服务端有时间，只看结果不管过程，那么老大分配任务到每个服务端从而减轻服务端的压力</p>
 <p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_02.png"></p>
 <p>客户端发送60个请求，反向代理服务器会平均分配给服务端，这个过程称之为：<strong>负载均衡</strong></p>
-<h2 id="动静分离"><a href="#动静分离" class="headerlink" title="动静分离"></a>动静分离</h2><p>客户端发起请求：</p>
+<h2 id="四、动静分离"><a href="#四、动静分离" class="headerlink" title="四、动静分离"></a>四、动静分离</h2><p>客户端发起请求：</p>
 <p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_03.png"></p>
 <p>生活中的场景也很多见，某宝某东客服会有机器客服，他们的话语一般比较官方、还有像sir、小爱等等的语音助手都是数据库写好的回答术语，回答都一样，那么这种就称之为 <strong>静态资源</strong> (<code>HTML、CSS或常量</code>)</p>
 <p>而你对它说、人工客服、那么人工客服来回答的都是不同的比较细的这种就是<strong>动态资源</strong>（变量）</p>
 <p>如果让每个客服都先回答机器人都可以回答的官方话术无疑是增加了人工客服的工作量，服务端处理请求也是同理、我们将动态资源和静态资源分离出来去请求，交给不同的服务器去解析、不仅加快了解析速度还降低了单个服务器的压力。</p>
 <p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_04.png"></p>
-<h2 id="安装Nginx"><a href="#安装Nginx" class="headerlink" title="安装Nginx"></a>安装Nginx</h2><p>**<code>Nginx</code>**官网下载地址：<a target="_blank" rel="noopener" href="http://nginx.org/en/download.html">http://nginx.org/en/download.html</a> </p>
+<h2 id="五、安装Nginx"><a href="#五、安装Nginx" class="headerlink" title="五、安装Nginx"></a>五、安装Nginx</h2><p>**<code>Nginx</code>**官网下载地址：<a target="_blank" rel="noopener" href="http://nginx.org/en/download.html">http://nginx.org/en/download.html</a> </p>
 <p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_05.png"></p>
 <p>下载完后，解压出来的目录如下图：</p>
 <p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_06.png"></p>
@@ -467,7 +467,7 @@ Nginx 简言介绍Ngin">
 <li><code>nginx -s reload</code> 重载<code>nginx</code>服务，当你改变了<code>nginx</code>配置信息并需要重新载入这些配置时可以使用此命令重载<code>nginx</code></li>
 <li>使用<code>taskkill /F /IM nginx.exe &gt; nul</code>命令强制关停<code>nginx</code>服务器</li>
 </ol>
-<h2 id="部署测试"><a href="#部署测试" class="headerlink" title="部署测试"></a>部署测试</h2><p>本地打包一个项目然后将 <strong>dsit</strong>放进html文件，当然放入什么文件夹可以自己决定，同样也是在<code>nginx.conf</code>文件中配置</p>
+<h2 id="六、部署测试"><a href="#六、部署测试" class="headerlink" title="六、部署测试"></a>六、部署测试</h2><p>本地打包一个项目然后将 <strong>dsit</strong>放进html文件，当然放入什么文件夹可以自己决定，同样也是在<code>nginx.conf</code>文件中配置</p>
 <pre class="language-js" data-language="js"><code class="language-js">location <span class="token operator">/</span> <span class="token punctuation">&#123;</span>
             root   html<span class="token punctuation">;</span>           <span class="token comment">//默认以html文件夹为根文件夹</span>
             index  index<span class="token punctuation">.</span>html index<span class="token punctuation">.</span>htm<span class="token punctuation">;</span> <span class="token comment">//默认启动文件</span>
@@ -501,7 +501,7 @@ Nginx 简言介绍Ngin">
 
 <p>OK,可以看到项目正常启动啦~</p>
 <p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_13.png"></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>关于<code>Nginx</code>一些基础知识点已经前端经常把<code>dist</code>文件交给后端，这回我们自己部署，而这些对于前端而言，也足够啦，如果意犹未尽的小伙伴可以去参考一位博主写的: <strong><a target="_blank" rel="noopener" href="https://juejin.cn/post/7052952117425733663">写给前端新人的nginx教程</a></strong></p>
+<h2 id="七-、总结"><a href="#七-、总结" class="headerlink" title="七 、总结"></a>七 、总结</h2><p>关于<code>Nginx</code>一些基础知识点已经前端经常把<code>dist</code>文件交给后端，这回我们自己部署，而这些对于前端而言，也足够啦，如果意犹未尽的小伙伴可以去参考一位博主写的: <strong><a target="_blank" rel="noopener" href="https://juejin.cn/post/7052952117425733663">写给前端新人的nginx教程</a></strong></p>
 <p>里面会有详细的搭建服务器及<code>Linux搭建的一些知识点</code>写的很不错，好啦，这就是我学习的<code>Nginx</code>基础知识点，回见！</p>
 
                 
