@@ -4,12 +4,14 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="使用Nginx及简单部署, feico の 博客">
+    <meta name="keywords" content="彩色渐变动态字体特效，拿去炫, feico の 博客">
     <meta name="description" content="
-作为前端，我们并不需要很熟练的使用Nginx，把前端的活干好才是硬道理，那有人会想，这个我们还需要了解吗，答案是肯定的，在日常开发中用不到，不代表不需要去了解它，知道它的强大，对接后端的时候也会更加轻松。
+最近有看到一个网站用到的醒目标题字体特效蛮炫酷，就看了下代码，学习了一下，其实不难，CSS便可实现，让我们一起来学习一下吧！！
 
 
-一、Nginx 简言介绍Ng">
+一、前置知识
+background-clip:text
+背景属性 background的clip属性规定背">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -21,7 +23,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>使用Nginx及简单部署 | feico の 博客</title>
+    <title>彩色渐变动态字体特效，拿去炫 | feico の 博客</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -250,12 +252,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_banner.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-12-01_banner.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">使用Nginx及简单部署</h1>
+                    <h1 class="description center-align post-title">彩色渐变动态字体特效，拿去炫</h1>
                 </div>
             </div>
         </div>
@@ -371,12 +373,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Vue-js/">
-                                <span class="chip bg-color">Vue.js</span>
+                            <a href="/tags/anmation/">
+                                <span class="chip bg-color">anmation</span>
                             </a>
                         
-                            <a href="/tags/Nginx/">
-                                <span class="chip bg-color">Nginx</span>
+                            <a href="/tags/%E5%8A%A8%E6%80%81%E5%AD%97%E4%BD%93/">
+                                <span class="chip bg-color">动态字体</span>
                             </a>
                         
                     </div>
@@ -387,8 +389,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Nginx%E9%83%A8%E7%BD%B2/" class="post-category">
-                                Nginx部署
+                            <a href="/categories/CSS/" class="post-category">
+                                CSS
                             </a>
                         
                     </div>
@@ -400,7 +402,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-11-01
+                    2022-12-01
                 </div>
                 
 
@@ -425,84 +427,90 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <blockquote>
-<p>作为前端，我们并不需要很熟练的使用<code>Nginx</code>，把前端的活干好才是硬道理，那有人会想，这个我们还需要了解吗，答案是肯定的，在日常开发中用不到，不代表不需要去了解它，知道它的强大，对接后端的时候也会更加轻松。</p>
+<p>最近有看到一个网站用到的醒目标题字体特效蛮炫酷，就看了下代码，学习了一下，其实不难，<code>CSS</code>便可实现，让我们一起来学习一下吧！！</p>
 </blockquote>
-<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_01.png"></p>
-<h2 id="一、Nginx-简言介绍"><a href="#一、Nginx-简言介绍" class="headerlink" title="一、Nginx 简言介绍"></a>一、Nginx 简言介绍</h2><p><code>Nginx</code> 是一个<strong>轻量级、高性能的HTTP</strong>和<strong>反向代理服务器</strong>，并且还是一个<code>TCP/UDP/IMAP/POP3/SMTP</code>服务器(简称:<strong>通用代理服务器</strong>)。优点是 占用内存小、并发能力强、比同类型网页服务器处理并发表现更好。它还是一种轻量级Web服务器，可作为独立服务器部署网站、淘宝网站架构便是使用的<code>Nginx</code>。</p>
-<p>官网小tip：<code>Nginx</code>是由伊戈尔·赛索耶夫(<code>Igor Sysoev</code>)为俄罗斯访问量第二的<code>Rambler.ru</code> 站 (俄文为: <code>Рамблер</code>) 所开发。</p>
-<h2 id="二、正向代理和反向代理"><a href="#二、正向代理和反向代理" class="headerlink" title="二、正向代理和反向代理"></a>二、正向代理和反向代理</h2><p>我们前面说了，Nginx其实是一个反向代理服务器，何为正向代理，何为反向代理？</p>
-<p><strong>正向代理：</strong> 同一个局域网下的电脑用户想要直接访问网络行不通，只用通过代理服务器 Server去访问才行，那这种代理服务就称之为正向代理。</p>
-<p>换个白话理解：小明和小红在一起的时候可以直接沟通对话无障碍，但是异地了就需要譬如电话这种通讯设备来实现通讯，那这个通讯设备就是“代理服务器”，小红能通过来电号知道是小明，那么这种行为就称之为正向代理。</p>
-<p><strong>反向代理：</strong>客户端无法感知代理，客户端访问网络不需要配置，只需要把请求发送到服务器，<strong>反向代理服务器</strong>就去选择目标服务器获取对应数据，随之返回到客户端，此时的反向代理服务器和目标服务器就是一个服务，暴露在外的就是代理服务器的地址，隐藏了真实服务器的ip。</p>
-<p>白话理解：我们日常点外卖的童鞋可能会注意到，客户或者骑手使用的就是虚拟号码，在有效期内该号码是可以打通的，看不到机主真正的手机号码，暴露出一个虚拟号码保护隐私安全这种行为就是反向代理。</p>
-<h2 id="三、负载均衡"><a href="#三、负载均衡" class="headerlink" title="三、负载均衡"></a>三、负载均衡</h2><p><strong>负载均衡</strong> 这个词理解起来也很容易，就是将服务器压力均摊出去，给服务器减负，它是高可用网络基础架构的关键组件，通常用于将工作 <strong>负载分布到多个服务器</strong>来提高网站、应用、数据库或其他服务的性能和可靠性。</p>
-<p>假如正常没有负载均衡、那么客户端到服务端的操作通常就是 ：客户发送请求到服务端-&gt;服务端去数据库查询数据-&gt;数据库将结果返回服务端-&gt;最后服务端返回相应的结果给客户端。</p>
-<p>如果随着客户量的增多、数据的访问量过大、显然这种情况无法满足请求。那如果加大服务端的量让多个服务端均摊就来到了负载均衡的活了。</p>
-<p>反向代理服务器在客户端和和服务端中间当中间人，那么不管多少个客户端去访问的都是反向代理服务器，地址也是固定的，不会去关那个服务端有时间，只看结果不管过程，那么老大分配任务到每个服务端从而减轻服务端的压力</p>
-<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_02.png"></p>
-<p>客户端发送60个请求，反向代理服务器会平均分配给服务端，这个过程称之为：<strong>负载均衡</strong></p>
-<h2 id="四、动静分离"><a href="#四、动静分离" class="headerlink" title="四、动静分离"></a>四、动静分离</h2><p>客户端发起请求：</p>
-<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_03.png"></p>
-<p>生活中的场景也很多见，某宝某东客服会有机器客服，他们的话语一般比较官方、还有像sir、小爱等等的语音助手都是数据库写好的回答术语，回答都一样，那么这种就称之为 <strong>静态资源</strong> (<code>HTML、CSS或常量</code>)</p>
-<p>而你对它说、人工客服、那么人工客服来回答的都是不同的比较细的这种就是<strong>动态资源</strong>（变量）</p>
-<p>如果让每个客服都先回答机器人都可以回答的官方话术无疑是增加了人工客服的工作量，服务端处理请求也是同理、我们将动态资源和静态资源分离出来去请求，交给不同的服务器去解析、不仅加快了解析速度还降低了单个服务器的压力。</p>
-<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_04.png"></p>
-<h2 id="五、安装Nginx"><a href="#五、安装Nginx" class="headerlink" title="五、安装Nginx"></a>五、安装Nginx</h2><p>**<code>Nginx</code>**官网下载地址：<a target="_blank" rel="noopener" href="http://nginx.org/en/download.html">http://nginx.org/en/download.html</a> </p>
-<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_05.png"></p>
-<p>下载完后，解压出来的目录如下图：</p>
-<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_06.png"></p>
-<p>在该目录下<code>cmd</code>  输入启动命令 <code>start nginx</code> 然后在浏览器localhost（默认监听80端口，可在<code>nginx.conf</code>文件中修改）</p>
-<pre class="language-js" data-language="js"><code class="language-js">server <span class="token punctuation">&#123;</span>
-       listen       <span class="token number">80</span><span class="token punctuation">;</span>          <span class="token comment">// 默认端口修改</span>
-       server_name  localhost<span class="token punctuation">;</span>
-   <span class="token punctuation">&#125;</span></code></pre>
-
-<p>如果出现一下界面则表示安装成功</p>
-<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_07.png"></p>
-<p><code>Nginx</code>命令介绍</p>
-<ol>
-<li><code>start nginx</code>开启<code>nginx</code>服务</li>
-<li><code>nginx -s stop</code> 关闭<code>nginx</code> 服务，快速停止<code>nginx</code>，可能并不保存相关信息</li>
-<li><code>nginx -s quit</code> 关闭<code>nginx</code>服务，完整有序的停止<code>nginx</code>，并且保存相关信息</li>
-<li><code>nginx -s reload</code> 重载<code>nginx</code>服务，当你改变了<code>nginx</code>配置信息并需要重新载入这些配置时可以使用此命令重载<code>nginx</code></li>
-<li>使用<code>taskkill /F /IM nginx.exe &gt; nul</code>命令强制关停<code>nginx</code>服务器</li>
-</ol>
-<h2 id="六、部署测试"><a href="#六、部署测试" class="headerlink" title="六、部署测试"></a>六、部署测试</h2><p>本地打包一个项目然后将 <strong>dsit</strong>放进html文件，当然放入什么文件夹可以自己决定，同样也是在<code>nginx.conf</code>文件中配置</p>
-<pre class="language-js" data-language="js"><code class="language-js">location <span class="token operator">/</span> <span class="token punctuation">&#123;</span>
-            root   html<span class="token punctuation">;</span>           <span class="token comment">//默认以html文件夹为根文件夹</span>
-            index  index<span class="token punctuation">.</span>html index<span class="token punctuation">.</span>htm<span class="token punctuation">;</span> <span class="token comment">//默认启动文件</span>
-        <span class="token punctuation">&#125;</span></code></pre>
-
-<p>我本地测试一个网易云音乐的小demo打包后放入html，看看能否启动成功</p>
-<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_08.png"></p>
-<p><code>html</code>文件夹中有两个默认的<code>html</code>文件，<code>50x.html</code>是报错文件，<code>index.html</code>是欢迎页，那么我们直接浏览器访问dist 里面就去自动去找<code>index.html</code>的文件了</p>
-<p>但结果却报错白屏了</p>
-<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_09.png"></p>
-<p>那为什么会报错白屏呢？？这个项目我本地是能正常运行的，可是部署到<code>nginx</code>中就报错了…</p>
-<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_10.png"></p>
-<p>查询解决方案我了解到</p>
+<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-12-01_01.png"></p>
+<h1 id="一、前置知识"><a href="#一、前置知识" class="headerlink" title="一、前置知识"></a>一、前置知识</h1><blockquote>
+<h3 id="background-clip-text"><a href="#background-clip-text" class="headerlink" title="background-clip:text"></a><strong>background-clip:text</strong></h3></blockquote>
+<p>背景属性 <code>background</code>的<code>clip</code>属性规定背景的绘制区域。官网对<code>background-clip</code>的解释我理解为类似于P图软件 <code>photoshop</code>中的 剪切蒙版的效果</p>
+<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-12-01_02.png"></p>
+<p>而W3C标准中，给定了三个值，分别是：<strong>border-box</strong>、<strong>padding-box</strong>、<strong>content-box</strong></p>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>border-box</td>
+<td>背景被裁剪到边框盒。</td>
+</tr>
+<tr>
+<td>padding-box</td>
+<td>背景被裁剪到内边距框。</td>
+</tr>
+<tr>
+<td>content-box</td>
+<td>背景被裁剪到内容框。</td>
+</tr>
+</tbody></table>
+<p>言归正传，我们使用的 <code>background-clip: text</code>,就是以文字的范围来裁剪背景图片。</p>
+<p>当然这个属性有它的兼容性，只支持谷歌，如果其他浏览器想使用可以写成<code>-webkit-background-clip: text;</code></p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_background-clip.asp">去W3C深入学习学习~</a></p>
 <blockquote>
-<p>若项目没有直接部署在Nginx主目录下,而是在其子目录，如：<br><code>Nginx</code>配置root路径为:<code>nginx/html</code>，子目录路径为：<code>nginx/html/dist</code>,此时<code>Nginx</code>应该这样配置:</p>
-</blockquote>
-<pre class="language-js" data-language="js"><code class="language-js">location <span class="token operator">/</span> <span class="token punctuation">&#123;</span>
-  try_files $uri $uri<span class="token operator">/</span> <span class="token operator">/</span>dist<span class="token operator">/</span>index<span class="token punctuation">.</span>html<span class="token punctuation">;</span>    #解决刷新<span class="token number">404</span>
+<h3 id="text-fill-color"><a href="#text-fill-color" class="headerlink" title="text-fill-color"></a><strong>text-fill-color</strong></h3></blockquote>
+<p>文字的填充色(fill填充)，同理，目前兼容谷歌，其他浏览器想兼容，可加上 <code>-webkit-</code>;</p>
+<p>我们用于设置镂空字体。</p>
+<blockquote>
+<h3 id="linear-gradient"><a href="#linear-gradient" class="headerlink" title="linear-gradient()"></a>linear-gradient()</h3></blockquote>
+<p>linear-gradient() 函数用于创建一个表示两种或多种颜色线性渐变的图片。</p>
+<p>创建一个线性渐变，需要指定两种颜色，还可以实现不同方向（指定为一个角度）的渐变效果，如果不指定方向，默认从上到下渐变。</p>
+<blockquote>
+<h3 id="keyframes"><a href="#keyframes" class="headerlink" title="@keyframes"></a><strong><code>@keyframes</code></strong></h3></blockquote>
+<p>使用 <code>@keyframes</code>规则，可以用来创建动画。</p>
+<p>创建动画是通过动画形式逐步从一个<code>CSS</code>样式变化到另一个样式</p>
+<p>指定的变化时使用 % 或关键字 from 和 to,同 0% - 100%</p>
+<p>0%是开头动画，100%是动画结束；</p>
+<p>当然，这也是约定式的写法，这样写可以获取最优的动画体验。</p>
+<p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/pr_keyframes.asp">去W3c温习一下~</a></p>
+<h1 id="二、彩虹文字🌈"><a href="#二、彩虹文字🌈" class="headerlink" title="二、彩虹文字🌈"></a>二、彩虹文字🌈</h1><p>文字颜色属性只支持纯色，如果想实现渐变彩虹颜色，该如何，实现呢？</p>
+<p>那就是神器 <code>-webkit-linear-gradient</code>，上面我们有介绍到，<code>linear-gradient</code>可以创建一个线型渐变，那么我们可以先<code>color: transparent</code>将文字颜色设置为透明色，然后使用background-clip: text设置背景根据文字形状裁剪，最后设置渐变背景即可完成渐变彩虹文字🌈</p>
+<pre class="language-css" data-language="css"><code class="language-css"><span class="token selector">.lemma-desc</span> <span class="token punctuation">&#123;</span>
+<span class="token property">font-size</span><span class="token punctuation">:</span> 18px<span class="token punctuation">;</span>
+<span class="token property">color</span><span class="token punctuation">:</span> transparent<span class="token punctuation">;</span>
+<span class="token property">background</span><span class="token punctuation">:</span> <span class="token function">-webkit-linear-gradient</span><span class="token punctuation">(</span>30deg<span class="token punctuation">,</span> #f7cd5c 25%<span class="token punctuation">,</span> #68eaf4 50%<span class="token punctuation">,</span> #8aa9ff 75%<span class="token punctuation">,</span> #7cffee 100%<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token property">background-clip</span><span class="token punctuation">:</span> text<span class="token punctuation">;</span>
+<span class="token property">-webkit-background-clip</span><span class="token punctuation">:</span> text<span class="token punctuation">;</span>
+<span class="token property">-webkit-text-fill-color</span><span class="token punctuation">:</span> transparent<span class="token punctuation">;</span>
+<span class="token property">background-size</span><span class="token punctuation">:</span> auto<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
 
-<p>配置好后，我们重启<code>nginx</code>服务，再次打开</p>
-<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_11.png"></p>
-<p>这次的错误是 <code>意外的标记 &lt;</code>,可能是路径问题，通过查看引入的文件不难发现，它直接在根目录下面去请求需要的<code>js</code>文件，所以找不到文件报了该错误</p>
-<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_12.png"></p>
-<p>那么找到问题我们就去解决文件路径的问题，修改<code>nginx</code>配置</p>
-<pre class="language-js" data-language="js"><code class="language-js">location <span class="token operator">/</span> <span class="token punctuation">&#123;</span>
-    root   html<span class="token operator">/</span>dist<span class="token punctuation">;</span>       #将启动文件改为dist目录下即可
-    index  index<span class="token punctuation">.</span>html index<span class="token punctuation">.</span>htm<span class="token punctuation">;</span>
-    try_files $uri $uri<span class="token operator">/</span> <span class="token operator">/</span>dist<span class="token operator">/</span>index<span class="token punctuation">.</span>html<span class="token punctuation">;</span>
+<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-12-01_03.png"></p>
+<h1 id="三、让文字滚动起来"><a href="#三、让文字滚动起来" class="headerlink" title="三、让文字滚动起来"></a>三、让文字滚动起来</h1><p>所谓滚动效果就是让背景色的偏移变换、那结合前置知识我们让动画实现背景的<code>position</code>变换就可以实现这一点</p>
+<pre class="language-css" data-language="css"><code class="language-css"><span class="token atrule"><span class="token rule">@keyframes</span> animationText</span> <span class="token punctuation">&#123;</span>
+    <span class="token selector">0%</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">background-position</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token selector">100%</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">background-position</span><span class="token punctuation">:</span> 100000px<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token selector">.lemma-desc</span> <span class="token punctuation">&#123;</span>
+<span class="token property">font-size</span><span class="token punctuation">:</span> 18px<span class="token punctuation">;</span>
+<span class="token property">color</span><span class="token punctuation">:</span> transparent<span class="token punctuation">;</span>
+<span class="token property">background</span><span class="token punctuation">:</span> <span class="token function">-webkit-linear-gradient</span><span class="token punctuation">(</span>30deg<span class="token punctuation">,</span> #f7cd5c 25%<span class="token punctuation">,</span> #68eaf4 50%<span class="token punctuation">,</span> #8aa9ff 75%<span class="token punctuation">,</span> #7cffee 100%<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token property">background-clip</span><span class="token punctuation">:</span> text<span class="token punctuation">;</span>
+<span class="token property">-webkit-background-clip</span><span class="token punctuation">:</span> text<span class="token punctuation">;</span>
+<span class="token property">-webkit-text-fill-color</span><span class="token punctuation">:</span> transparent<span class="token punctuation">;</span>
+<span class="token property">background-size</span><span class="token punctuation">:</span> auto<span class="token punctuation">;</span>
+<span class="token property">animation</span><span class="token punctuation">:</span> animationText 300s infinite linear<span class="token punctuation">;</span>
+<span class="token property">-webkit-animation</span><span class="token punctuation">:</span> animationText 300s infinite linear<span class="token punctuation">;</span>    
 <span class="token punctuation">&#125;</span></code></pre>
 
-<p>OK,可以看到项目正常启动啦~</p>
-<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_13.png"></p>
-<h2 id="七-、总结"><a href="#七-、总结" class="headerlink" title="七 、总结"></a>七 、总结</h2><p>关于<code>Nginx</code>一些基础知识点已经前端经常把<code>dist</code>文件交给后端，这回我们自己部署，而这些对于前端而言，也足够啦，如果意犹未尽的小伙伴可以去参考一位博主写的: <strong><a target="_blank" rel="noopener" href="https://juejin.cn/post/7052952117425733663">写给前端新人的nginx教程</a></strong></p>
-<p>里面会有详细的搭建服务器及<code>Linux搭建的一些知识点</code>写的很不错，好啦，这就是我学习的<code>Nginx</code>基础知识点，回见！</p>
+<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-12-01_04.gif"></p>
+<h1 id="四、总结："><a href="#四、总结：" class="headerlink" title="四、总结："></a>四、总结：</h1><p><code>css</code>能实现很多<code>js</code>的效果，<code>css</code>的世界也很缤纷多彩，所以小伙伴们，用<code>css</code>实现的效果代替<code>js</code>去写，你们会发现页面性能更加！</p>
 
                 
             </div>
@@ -529,7 +537,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://hth520.github.io/2022/11/01/221101.html">https://hth520.github.io/2022/11/01/221101.html</a>
+                    <a href="https://hth520.github.io/2022/12/01/221201.html">https://hth520.github.io/2022/12/01/221201.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -567,12 +575,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Vue-js/">
-                                    <span class="chip bg-color">Vue.js</span>
+                                <a href="/tags/anmation/">
+                                    <span class="chip bg-color">anmation</span>
                                 </a>
                             
-                                <a href="/tags/Nginx/">
-                                    <span class="chip bg-color">Nginx</span>
+                                <a href="/tags/%E5%8A%A8%E6%80%81%E5%AD%97%E4%BD%93/">
+                                    <span class="chip bg-color">动态字体</span>
                                 </a>
                             
                         </div>
@@ -743,7 +751,7 @@
         repo: 'hth520.github.io',
         owner: 'hth520',
         admin: ["hth520"],
-        id: '2022-11-01T10-02-20',
+        id: '2022-12-01T20-12-57',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -773,9 +781,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2022/12/01/221201.html">
                     <div class="card-image">
@@ -792,9 +801,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-12-01
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-12-01
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -807,6 +816,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -829,12 +839,12 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/10/05/221005.html">
+                <a href="/2022/11/01/221101.html">
                     <div class="card-image">
                         
-                        <img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-10-05_banner.png" class="responsive-img" alt="前端主题切换方案简易版">
+                        <img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-11-01_banner.png" class="responsive-img" alt="使用Nginx及简单部署">
                         
-                        <span class="card-title">前端主题切换方案简易版</span>
+                        <span class="card-title">使用Nginx及简单部署</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -845,22 +855,14 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-11-01
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/SCSS/" class="post-category">
-                                    SCSS
-                                </a>
-                            
-                            <a href="/categories/SCSS/CSS/" class="post-category">
-                                    CSS
-                                </a>
-                            
-                            <a href="/categories/SCSS/CSS/mixin/" class="post-category">
-                                    mixin
+                            <a href="/categories/Nginx%E9%83%A8%E7%BD%B2/" class="post-category">
+                                    Nginx部署
                                 </a>
                             
                             
@@ -870,12 +872,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/HTML%E4%B8%BB%E9%A2%98/">
-                        <span class="chip bg-color">HTML主题</span>
-                    </a>
-                    
                     <a href="/tags/Vue-js/">
                         <span class="chip bg-color">Vue.js</span>
+                    </a>
+                    
+                    <a href="/tags/Nginx/">
+                        <span class="chip bg-color">Nginx</span>
                     </a>
                     
                 </div>
