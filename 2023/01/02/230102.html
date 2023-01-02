@@ -9,7 +9,7 @@
 接下来的一段时间，我会用于写一些好用且使用频率很高的钩子，用于记录和加强对它们的使用。
 
 
-useCallback介绍useCallback 是一个返回记忆函数的React钩子，该函数仅在其依赖项之一发生更改时才重新创建，否则每次调用都会">
+一、useCallback介绍useCallback 是一个返回记忆函数的React钩子，该函数仅在其依赖项之一发生更改时才重新创建，否则每次调用">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -428,9 +428,9 @@ useCallback介绍useCallback 是一个返回记忆函数的React钩子，该函�
 <p>接下来的一段时间，我会用于写一些好用且使用频率很高的钩子，用于记录和加强对它们的使用。</p>
 </blockquote>
 <p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/23-01-02_01.png"></p>
-<h1 id="useCallback介绍"><a href="#useCallback介绍" class="headerlink" title="useCallback介绍"></a>useCallback介绍</h1><p><code>useCallback</code> 是一个返回记忆函数的React钩子，该函数仅在其依赖项之一发生更改时才重新创建，否则每次调用都会返回相同的函数实例。</p>
+<h1 id="一、useCallback介绍"><a href="#一、useCallback介绍" class="headerlink" title="一、useCallback介绍"></a>一、useCallback介绍</h1><p><code>useCallback</code> 是一个返回记忆函数的React钩子，该函数仅在其依赖项之一发生更改时才重新创建，否则每次调用都会返回相同的函数实例。</p>
 <p>当您有一个组件需要将函数传递给子组件或钩子函数，但又想避免每次父组件渲染时都重新创建该函数时，就是useCallback的使用场景，此方法很有用。这有助于<strong>避免不需要的组件更新周期</strong>并<strong>提高应用程序的性能</strong>。</p>
-<h1 id="如何使用-useCallback"><a href="#如何使用-useCallback" class="headerlink" title="如何使用 useCallback"></a>如何使用 useCallback</h1><p>一个简单的demo代入代码中</p>
+<h1 id="二、如何使用-useCallback"><a href="#二、如何使用-useCallback" class="headerlink" title="二、如何使用 useCallback"></a>二、如何使用 useCallback</h1><p>一个简单的demo代入代码中</p>
 <p><code>App.jsx</code></p>
 <pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">import</span> <span class="token punctuation">&#123;</span> useState<span class="token punctuation">,</span> useCallback <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">"react"</span><span class="token punctuation">;</span>
 
@@ -461,7 +461,7 @@ useCallback介绍useCallback 是一个返回记忆函数的React钩子，该函�
 <p>函数<code>increment</code>是使用<code>useCallback</code>和仅包含变量的依赖项列表创建的<code>count</code>。说明改函数只会在值<code>count</code>更改时重新创建。函数<code>increment</code>作为单击按钮处理程序，单击时它会将值递增<code>count</code>+1</p>
 <p>该函数<code>reset</code>的创建方式类似，使用<code>useCallback</code>和仅包含变量 的依赖项列表<code>count</code>。这意味着该函数只会在值<code>count</code>更改时重新创建。该函数<code>reset</code>用作另一个按钮的点击处理程序，当点击时，它会将 的值设置<code>count</code>为 0。</p>
 <p><code>useCallback</code>是确保功能<code>increment</code>和<strong>仅在需要时</strong><code>reset</code>创建，防止每次渲染组件时都重新创建它们。这有助于<strong>避免不需要的组件更新周期</strong>并<strong>提高应用程序的性能</strong>。</p>
-<h1 id="在React中使用useCallback列出过滤器"><a href="#在React中使用useCallback列出过滤器" class="headerlink" title="在React中使用useCallback列出过滤器"></a>在React中使用useCallback列出过滤器</h1><p>useCallback还有一个常见的用途之一是有一个列表并且想要对该列表进行即时搜索的情况下使用</p>
+<h1 id="三、在React中使用useCallback列出过滤器"><a href="#三、在React中使用useCallback列出过滤器" class="headerlink" title="三、在React中使用useCallback列出过滤器"></a>三、在React中使用useCallback列出过滤器</h1><p>useCallback还有一个常见的用途之一是有一个列表并且想要对该列表进行即时搜索的情况下使用</p>
 <p><code>App.jsx</code></p>
 <pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">import</span> <span class="token string">"./App.css"</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">&#123;</span> useState<span class="token punctuation">,</span> useCallback <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">"react"</span><span class="token punctuation">;</span>
@@ -520,7 +520,7 @@ useCallback介绍useCallback 是一个返回记忆函数的React钩子，该函�
 <li><code>useCallback</code>再次调用以创建函数<code>filteredUsers</code>，该函数根据 的值过滤（用户）列表<code>filter</code>。仅当或的值发生变化<code>filteredUsers</code>时才会重新创建该函数。<code>users``filter</code></li>
 <li>该组件<code>App</code>呈现搜索条目、过滤器重置按钮和子组件<code>ChildComponent</code>。的当前值<code>filter</code>作为查找输入值<code>handleFilterChange</code>传递，函数作为事件处理程序传递<code>onChange</code>。子组件作为属性传递给函数<code>filteredUsers</code>，用于呈现过滤后的卡片列表。</li>
 </ol>
-<h1 id="useCallback用于避免在React组件中重新创建函数"><a href="#useCallback用于避免在React组件中重新创建函数" class="headerlink" title="useCallback用于避免在React组件中重新创建函数"></a>useCallback用于避免在React组件中重新创建函数</h1><p>React hook允许以<strong>不可变</strong><code>useCallback</code>的方式返回一个函数，<strong>避免</strong>在每次渲染父组件时重新创建它。这在将函数作为属性传递给子组件的情况下非常有用，并且可以<strong>提高应用程序性能</strong>。</p>
+<h1 id="四、useCallback用于避免在React组件中重新创建函数"><a href="#四、useCallback用于避免在React组件中重新创建函数" class="headerlink" title="四、useCallback用于避免在React组件中重新创建函数"></a>四、useCallback用于避免在React组件中重新创建函数</h1><p>React hook允许以<strong>不可变</strong><code>useCallback</code>的方式返回一个函数，<strong>避免</strong>在每次渲染父组件时重新创建它。这在将函数作为属性传递给子组件的情况下非常有用，并且可以<strong>提高应用程序性能</strong>。</p>
 <p><code>App.jsx</code></p>
 <pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">import</span> <span class="token punctuation">&#123;</span> useState<span class="token punctuation">,</span> useCallback <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">"react"</span><span class="token punctuation">;</span>
 
@@ -570,7 +570,7 @@ useCallback介绍useCallback 是一个返回记忆函数的React钩子，该函�
 <p><strong>小结</strong></p>
 <p><code>useCallback</code>上面的代码用于创建一个被调用的回调函数<code>handleSelectType</code>，该函数作为 prop 传递给子组件。</p>
 <p>当传递给的参数<code>useCallback</code>（在这种情况下，只是 的值<code>selectedType</code>）不变时，将<code>handleSelectType</code>返回相同的实例，子组件可以重用它而无需重新渲染。这对于防止子组件在回调函数未更改时被不必要地渲染。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>React hook<code>useCallback</code>是一个有用的工具，<strong>可以避免每次</strong>渲染组件时都重新创建函数，从而保证<strong>更好</strong>的应用程序性能。</p>
+<h1 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h1><p>React hook<code>useCallback</code>是一个有用的工具，<strong>可以避免每次</strong>渲染组件时都重新创建函数，从而保证<strong>更好</strong>的应用程序性能。</p>
 <p>此外，通过返回不可变函数，<code>useCallback</code>确保作为属性传递给子组件的函数不会随着父组件的每次渲染而改变，这在确保函数行为的一致性，在某些特定的情况下使用是很有必要的。</p>
 
                 
@@ -598,7 +598,7 @@ useCallback介绍useCallback 是一个返回记忆函数的React钩子，该函�
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://hth520.github.io/2023/01/02/221201.html">https://hth520.github.io/2023/01/02/221201.html</a>
+                    <a href="https://hth520.github.io/2023/01/02/230102.html">https://hth520.github.io/2023/01/02/230102.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -847,7 +847,7 @@ useCallback介绍useCallback 是一个返回记忆函数的React钩子，该函�
                 <i class="far fa-dot-circle"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/2023/01/02/221201.html">
+                <a href="/2023/01/02/230102.html">
                     <div class="card-image">
                         
                         <img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/23-01-02_banner.jpg" class="responsive-img" alt="React-useCallback">
