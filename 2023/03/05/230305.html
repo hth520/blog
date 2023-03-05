@@ -423,11 +423,11 @@ CSS变量可以">
                 <blockquote>
 <p>这几年关于<code>css</code>样式的预处理器层出不穷，由于最开始的<code>CSS</code>缺乏对原生变量的支持，所以优秀的开发工作者开始转向像<code>sass</code>(<code>scss</code>)/<code>less</code>等预处理器、它们支持例如变量、函数等一系列便于开发的操作</p>
 </blockquote>
-<h1 id="一、关于-CSS-变量"><a href="#一、关于-CSS-变量" class="headerlink" title="一、关于 CSS 变量"></a>一、关于 <code>CSS</code> 变量</h1><ol>
+<h2 id="一、关于-CSS-变量"><a href="#一、关于-CSS-变量" class="headerlink" title="一、关于 CSS 变量"></a>一、关于 <code>CSS</code> 变量</h2><ol>
 <li><code>CSS</code>变量可以像其他语言中的任何其他变量一样的去使用，即为 then 分配特定值并在以后引用该值。（该值并未实际存储）</li>
 <li>它们也称为自定义属性或级联变量</li>
 </ol>
-<h1 id="二、如何定义和使用-CSS-变量"><a href="#二、如何定义和使用-CSS-变量" class="headerlink" title="二、如何定义和使用 CSS 变量"></a>二、如何定义和使用 <code>CSS</code> 变量</h1><p>在 <code>Javascript</code> 中，通常通过以下方式之一声明和初始化变量：</p>
+<h2 id="二、如何定义和使用-CSS-变量"><a href="#二、如何定义和使用-CSS-变量" class="headerlink" title="二、如何定义和使用 CSS 变量"></a>二、如何定义和使用 <code>CSS</code> 变量</h2><p>在 <code>Javascript</code> 中，通常通过以下方式之一声明和初始化变量：</p>
 <pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">let</span> tom <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
 <span class="token keyword">const</span> juerry <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span>
 <span class="token keyword">var</span> luck <span class="token operator">=</span> <span class="token number">30</span><span class="token punctuation">;</span></code></pre>
@@ -467,9 +467,9 @@ CSS变量可以">
 <li>局部变量比全局变量具有更高的优先级</li>
 <li>先使用该属性后声明，<code>CSS</code> 仍会使用它，就像<code>div</code>.</li>
 </ol>
-<h1 id="三、使用-CSS-变量var"><a href="#三、使用-CSS-变量var" class="headerlink" title="三、使用 CSS 变量var()"></a>三、使用 <code>CSS</code> 变量<code>var()</code></h1><p>上个案例中我们使用了该<code>var()</code>函数访问上面定义的 <code>CSS</code> 变量，<code>var()</code>函数将属性名称作为参数，从样式表中检索它的值（如果存在）并将其替换为实际的 <code>CSS</code> 属性。</p>
+<h2 id="三、使用-CSS-变量var"><a href="#三、使用-CSS-变量var" class="headerlink" title="三、使用 CSS 变量var()"></a>三、使用 <code>CSS</code> 变量<code>var()</code></h2><p>上个案例中我们使用了该<code>var()</code>函数访问上面定义的 <code>CSS</code> 变量，<code>var()</code>函数将属性名称作为参数，从样式表中检索它的值（如果存在）并将其替换为实际的 <code>CSS</code> 属性。</p>
 <p>由此可见，与 <code>CSS</code> 中的其他语言变量不同，不存储值，它们只是在使用时将其替换为实际的 <code>CSS</code> 值。</p>
-<h1 id="四、实战中使用CSS变量有哪些优势？"><a href="#四、实战中使用CSS变量有哪些优势？" class="headerlink" title="四、实战中使用CSS变量有哪些优势？"></a>四、实战中使用CSS变量有哪些优势？</h1><p>首先看一段代码：</p>
+<h2 id="四、实战中使用CSS变量有哪些优势？"><a href="#四、实战中使用CSS变量有哪些优势？" class="headerlink" title="四、实战中使用CSS变量有哪些优势？"></a>四、实战中使用CSS变量有哪些优势？</h2><p>首先看一段代码：</p>
 <pre class="language-css" data-language="css"><code class="language-css"><span class="token selector">:root</span> <span class="token punctuation">&#123;</span>
   <span class="token property">--main-font-color</span><span class="token punctuation">:</span> #E9E9E9<span class="token punctuation">;</span>
   <span class="token property">--main-bg-color</span><span class="token punctuation">:</span> <span class="token function">rgba</span><span class="token punctuation">(</span>128<span class="token punctuation">,</span>128<span class="token punctuation">,</span>0<span class="token punctuation">,</span>1<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -486,7 +486,7 @@ CSS变量可以">
 <p>我们已经了解了使用 <code>CSS</code> 的两种方式，即使用和不使用 <code>CSS</code>变量，让我们看看使用 <code>CSS</code> 变量比不使用 <code>CSS</code> 有什么好处。</p>
 <p><strong>易于维护：</strong><br>假设您已经投入数小时的工作来选择合适的样式和颜色，突然之间对该样式的要求发生了变化。您必须遍历整个项目才能更改颜色和样式，但假设您使用了 CSS 变量，您可以只更改一次 CSS 属性的值，它会应用在所有地方。</p>
 <p><strong>代码变得更具可读性：</strong><br>正如我们在上面看到的，变量是用户定义的，因此它们可以包含语义，因此使用这些变量更有意义，因为它变得更容易理解和维护。</p>
-<h1 id="五、原生-CSS-变量与预处理器变量（如-SCAS）有何不同？"><a href="#五、原生-CSS-变量与预处理器变量（如-SCAS）有何不同？" class="headerlink" title="五、原生 CSS 变量与预处理器变量（如 SCAS）有何不同？"></a>五、原生 <code>CSS</code> 变量与预处理器变量（如 <code>SCAS</code>）有何不同？</h1><p>1.主要区别之一是原生 CSS 变量可以在运行时动态修改。</p>
+<h2 id="五、原生-CSS-变量与预处理器变量（如-SCAS）有何不同？"><a href="#五、原生-CSS-变量与预处理器变量（如-SCAS）有何不同？" class="headerlink" title="五、原生 CSS 变量与预处理器变量（如 SCAS）有何不同？"></a>五、原生 <code>CSS</code> 变量与预处理器变量（如 <code>SCAS</code>）有何不同？</h2><p>1.主要区别之一是原生 CSS 变量可以在运行时动态修改。</p>
 <p>2.当然，兼容性也会更好。</p>
 
                 

@@ -429,7 +429,7 @@ hook 对于使用react的开发工作者来说不会很陌生，如何自己封�
                 <blockquote>
 <p>hook 对于使用react的开发工作者来说不会很陌生，如何自己封装一些简单的hook 去提高项目的的复用率，减少开发成本呢，让我们一起来学习一下几个简单的hook吧</p>
 </blockquote>
-<h1 id="一、作用介绍"><a href="#一、作用介绍" class="headerlink" title="一、作用介绍"></a>一、作用介绍</h1><p><strong>hook 的作用</strong></p>
+<h2 id="一、作用介绍"><a href="#一、作用介绍" class="headerlink" title="一、作用介绍"></a>一、作用介绍</h2><p><strong>hook 的作用</strong></p>
 <ol>
 <li>可以对一些功能组件重复逻辑进行封装</li>
 <li>分离组件并将其功能细化</li>
@@ -438,7 +438,7 @@ hook 对于使用react的开发工作者来说不会很陌生，如何自己封�
 <p><strong>hook 的本质</strong></p>
 <p>hook 的本质就是让组件不再使用 类组件，所以，如果项目还在使用react的类函数方式，是不能使用hook的</p>
 <p><code>react</code>、<code>umi</code>等都有自己内置的hook、比如react 常用的hook: <code>useState</code>、<code>useEffect</code></p>
-<h1 id="二、封装一个状态管理hook-useToggle"><a href="#二、封装一个状态管理hook-useToggle" class="headerlink" title="二、封装一个状态管理hook: useToggle"></a>二、封装一个状态管理hook: <code>useToggle</code></h1><p><strong><code>useToggle</code></strong></p>
+<h2 id="二、封装一个状态管理hook-useToggle"><a href="#二、封装一个状态管理hook-useToggle" class="headerlink" title="二、封装一个状态管理hook: useToggle"></a>二、封装一个状态管理hook: <code>useToggle</code></h2><p><strong><code>useToggle</code></strong></p>
 <pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">import</span> <span class="token punctuation">&#123;</span> useState <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">"react"</span>
 
 <span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">useToggle</span><span class="token punctuation">(</span><span class="token parameter">initValue</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -469,7 +469,7 @@ hook 对于使用react的开发工作者来说不会很陌生，如何自己封�
   <span class="token punctuation">)</span>
 <span class="token punctuation">&#125;</span></code></pre>
 
-<h1 id="三、封装一个防抖管理hook-useDebounce"><a href="#三、封装一个防抖管理hook-useDebounce" class="headerlink" title="三、封装一个防抖管理hook: useDebounce"></a>三、封装一个防抖管理hook: <code>useDebounce</code></h1><p>对 <code>useTimeout</code> 进一步进行封装，可以实现 <code>debounce</code> 的操作，主要目的是为了解决某个方法在指定时间内重复调用，用 hook 的方式可以很方便的解决这种问题</p>
+<h2 id="三、封装一个防抖管理hook-useDebounce"><a href="#三、封装一个防抖管理hook-useDebounce" class="headerlink" title="三、封装一个防抖管理hook: useDebounce"></a>三、封装一个防抖管理hook: <code>useDebounce</code></h2><p>对 <code>useTimeout</code> 进一步进行封装，可以实现 <code>debounce</code> 的操作，主要目的是为了解决某个方法在指定时间内重复调用，用 hook 的方式可以很方便的解决这种问题</p>
 <pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">useDebounce</span><span class="token punctuation">(</span><span class="token parameter">callback<span class="token punctuation">,</span> delay<span class="token punctuation">,</span> dependencies</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
   <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> reset<span class="token punctuation">,</span> clear <span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token function">useTimeout</span><span class="token punctuation">(</span>callback<span class="token punctuation">,</span> delay<span class="token punctuation">)</span>
   <span class="token function">useEffect</span><span class="token punctuation">(</span>reset<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token operator">...</span>dependencies<span class="token punctuation">,</span> reset<span class="token punctuation">]</span><span class="token punctuation">)</span>
@@ -481,7 +481,7 @@ hook 对于使用react的开发工作者来说不会很陌生，如何自己封�
 <span class="token function">useDebounce</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">alert</span><span class="token punctuation">(</span>count<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>count<span class="token punctuation">]</span><span class="token punctuation">)</span></code></pre>
 
 <p>count 在 1s 之内变化频繁的话，是不会触发 alert 的，当然也可以通过一个是否立即执行的参数进行一些相应的控制，这里就不提了，有兴趣的可以自主完善一下</p>
-<h1 id="四、封装一个延迟执行函数hook-useTimeout"><a href="#四、封装一个延迟执行函数hook-useTimeout" class="headerlink" title="四、封装一个延迟执行函数hook:useTimeout"></a>四、封装一个延迟执行函数hook:<code>useTimeout</code></h1><pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">import</span> <span class="token punctuation">&#123;</span> useCallback<span class="token punctuation">,</span> useEffect<span class="token punctuation">,</span> useRef <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">"react"</span>
+<h2 id="四、封装一个延迟执行函数hook-useTimeout"><a href="#四、封装一个延迟执行函数hook-useTimeout" class="headerlink" title="四、封装一个延迟执行函数hook:useTimeout"></a>四、封装一个延迟执行函数hook:<code>useTimeout</code></h2><pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">import</span> <span class="token punctuation">&#123;</span> useCallback<span class="token punctuation">,</span> useEffect<span class="token punctuation">,</span> useRef <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">"react"</span>
 
 <span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">useTimeout</span><span class="token punctuation">(</span><span class="token parameter">callback<span class="token punctuation">,</span> delay</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
   <span class="token keyword">const</span> callbackRef <span class="token operator">=</span> <span class="token function">useRef</span><span class="token punctuation">(</span>callback<span class="token punctuation">)</span>
@@ -517,7 +517,7 @@ hook 对于使用react的开发工作者来说不会很陌生，如何自己封�
 <pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">const</span> <span class="token punctuation">&#123;</span> clear<span class="token punctuation">,</span> reset <span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token function">useTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">setCount</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span></code></pre>
 
 <p>通过按钮点击或者函数调用来对定时器进行操作</p>
-<p>总结：</p>
+<p><strong>总结：</strong></p>
 <p>封装hook可以理解为把一些常用的原生的hook或者一些函数的再次封装，结合state或者effect将一些逻辑提取，让页面变得更简单，更专注与页面本身自己的逻辑</p>
 
                 
