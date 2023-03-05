@@ -4,9 +4,12 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="前端基于&#39;RBAC&#39;鉴权方案, feico の 博客">
+    <meta name="keywords" content="关于CSS变量你知道吗, feico の 博客">
     <meta name="description" content="
-和同事朋友聊天有了解到涉及了RBAC或是其他鉴权方案，在做中后台管理系统时，权限是一个非常重要的功能，权限的方案非常之多，在众多方案中最常用的辨识RBAC，那我也是基于网上资料结合我之前做过的一些RBAC的思想简单聊一下RBAC的一些简单">
+这几年关于css样式的预处理器层出不穷，由于最开始的CSS缺乏对原生变量的支持，所以优秀的开发工作者开始转向像sass(scss)/less等预处理器、它们支持例如变量、函数等一系列便于开发的操作
+
+一、关于 CSS 变量
+CSS变量可以">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +21,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>前端基于&#39;RBAC&#39;鉴权方案 | feico の 博客</title>
+    <title>关于CSS变量你知道吗 | feico の 博客</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -247,12 +250,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-09-01_banner.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://blog-1309278058.cos.ap-shanghai.myqcloud.com/23-03-05_banner.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">前端基于&#39;RBAC&#39;鉴权方案</h1>
+                    <h1 class="description center-align post-title">关于CSS变量你知道吗</h1>
                 </div>
             </div>
         </div>
@@ -368,8 +371,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/RBAC/">
-                                <span class="chip bg-color">RBAC</span>
+                            <a href="/tags/CSS%E5%8F%98%E9%87%8F/">
+                                <span class="chip bg-color">CSS变量</span>
                             </a>
                         
                     </div>
@@ -380,12 +383,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/React/" class="post-category">
-                                React
-                            </a>
-                        
-                            <a href="/categories/React/Vue/" class="post-category">
-                                Vue
+                            <a href="/categories/CSS/" class="post-category">
+                                CSS
                             </a>
                         
                     </div>
@@ -397,7 +396,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-09-01
+                    2023-03-05
                 </div>
                 
 
@@ -422,171 +421,73 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <blockquote>
-<p>和同事朋友聊天有了解到涉及了<code>RBAC</code>或是其他鉴权方案，在做中后台管理系统时，权限是一个非常重要的功能，权限的方案非常之多，在众多方案中最常用的辨识<code>RBAC</code>，那我也是基于网上资料结合我之前做过的一些<code>RBAC</code>的思想简单聊一下<code>RBAC</code>的一些简单实现方案，一起来学习一下吧！</p>
+<p>这几年关于<code>css</code>样式的预处理器层出不穷，由于最开始的<code>CSS</code>缺乏对原生变量的支持，所以优秀的开发工作者开始转向像<code>sass</code>(<code>scss</code>)/<code>less</code>等预处理器、它们支持例如变量、函数等一系列便于开发的操作</p>
 </blockquote>
-<img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-09-01_rbac.png"/>
-
-<h2 id="一、相关术语"><a href="#一、相关术语" class="headerlink" title="一、相关术语"></a>一、相关术语</h2><p>用户：操作的账号，为权限的载体</p>
-<p>资源：将页面(路由)、页面内容、数据，接口等可以进行权限控制的都称为资源。</p>
-<p>角色：权限的载体，通常是指具有某些共同特征的一组人，比如财务、运维、研发等角色；角色和权限（资源）绑定，通过不同的角色关联不同的权限</p>
-<h2 id="二、常见的权限模型"><a href="#二、常见的权限模型" class="headerlink" title="二、常见的权限模型"></a>二、常见的权限模型</h2><p>ACL（Access Control List）：访问控制列表，直接将权限与用户绑定，当用户数量很多的时候，操作一次权限就需要对每个用户都进行授权，工作量很大。</p>
-<p>RBAC（Role-Based Access List）: 基于角色的权限控制，通过 <code>用户 -&gt; 角色 -&gt; 权限</code> 的模型，增加了一层角色来间接的赋予用户权限，从而让用户与权限解耦。</p>
-<p>ABAC（Attribute-Based Access Control）: 基于属性的访问控制，通过定义一系列属性（用户属性、环境属性、资源属性），通过动态计算来确定用户是否有权限访问。对于资源的管控力度更细，比如运营(角色)在杭州(环境)能查询杭州订单(资源)。这种在前端并不常见，有兴趣自行了解。</p>
-<h2 id="三、前端的权限控制"><a href="#三、前端的权限控制" class="headerlink" title="三、前端的权限控制"></a>三、前端的权限控制</h2><p>前端对权限控制粒度的不同，可以分为：</p>
-<ul>
-<li>页面权限：包括登录权限、路由、菜单这类，本质上就是对路由进行控制。</li>
-<li>页面内容权限：比如没有编辑权限，则隐藏掉相关的UI组件，或者不同权限则展示不同数据，通常和后台接口挂钩。</li>
-</ul>
-<h3 id="角色固定且较少的方案"><a href="#角色固定且较少的方案" class="headerlink" title="角色固定且较少的方案"></a>角色固定且较少的方案</h3><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-09-01_%E8%A7%92%E8%89%B2%E5%9B%BA%E5%AE%9A%E8%BE%83%E5%B0%91%E6%96%B9%E6%A1%88%E5%9B%BE.png"/>
-
-<p>这种应该是目前比较常见的一种，角色以及对应的权限由后台维护，前端通常会维护一份菜单（路由）与角色的 map 配置，例如：</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> menusConfig <span class="token operator">=</span> <span class="token punctuation">[</span>
-    <span class="token punctuation">&#123;</span>
-        <span class="token literal-property property">path</span><span class="token operator">:</span> <span class="token string">'/path1'</span><span class="token punctuation">,</span>
-        <span class="token literal-property property">meta</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-            <span class="token literal-property property">title</span><span class="token operator">:</span> <span class="token string">'path1'</span><span class="token punctuation">,</span>
-            <span class="token literal-property property">roles</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'role1'</span><span class="token punctuation">,</span> <span class="token string">'role2'</span><span class="token punctuation">,</span> <span class="token string">'role3'</span><span class="token punctuation">]</span> <span class="token comment">// 该条路由那些角色可以访问</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-     <span class="token punctuation">&#123;</span>
-        <span class="token literal-property property">path</span><span class="token operator">:</span> <span class="token string">'/path2'</span><span class="token punctuation">,</span>
-        <span class="token literal-property property">meta</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-            <span class="token literal-property property">title</span><span class="token operator">:</span> <span class="token string">'path2'</span><span class="token punctuation">,</span>
-            <span class="token literal-property property">roles</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'role1'</span><span class="token punctuation">,</span> <span class="token string">'role2'</span><span class="token punctuation">]</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-    <span class="token punctuation">&#123;</span>
-        <span class="token literal-property property">path</span><span class="token operator">:</span> <span class="token string">'/path3'</span><span class="token punctuation">,</span>
-        <span class="token literal-property property">meta</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-            <span class="token literal-property property">title</span><span class="token operator">:</span> <span class="token string">'path3'</span><span class="token punctuation">,</span>
-            <span class="token literal-property property">roles</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'role3'</span><span class="token punctuation">]</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">]</span>
-</code></pre>
-
-<p>这份配置一般维护在前端，流程通常是：</p>
-<ol>
-<li>打开站点，登录</li>
-<li>从后台获取到当前用户的角色</li>
-<li>根据该角色，生成有权限的路由和菜单，进行页面初始化</li>
+<h1 id="一、关于-CSS-变量"><a href="#一、关于-CSS-变量" class="headerlink" title="一、关于 CSS 变量"></a>一、关于 <code>CSS</code> 变量</h1><ol>
+<li><code>CSS</code>变量可以像其他语言中的任何其他变量一样的去使用，即为 then 分配特定值并在以后引用该值。（该值并未实际存储）</li>
+<li>它们也称为自定义属性或级联变量</li>
 </ol>
-<p>用户的 <code>角色</code> 属性，需要在创建的时候绑定，可以提供一个 <strong>用户管理</strong> 的模块进行配置。</p>
-<h2 id="四、页面权限"><a href="#四、页面权限" class="headerlink" title="四、页面权限"></a>四、页面权限</h2><p>虽然流程在第三步生成的菜单后，页面上不存在入口让用户点击进入，但如果用户记住某条路由（比如保存到书签），直接用过url进入，那么还是会打开的。所以还需要在路由层面做权限判断，如果没有权限，则跳转403页面。</p>
-<p>vue 和 react 的路由拦截都有各自的实现，这里不列出来，只给出主要逻辑伪代码</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> <span class="token punctuation">&#123;</span>enableView<span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token function">usePermisesion</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<h1 id="二、如何定义和使用-CSS-变量"><a href="#二、如何定义和使用-CSS-变量" class="headerlink" title="二、如何定义和使用 CSS 变量"></a>二、如何定义和使用 <code>CSS</code> 变量</h1><p>在 <code>Javascript</code> 中，通常通过以下方式之一声明和初始化变量：</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">let</span> tom <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> juerry <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> luck <span class="token operator">=</span> <span class="token number">30</span><span class="token punctuation">;</span></code></pre>
 
-<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>enableView<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token comment">// 定向到 403 页面</span>
-<span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-    <span class="token comment">// 正常逻辑</span>
+<p>但是在 <code>CSS</code>中，使用 <code>let</code>, <code>const</code>, <code>var</code> 这样的关键字是会报错的，那使用什么呢？</p>
+<p>可以在用户定义的变量名前面使用 2 个连字符 (破折号 –)，需要注意的是，要把它们放在一个作用域范围内。</p>
+<p>用过 <code>Vue</code> 的小伙伴都知道，声明<code>less</code>，<code>css</code>样式块可以加上一个 <code>scope</code>,即表名，这个样式是有作用域的，并非全局文件。在 <code>Javascript</code> 中我们有<strong>函数作用域</strong>、<strong>块作用域</strong>、<strong>全局作用域</strong>这样的作用域，我们在 <code>CSS</code> 中也有作用域。</p>
+<pre class="language-css" data-language="css"><code class="language-css"><span class="token selector">:root</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">--main-color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
 
-<p>这里的 <code>usePermisesion</code> 通过 <code>menusConfig</code> 和 用户角色 来判断是当前路由是否权限进入，用户角色 建议通过全局状态、context之类的注入。</p>
-<p>当然这里简化了操作，例如应该先进行 404 的判断，否则随便输入的 url 都会跳转到 403</p>
-<h2 id="五、内容权限控制"><a href="#五、内容权限控制" class="headerlink" title="五、内容权限控制"></a>五、内容权限控制</h2><p>内容权限是比较难处理的，不像页面权限可以通过全局的拦截器进行统一的拦截，需要通过侵入业务代码中。</p>
-<p>一些实现方案是将权限需要的角色写到业务中处理：</p>
-<pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">PermissionControl</span></span> <span class="token attr-name">permisstion</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">[</span><span class="token string">"role1"</span><span class="token punctuation">,</span> <span class="token string">"role2"</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span></span><span class="token punctuation">></span></span><span class="token plain-text">
-  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Button</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
-</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">PermissionControl</span></span><span class="token punctuation">></span></span>
+<p>这里我们使用了<code>:root</code>选择器。它以 <code>DOM</code> 的顶部元素为目标，因此具有全局范围。类似地，我们可以有基于不同 <code>CSS</code> 选择器的其他本地范围。</p>
+<p>那么问题来了，这样定义的样式会有争议性、比如我们在全局级别和本地级别分别定义一个相同的 <code>CSS</code> 属性，那么谁才是的number one呢？</p>
+<pre class="language-htm" data-language="htm"><code class="language-htm">&lt;p&gt;css 变量学习&lt;&#x2F;p&gt;
+&lt;div&gt;了解 css 属性&lt;&#x2F;div&gt;
+&lt;h4&gt;CSS 非常有趣&lt;&#x2F;h4&gt;</code></pre>
 
-<span class="token comment">// or</span>
-<span class="token operator">&lt;</span>Button v<span class="token operator">-</span>permission<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"role1"</span><span class="token punctuation">,</span> <span class="token string">"role2"</span><span class="token punctuation">]</span> <span class="token operator">/</span><span class="token operator">></span></code></pre>
-
-<p>这种方式适合角色比较少的情况，但维护比较麻烦，一旦要增加一个角色，或者删除一个角色，需要到处找代码。还是可以通过 <code>usePermisesion</code> 来获取当前页面的其他权限。只需扩展下 <code>menusConfig</code>：</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> menusConfig <span class="token operator">=</span> <span class="token punctuation">[</span>
-    <span class="token punctuation">&#123;</span>
-        <span class="token literal-property property">path</span><span class="token operator">:</span> <span class="token string">'/path1'</span><span class="token punctuation">,</span>
-        <span class="token literal-property property">meta</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-            <span class="token literal-property property">title</span><span class="token operator">:</span> <span class="token string">'path1'</span><span class="token punctuation">,</span>
-            <span class="token literal-property property">permission</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 对应的操作权限需要的角色</span>
-                <span class="token literal-property property">view</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'role1'</span><span class="token punctuation">,</span> <span class="token string">'role2'</span><span class="token punctuation">,</span> <span class="token string">'role3'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-                <span class="token literal-property property">edit</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'role1'</span><span class="token punctuation">,</span> <span class="token string">'role2'</span><span class="token punctuation">]</span>
-            <span class="token punctuation">&#125;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-     <span class="token punctuation">&#123;</span>
-        <span class="token literal-property property">path</span><span class="token operator">:</span> <span class="token string">'/path2'</span><span class="token punctuation">,</span>
-        <span class="token literal-property property">meta</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-            <span class="token literal-property property">title</span><span class="token operator">:</span> <span class="token string">'path2'</span><span class="token punctuation">,</span>
-            <span class="token literal-property property">permission</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-                <span class="token literal-property property">view</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'role1'</span><span class="token punctuation">,</span> <span class="token string">'role2'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-                <span class="token literal-property property">edit</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'role2'</span><span class="token punctuation">]</span>
-            <span class="token punctuation">&#125;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-    <span class="token punctuation">&#123;</span>
-        <span class="token literal-property property">path</span><span class="token operator">:</span> <span class="token string">'/path3'</span><span class="token punctuation">,</span>
-        <span class="token literal-property property">meta</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-            <span class="token literal-property property">title</span><span class="token operator">:</span> <span class="token string">'path3'</span><span class="token punctuation">,</span>
-            <span class="token literal-property property">permission</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-                <span class="token literal-property property">view</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'role3'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-                <span class="token literal-property property">edit</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'role3'</span><span class="token punctuation">]</span>
-            <span class="token punctuation">&#125;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">]</span></code></pre>
-
-<p>然后封装通用的 权限组件 或者 vue指令，来获取当前页面需要对权限</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> <span class="token function-variable function">PermissionControl</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">&#123;</span>permissionkey<span class="token punctuation">,</span> children<span class="token punctuation">&#125;</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-     <span class="token comment">// 通过获取当前路由来找到对应的配置</span>
-    <span class="token keyword">const</span> <span class="token punctuation">&#123;</span>enableEdit<span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token function">usePermisesion</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>enableEdit<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> <span class="token keyword">null</span>
-    <span class="token punctuation">&#125;</span>
-
-    <span class="token keyword">return</span> children
+<pre class="language-css" data-language="css"><code class="language-css"><span class="token selector">:root</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">--main-color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span>
-
-<span class="token comment">// 使用</span>
-
-<span class="token operator">&lt;</span>PermissionControl<span class="token operator">></span><span class="token operator">&lt;</span>Button <span class="token operator">/</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>PermissionControl<span class="token operator">></span>
-<span class="token comment">// or</span>
-<span class="token operator">&lt;</span>Button v<span class="token operator">-</span>permission <span class="token operator">/</span><span class="token operator">></span></code></pre>
-
-<h2 id="六、内容权限控制"><a href="#六、内容权限控制" class="headerlink" title="六、内容权限控制"></a>六、内容权限控制</h2><p>上面的 <code>edit</code> 权限还是针对整个页面级别，如果希望只是页面某个按钮需要更加特殊的权限，比如 【文档发布】 按钮，需要更高的管理权限，依然可以通过上面的 <code>menusConfig</code> 来处理：</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> menusConfig <span class="token operator">=</span> <span class="token punctuation">[</span>
-    <span class="token punctuation">&#123;</span>
-        <span class="token literal-property property">path</span><span class="token operator">:</span> <span class="token string">'/path1'</span><span class="token punctuation">,</span>
-        <span class="token literal-property property">meta</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-            <span class="token literal-property property">title</span><span class="token operator">:</span> <span class="token string">'path1'</span><span class="token punctuation">,</span>
-            <span class="token literal-property property">permission</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 对应的操作权限需要的角色</span>
-                <span class="token literal-property property">view</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'role1'</span><span class="token punctuation">,</span> <span class="token string">'role2'</span><span class="token punctuation">,</span> <span class="token string">'role3'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-                <span class="token literal-property property">edit</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'role1'</span><span class="token punctuation">,</span> <span class="token string">'role2'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-                <span class="token literal-property property">xxxButton</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'administrator'</span><span class="token punctuation">]</span> <span class="token comment">// 具体页面控件的key</span>
-            <span class="token punctuation">&#125;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">]</span>
-
-<span class="token keyword">const</span> <span class="token function-variable function">PermissionControl</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">&#123;</span>permissionkey<span class="token punctuation">,</span> children<span class="token punctuation">&#125;</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">const</span> <span class="token punctuation">&#123;</span>enableEdit<span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token function">usePermisesion</span><span class="token punctuation">(</span>permissionkey<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 可以传入 key 来获取指定特定对资源权限</span>
-
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>enableEdit<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> <span class="token keyword">null</span>
-    <span class="token punctuation">&#125;</span>
-
-    <span class="token keyword">return</span> children
+<span class="token selector">p</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">--main-color</span><span class="token punctuation">:</span> blue<span class="token punctuation">;</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--main-color<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span>
+<span class="token selector">div</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--main-color<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">--main-color</span><span class="token punctuation">:</span> green<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">h4</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--main-color<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
 
-<span class="token comment">// 使用</span>
+<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/23-03-05_01css%E4%BA%89%E8%AE%AE%E6%80%A7.png"></p>
+<p> 通过代码和运行结果我们可以发现：</p>
+<ol>
+<li>我们是如何访问 <code>CSS</code> 变量</li>
+<li>局部变量比全局变量具有更高的优先级</li>
+<li>先使用该属性后声明，<code>CSS</code> 仍会使用它，就像<code>div</code>.</li>
+</ol>
+<h1 id="三、使用-CSS-变量var"><a href="#三、使用-CSS-变量var" class="headerlink" title="三、使用 CSS 变量var()"></a>三、使用 <code>CSS</code> 变量<code>var()</code></h1><p>上个案例中我们使用了该<code>var()</code>函数访问上面定义的 <code>CSS</code> 变量，<code>var()</code>函数将属性名称作为参数，从样式表中检索它的值（如果存在）并将其替换为实际的 <code>CSS</code> 属性。</p>
+<p>由此可见，与 <code>CSS</code> 中的其他语言变量不同，不存储值，它们只是在使用时将其替换为实际的 <code>CSS</code> 值。</p>
+<h1 id="四、实战中使用CSS变量有哪些优势？"><a href="#四、实战中使用CSS变量有哪些优势？" class="headerlink" title="四、实战中使用CSS变量有哪些优势？"></a>四、实战中使用CSS变量有哪些优势？</h1><p>首先看一段代码：</p>
+<pre class="language-css" data-language="css"><code class="language-css"><span class="token selector">:root</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">--main-font-color</span><span class="token punctuation">:</span> #E9E9E9<span class="token punctuation">;</span>
+  <span class="token property">--main-bg-color</span><span class="token punctuation">:</span> <span class="token function">rgba</span><span class="token punctuation">(</span>128<span class="token punctuation">,</span>128<span class="token punctuation">,</span>0<span class="token punctuation">,</span>1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">p</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--main-font-color<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--main-bg-color<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">span</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> #E9E9E9<span class="token punctuation">;</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">rgba</span><span class="token punctuation">(</span>128<span class="token punctuation">,</span>128<span class="token punctuation">,</span>0<span class="token punctuation">,</span>1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
 
-<span class="token operator">&lt;</span>PermissionControl permissionkey<span class="token operator">=</span><span class="token string">"administrator"</span><span class="token operator">></span><span class="token operator">&lt;</span>Button <span class="token operator">/</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>PermissionControl<span class="token operator">></span>
-<span class="token comment">// or</span>
-<span class="token operator">&lt;</span>Button v<span class="token operator">-</span>permission<span class="token operator">=</span><span class="token string">"administrator"</span> <span class="token operator">/</span><span class="token operator">></span></code></pre>
-
-<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>今天所列的是基本上就能够覆盖权限验证在前端需要的几个场景，这种方式适合于小型系统，角色有限的情况。通过 <code>menusConfig</code> 来维护权限与页面资源的映射，也比较清晰简单。但也有明显的不足：</p>
-<ul>
-<li>对于大型项目，权限管理往往是复杂的，比如一个系统有几十个不同类别的应用，用户量都比较大，不能简单的抽象成几个简单的角色来控制。</li>
-</ul>
-<p>为了能够更加方便，更灵活的进行管理权限，往往会采用角色动态创建的方案，通过自定义不同类型的角色，以支持更加细粒度的权限管理。这里就不详细说明，可移步下面文章学习更多：</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/107054677">前后端分离架构设计(权限模型)</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.uisdc.com/100-solutions-for-character-permission-design">角色权限设计的100种解法</a></li>
-<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904032197148679">基于RBAC的前端权限控制</a></li>
-</ul>
-<p>回见！！</p>
+<p>我们已经了解了使用 <code>CSS</code> 的两种方式，即使用和不使用 <code>CSS</code>变量，让我们看看使用 <code>CSS</code> 变量比不使用 <code>CSS</code> 有什么好处。</p>
+<p><strong>易于维护：</strong><br>假设您已经投入数小时的工作来选择合适的样式和颜色，突然之间对该样式的要求发生了变化。您必须遍历整个项目才能更改颜色和样式，但假设您使用了 CSS 变量，您可以只更改一次 CSS 属性的值，它会应用在所有地方。</p>
+<p><strong>代码变得更具可读性：</strong><br>正如我们在上面看到的，变量是用户定义的，因此它们可以包含语义，因此使用这些变量更有意义，因为它变得更容易理解和维护。</p>
+<h1 id="五、原生-CSS-变量与预处理器变量（如-SCAS）有何不同？"><a href="#五、原生-CSS-变量与预处理器变量（如-SCAS）有何不同？" class="headerlink" title="五、原生 CSS 变量与预处理器变量（如 SCAS）有何不同？"></a>五、原生 <code>CSS</code> 变量与预处理器变量（如 <code>SCAS</code>）有何不同？</h1><p>1.主要区别之一是原生 CSS 变量可以在运行时动态修改。</p>
+<p>2.当然，兼容性也会更好。</p>
 
                 
             </div>
@@ -613,7 +514,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://hth520.github.io/2022/09/01/220901.html">https://hth520.github.io/2022/09/01/220901.html</a>
+                    <a href="https://hth520.github.io/2023/03/05/230305.html">https://hth520.github.io/2023/03/05/230305.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -651,8 +552,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/RBAC/">
-                                    <span class="chip bg-color">RBAC</span>
+                                <a href="/tags/CSS%E5%8F%98%E9%87%8F/">
+                                    <span class="chip bg-color">CSS变量</span>
                                 </a>
                             
                         </div>
@@ -823,7 +724,7 @@
         repo: 'hth520.github.io',
         owner: 'hth520',
         admin: ["hth520"],
-        id: '2022-09-01T20-13-24',
+        id: '2023-03-05T10-01-35',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -853,16 +754,17 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2022/10/05/221005.html">
+                <a href="/2023/03/05/230305.html">
                     <div class="card-image">
                         
-                        <img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-10-05_banner.png" class="responsive-img" alt="前端主题切换方案简易版">
+                        <img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/23-03-05_banner.png" class="responsive-img" alt="关于CSS变量你知道吗">
                         
-                        <span class="card-title">前端主题切换方案简易版</span>
+                        <span class="card-title">关于CSS变量你知道吗</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -872,38 +774,27 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-10-05
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-03-05
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/SCSS/" class="post-category">
-                                    SCSS
-                                </a>
-                            
-                            <a href="/categories/SCSS/CSS/" class="post-category">
+                            <a href="/categories/CSS/" class="post-category">
                                     CSS
-                                </a>
-                            
-                            <a href="/categories/SCSS/CSS/mixin/" class="post-category">
-                                    mixin
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/HTML%E4%B8%BB%E9%A2%98/">
-                        <span class="chip bg-color">HTML主题</span>
-                    </a>
-                    
-                    <a href="/tags/Vue-js/">
-                        <span class="chip bg-color">Vue.js</span>
+                    <a href="/tags/CSS%E5%8F%98%E9%87%8F/">
+                        <span class="chip bg-color">CSS变量</span>
                     </a>
                     
                 </div>
@@ -917,12 +808,12 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/07/30/220730.html">
+                <a href="/2023/02/05/230205.html">
                     <div class="card-image">
                         
-                        <img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/22-07-30_banner.png" class="responsive-img" alt="夏日炎炎来个西瓜解解暑">
+                        <img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/23-02-05_banner.png" class="responsive-img" alt="简单的hook封装及应用">
                         
-                        <span class="card-title">夏日炎炎来个西瓜解解暑</span>
+                        <span class="card-title">简单的hook封装及应用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -933,14 +824,14 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-30
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-05
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/HTML/" class="post-category">
-                                    HTML
+                            <a href="/categories/React/" class="post-category">
+                                    React
                                 </a>
                             
                             
@@ -950,8 +841,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/CSS/">
-                        <span class="chip bg-color">CSS</span>
+                    <a href="/tags/hooks/">
+                        <span class="chip bg-color">hooks</span>
+                    </a>
+                    
+                    <a href="/tags/JS/">
+                        <span class="chip bg-color">JS</span>
                     </a>
                     
                 </div>
