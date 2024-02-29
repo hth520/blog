@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="搞懂flex：1, feico の 博客">
+    <meta name="keywords" content="冷门技巧，看看flex：1的含义, feico の 博客">
     <meta name="description" content="面试时被问过：“flex: 1 是哪些属性的缩写？”，被问到时，心想：flex：1，不就是子项占有剩余父级空间吗？其实flex还大有门道。
 flex：1是哪些属性的缩写
 flex：1 是 flex-grow: 1, flex-shrink:">
@@ -19,7 +19,7 @@ flex：1 是 flex-grow: 1, flex-shrink:">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>搞懂flex：1 | feico の 博客</title>
+    <title>冷门技巧，看看flex：1的含义 | feico の 博客</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -248,12 +248,12 @@ flex：1 是 flex-grow: 1, flex-shrink:">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://blog-1309278058.cos.ap-shanghai.myqcloud.com/23-12-21_banner.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://blog-1309278058.cos.ap-shanghai.myqcloud.com/24-01-25_banner.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">搞懂flex：1</h1>
+                    <h1 class="description center-align post-title">冷门技巧，看看flex：1的含义</h1>
                 </div>
             </div>
         </div>
@@ -442,6 +442,7 @@ flex：1 是 flex-grow: 1, flex-shrink:">
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span></code></pre>
 
 <p>那么效果就是子元素的flex-basis加起来是240px，父容器分完以后剩下260px，ABCD的flex-grow加起来10，那么每一份是26px，最终AB是60px + 26px = 86px，CD是60px + 26px * 4 = 164px。</p>
+<p>具体举个案例就是 甲乙丙丁四兄弟在路上捡到500块钱，兄弟4个来分，老大和老二说“我要60块钱，如果有多的可以再给我来一份”，老三和老四说“我们也要60块钱，如果有多的我们要四份”。最终老大和老二分到86，老三老四分到164，大家还都挺满意</p>
 <h3 id="flex-shrink"><a href="#flex-shrink" class="headerlink" title="flex-shrink"></a>flex-shrink</h3><p>flex-shrink是将多出的空间根据flex-shrink的值平分，然后flex-basis减去分到的值</p>
 <pre class="language-html" data-language="html"><code class="language-html"><span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">doctype</span> <span class="token name">html</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -462,6 +463,8 @@ flex：1 是 flex-grow: 1, flex-shrink:">
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span></code></pre>
 
 <p>子元素的flex-basis加起来是600px，而父容器只有500px，那么少的100px，就得从ABCD往出扣，ABCD的flex-shrink加起来是10，那么每一份就是10px，最终AB是150px - 10px = 140px，CD是150px - 10px * 4 = 110px;</p>
+<p>那么这个根据实际场景就是500元的失主找到他们，要求归还500元，兄弟四个已经花完了，该怎么赔偿？</p>
+<p>老大和老二说”我们一人出150，超出部分我要收回1成”，老三和老四说“我们也出150块钱，超出部分我要收回4成”。最终老大和老二出140块钱，老三老四出110块钱。</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>通过flex-grow 和 flex-shrink 这两个属性可以对flex有更深层的理解，在实际开发场景中，也可以很好的去使用啦！面试问道也可以再道一二了。</p>
 
                 
@@ -755,12 +758,8 @@ flex：1 是 flex-grow: 1, flex-shrink:">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%87%AA%E9%80%82%E5%BA%94/" class="post-category">
-                                    自适应
-                                </a>
-                            
-                            <a href="/categories/%E8%87%AA%E9%80%82%E5%BA%94/iframe%E5%B5%8C%E5%85%A5/" class="post-category">
-                                    iframe嵌入
+                            <a href="/categories/%E5%B5%8C%E5%85%A5/" class="post-category">
+                                    嵌入
                                 </a>
                             
                             
@@ -772,6 +771,10 @@ flex：1 是 flex-grow: 1, flex-shrink:">
                     
                     <a href="/tags/iframe/">
                         <span class="chip bg-color">iframe</span>
+                    </a>
+                    
+                    <a href="/tags/%E9%AB%98%E5%BA%A6%E8%87%AA%E9%80%82%E5%BA%94/">
+                        <span class="chip bg-color">高度自适应</span>
                     </a>
                     
                 </div>

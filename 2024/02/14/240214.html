@@ -372,6 +372,10 @@
                                 <span class="chip bg-color">iframe</span>
                             </a>
                         
+                            <a href="/tags/%E9%AB%98%E5%BA%A6%E8%87%AA%E9%80%82%E5%BA%94/">
+                                <span class="chip bg-color">高度自适应</span>
+                            </a>
+                        
                     </div>
                     
                 </div>
@@ -380,12 +384,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E8%87%AA%E9%80%82%E5%BA%94/" class="post-category">
-                                自适应
-                            </a>
-                        
-                            <a href="/categories/%E8%87%AA%E9%80%82%E5%BA%94/iframe%E5%B5%8C%E5%85%A5/" class="post-category">
-                                iframe嵌入
+                            <a href="/categories/%E5%B5%8C%E5%85%A5/" class="post-category">
+                                嵌入
                             </a>
                         
                     </div>
@@ -425,15 +425,13 @@
 <h3 id="如何自适应？"><a href="#如何自适应？" class="headerlink" title="如何自适应？"></a>如何自适应？</h3><p>如何让<code>iframe</code>自适应自身高度，让整个页面看起来像一个整体？</p>
 <p>在HTML5之前，有很多使用JavaScript的Hack技巧，代码量大，而且很难通用。随着现代浏览器引入了新的ResizeObserver API，解决<code>iframe</code>高度问题就变得简单了。</p>
 <p>我们假设父页面是<code>index.html</code>，要嵌入到<code>iframe</code>的子页面是<code>target.html</code>，在父页面中，先向页面添加一个<code>iframe</code>：</p>
-<pre class="language-ini" data-language="ini"><code class="language-ini">ini
-<span class="token key attr-name">复制代码const iframe1</span> <span class="token punctuation">=</span> <span class="token value attr-value">document.createElement('iframe');</span>
+<pre class="language-ini" data-language="ini"><code class="language-ini"><span class="token key attr-name">const iframe1</span> <span class="token punctuation">=</span> <span class="token value attr-value">document.createElement('iframe');</span>
 <span class="token key attr-name">iframe1.src</span> <span class="token punctuation">=</span> <span class="token value attr-value">'target.html';</span>
 <span class="token key attr-name">iframe1.onload</span> <span class="token punctuation">=</span> <span class="token value attr-value">autoResize;</span>
 document.getElementById('sameDomain').appendChild(iframe1);</code></pre>
 
 <p>当<code>iframe</code>载入完成后，触发<code>onload</code>事件，然后自动调用<code>autoResize()</code>函数：</p>
-<pre class="language-ini" data-language="ini"><code class="language-ini">ini
-复制代码function autoResize(event) &#123;
+<pre class="language-ini" data-language="ini"><code class="language-ini">function autoResize(event) &#123;
     // 获取iframe元素:
     <span class="token key attr-name">const iframeEle</span> <span class="token punctuation">=</span> <span class="token value attr-value">event.target;</span>
     // 创建一个ResizeObserver:
@@ -450,8 +448,7 @@ document.getElementById('sameDomain').appendChild(iframe1);</code></pre>
 <h3 id="跨域问题"><a href="#跨域问题" class="headerlink" title="跨域问题"></a>跨域问题</h3><p><code>ResizeObserver</code>很好地解决了<code>iframe</code>的监控，但是，当我们引入跨域的<code>iframe</code>时，上述代码就失效了，原因是浏览器阻止了跨域获取<code>iframe</code>的<code>body</code>元素。</p>
 <p>要解决跨域的<code>iframe</code>自适应高度问题，我们需要使用<code>postMessage</code>机制，让<code>iframe</code>页面向父页面主动报告自身高度。</p>
 <p>假定父页面仍然是<code>index.html</code>，要嵌入到<code>iframe</code>的子页面是<code>http://xyz/cross.html</code>，在父页面中，先向页面添加一个跨域的<code>iframe</code>：</p>
-<pre class="language-ini" data-language="ini"><code class="language-ini">ini
-<span class="token key attr-name">复制代码const iframe2</span> <span class="token punctuation">=</span> <span class="token value attr-value">document.createElement('iframe');</span>
+<pre class="language-ini" data-language="ini"><code class="language-ini"><span class="token key attr-name">const iframe2</span> <span class="token punctuation">=</span> <span class="token value attr-value">document.createElement('iframe');</span>
 <span class="token key attr-name">iframe2.src</span> <span class="token punctuation">=</span> <span class="token value attr-value">'http://xyz/cross.html';</span>
 <span class="token key attr-name">iframe2.onload</span> <span class="token punctuation">=</span> <span class="token value attr-value">autoResize;</span>
 document.getElementById('crossDomain').appendChild(iframe2);</code></pre>
@@ -459,8 +456,7 @@ document.getElementById('crossDomain').appendChild(iframe2);</code></pre>
 <p>在<code>cross.html</code>页面中，如何获取自身高度？</p>
 <p>我们需要现代浏览器引入的一个新的MutationObserver API，它允许监控任意DOM树的修改。</p>
 <p>在<code>cross.html</code>页面中，使用以下代码监控<code>body</code>元素的修改（包括子元素）：</p>
-<pre class="language-php" data-language="php"><code class="language-php">php
-复制代码<span class="token comment">// 创建MutationObserver:</span>
+<pre class="language-php" data-language="php"><code class="language-php"><span class="token comment">// 创建MutationObserver:</span>
 <span class="token keyword">const</span> <span class="token constant">domMo</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MutationObserver</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
     <span class="token comment">// 获取body的高度:</span>
     let currentHeight <span class="token operator">=</span> body<span class="token operator">.</span>scrollHeight<span class="token punctuation">;</span>
@@ -478,8 +474,7 @@ domMo<span class="token operator">.</span><span class="token function">observe</
 <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 
 <p>当<code>iframe</code>页面的<code>body</code>有变化时，回调函数通过<code>postMessage</code>向父页面发送消息，消息内容是自定义的。在父页面中，我们给<code>window</code>添加一个<code>message</code>事件监听器，即可收取来自<code>iframe</code>页面的消息，然后自动更新<code>iframe</code>高度：</p>
-<pre class="language-ini" data-language="ini"><code class="language-ini">ini
-复制代码window.addEventListener('message', function (event) &#123;
+<pre class="language-ini" data-language="ini"><code class="language-ini">window.addEventListener('message', function (event) &#123;
     <span class="token key attr-name">let eventData</span> <span class="token punctuation">=</span> <span class="token value attr-value">event.data;</span>
     <span class="token key attr-name">if (eventData &amp;&amp; eventData.type</span> <span class="token punctuation">=</span><span class="token value attr-value">== 'resize') &#123;</span>
         <span class="token key attr-name">iframeEle.style.height</span> <span class="token punctuation">=</span> <span class="token value attr-value">eventData.height + 'px';</span>
@@ -553,6 +548,10 @@ domMo<span class="token operator">.</span><span class="token function">observe</
                             
                                 <a href="/tags/iframe/">
                                     <span class="chip bg-color">iframe</span>
+                                </a>
+                            
+                                <a href="/tags/%E9%AB%98%E5%BA%A6%E8%87%AA%E9%80%82%E5%BA%94/">
+                                    <span class="chip bg-color">高度自适应</span>
                                 </a>
                             
                         </div>
@@ -780,12 +779,8 @@ domMo<span class="token operator">.</span><span class="token function">observe</
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%87%AA%E9%80%82%E5%BA%94/" class="post-category">
-                                    自适应
-                                </a>
-                            
-                            <a href="/categories/%E8%87%AA%E9%80%82%E5%BA%94/iframe%E5%B5%8C%E5%85%A5/" class="post-category">
-                                    iframe嵌入
+                            <a href="/categories/%E5%B5%8C%E5%85%A5/" class="post-category">
+                                    嵌入
                                 </a>
                             
                             
@@ -798,6 +793,10 @@ domMo<span class="token operator">.</span><span class="token function">observe</
                     
                     <a href="/tags/iframe/">
                         <span class="chip bg-color">iframe</span>
+                    </a>
+                    
+                    <a href="/tags/%E9%AB%98%E5%BA%A6%E8%87%AA%E9%80%82%E5%BA%94/">
+                        <span class="chip bg-color">高度自适应</span>
                     </a>
                     
                 </div>
@@ -814,9 +813,9 @@ domMo<span class="token operator">.</span><span class="token function">observe</
                 <a href="/2024/01/25/240125.html">
                     <div class="card-image">
                         
-                        <img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/23-12-21_banner.png" class="responsive-img" alt="搞懂flex：1">
+                        <img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/24-01-25_banner.png" class="responsive-img" alt="冷门技巧，看看flex：1的含义">
                         
-                        <span class="card-title">搞懂flex：1</span>
+                        <span class="card-title">冷门技巧，看看flex：1的含义</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
