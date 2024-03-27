@@ -1,0 +1,1379 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="GSAP动画库使用, feico の 博客">
+    <meta name="description" content="
+GSAP 一款为专业人士打造的及其强大的JavaScript 动画库，其流程程度堪称一绝，无论是制作UI、SVG动画还是创建身临其境的WebGL，GSAP都会为您提供支持，当然我使用的就是最基本的功能，例如页面滚动带来的动画效果。
+
+
+为">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>GSAP动画库使用 | feico の 博客</title>
+    <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">feico の 博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">feico の 博客</div>
+        <div class="logo-desc">
+            
+            学如逆水行舟,不进则退;心似平原走马,易放难追
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://blog-1309278058.cos.ap-shanghai.myqcloud.com/24-03-25_banner.png')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">GSAP动画库使用</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/GASP/">
+                                <span class="chip bg-color">GASP</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/JS%E5%8A%A8%E7%94%BB/" class="post-category">
+                                JS动画
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-03-25
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>GSAP 一款为专业人士打造的及其强大的JavaScript 动画库，其流程程度堪称一绝，无论是制作UI、SVG动画还是创建身临其境的WebGL，GSAP都会为您提供支持，当然我使用的就是最基本的功能，例如页面滚动带来的动画效果。</p>
+</blockquote>
+<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/24-03-25_01.png"></p>
+<h2 id="为什么选择GSAP"><a href="#为什么选择GSAP" class="headerlink" title="为什么选择GSAP"></a>为什么选择GSAP</h2><p>最近接手一个网站，要实现的动画比较多，那么我在调研的过程中发现，GSAP有以下优点：</p>
+<ol>
+<li>作为老牌框架，兼容性很好，且官方在持续更新</li>
+<li>使用上不局限于框架，甚至直接在原生js中就能使用，而诸如： <code>framer-motion</code>, <code>react spring</code>等只能用于react框架</li>
+<li>易于上手，核心理念是以时间轴(Timeline) 为纬度的补间动画(Tween)还有各种强大的插件，如：ScrollTRigger</li>
+<li>在 react框架中更是提供了简便的API、如：动画清理 <code>useGSAP</code></li>
+</ol>
+<h3 id="补间动画-Tween"><a href="#补间动画-Tween" class="headerlink" title="补间动画 (Tween)"></a>补间动画 (Tween)</h3><p>补间是所有动画的工作 - 可以把它想象成一个高性能的属性设置器。输入目标（要进行动画处理的对象）、持续时间以及希望其动画化的任何属性，然后当补间的播放头移动到新位置时，确定此时属性值应是什么，相应地应用它们</p>
+<p>常用创建补间动画的方法</p>
+<pre class="language-js" data-language="js"><code class="language-js">gsap<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+gsap<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+gsap<span class="token punctuation">.</span><span class="token function">fromTo</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+
+<p>用法很简单，如下 demo：</p>
+<pre class="language-js" data-language="js"><code class="language-js">gsap<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token string">'.box'</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">rotation</span><span class="token operator">:</span> <span class="token number">27</span><span class="token punctuation">,</span> <span class="token literal-property property">x</span><span class="token operator">:</span> <span class="token number">100</span><span class="token punctuation">,</span> <span class="token literal-property property">duration</span><span class="token operator">:</span> <span class="token number">1</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span></code></pre>
+
+<h3 id="时间线-Timeline"><a href="#时间线-Timeline" class="headerlink" title="时间线 (Timeline)"></a>时间线 (Timeline)</h3><p>让补间动画可以排序，可让动画及时放置在任何想要的位置，然后使用 <code>pause（）、play（）、progress（）、reverse（）、timeScale（）</code> 等方法轻松控制整个序列</p>
+<pre class="language-text" data-language="text"><code class="language-text">               PLAYHEAD
+|--------------timeline-----|-----------|
+|--tween1--|                |
+           |-----tween2-----|-----------|</code></pre>
+
+<p>可以用 <code>addLabel</code> 标记时间线的点，通过第二个参数来做对应动画</p>
+<pre class="language-js" data-language="js"><code class="language-js">tl<span class="token punctuation">.</span><span class="token function">addLabel</span><span class="token punctuation">(</span><span class="token string">"step2"</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token operator">...</span><span class="token punctuation">,</span> <span class="token string">"step2"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token operator">...</span><span class="token punctuation">,</span> <span class="token string">"step2+=0.75"</span><span class="token punctuation">)</span></code></pre>
+
+<p>控制补间和时间线</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> tween <span class="token operator">=</span> gsap<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token operator">...</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> tl <span class="token operator">=</span> gsap<span class="token punctuation">.</span><span class="token function">timeline</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+tl<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token operator">...</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token operator">...</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+tween<span class="token punctuation">.</span><span class="token function">pause</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+tween<span class="token punctuation">.</span><span class="token function">timeScale</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+tl<span class="token punctuation">.</span><span class="token function">seek</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+tl<span class="token punctuation">.</span><span class="token function">progress</span><span class="token punctuation">(</span><span class="token number">0.5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">...</span></code></pre>
+
+<h3 id="动画曲线"><a href="#动画曲线" class="headerlink" title="动画曲线"></a>动画曲线</h3><p>可视化动画曲线 <a href="https://link.juejin.cn/?target=https://gsap.com/docs/v3/Eases">gsap.com/docs/v3/Eas…</a></p>
+<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/24-03-25_02.png"></p>
+<h3 id="社区强大"><a href="#社区强大" class="headerlink" title="社区强大"></a>社区强大</h3><p>GSAP的社区很多成品，如果你对自己的动画无从下手，没有灵感，就去看看别人实现的酷炫效果，加入到你的网站中，那会是非常棒的体验，我相信社区的作用也在于此。</p>
+<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/24-03-25_03.png"></p>
+<h3 id="简单案例使用"><a href="#简单案例使用" class="headerlink" title="简单案例使用"></a>简单案例使用</h3><p><strong>以下是页面进入动画：一个封装起来的动画渐入效果</strong></p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">import</span> <span class="token punctuation">&#123;</span> gsap <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'gsap/gsap-core'</span>
+<span class="token keyword">import</span> <span class="token punctuation">&#123;</span> useGSAP <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'@gsap/react'</span>
+
+<span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token function-variable function">useFadeIn</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">&#123;</span>
+  target<span class="token punctuation">,</span>
+  item
+<span class="token punctuation">&#125;</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+  <span class="token literal-property property">target</span><span class="token operator">:</span> string<span class="token punctuation">,</span>
+  <span class="token literal-property property">item</span><span class="token operator">:</span> string
+<span class="token punctuation">&#125;</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  <span class="token function">useGSAP</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    gsap
+      <span class="token punctuation">.</span><span class="token function">timeline</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+        <span class="token literal-property property">scrollTrigger</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+          <span class="token literal-property property">trigger</span><span class="token operator">:</span> target<span class="token punctuation">,</span>
+          <span class="token literal-property property">start</span><span class="token operator">:</span> <span class="token string">'0% 80%'</span><span class="token punctuation">,</span>
+          <span class="token literal-property property">end</span><span class="token operator">:</span> <span class="token string">'0% 80%'</span><span class="token punctuation">,</span>
+          <span class="token literal-property property">toggleActions</span><span class="token operator">:</span> <span class="token string">'play none reverse none'</span>
+        <span class="token punctuation">&#125;</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+      <span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>item<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+        <span class="token literal-property property">y</span><span class="token operator">:</span> <span class="token number">300</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">opacity</span><span class="token operator">:</span> <span class="token number">0</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<h3 id="小试牛刀："><a href="#小试牛刀：" class="headerlink" title="小试牛刀："></a>小试牛刀：</h3><h4 id="先拿到元素"><a href="#先拿到元素" class="headerlink" title="先拿到元素"></a>先拿到元素</h4><pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> box <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'box'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<h4 id="①-TweenLite-to-方法让元素移动"><a href="#①-TweenLite-to-方法让元素移动" class="headerlink" title="① TweenLite.to()方法让元素移动"></a>① TweenLite.to()方法让元素移动</h4><pre class="language-js" data-language="js"><code class="language-js">TweenLite<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span>box<span class="token punctuation">,</span> <span class="token number">0.7</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token literal-property property">left</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">//支持第二个元素</span>
+<span class="token comment">//可以通过定义元素的X来更正元素位置</span>
+
+TweenLite<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span>box<span class="token punctuation">,</span> <span class="token number">0.7</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token literal-property property">left</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token literal-property property">x</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<h4 id="②-TweenLite-from方法"><a href="#②-TweenLite-from方法" class="headerlink" title="② TweenLite.from方法"></a>② TweenLite.from方法</h4><pre class="language-js" data-language="js"><code class="language-js">TweenLite<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>box<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token literal-property property">x</span><span class="token operator">:</span> <span class="token string">'+=200px'</span><span class="token punctuation">,</span> <span class="token literal-property property">autoAlpha</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<p>用来使元素从定义在.from()方法里的位置运动到在CSS中定义的位置</p>
+<p>会看到元素从元素左边200px的位置运动到元素在CSS中定义的位置。</p>
+<ul>
+<li>autoAlpha方法是GSAP中一个特别的属性，它把opacity和visibility两个属性合二为一了</li>
+<li>autoAlpha: 0表示它会把元素初始化为opacity:0;visibility:hidden。当执行动画效果的时候它会把visibility的值设置为inherit以及opacity值设置为1。从而产生一个渐现的效果</li>
+</ul>
+<h4 id="③TweenLite-set"><a href="#③TweenLite-set" class="headerlink" title="③TweenLite.set()"></a>③TweenLite.set()</h4><p>当我们想设置元素的一些CSS属性需要动画效果时候，比如，重设元素的位置</p>
+<pre class="language-js" data-language="js"><code class="language-js">TweenLite<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>$box<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token literal-property property">x</span><span class="token operator">:</span> <span class="token string">'-=200px'</span><span class="token punctuation">,</span> <span class="token literal-property property">scale</span><span class="token operator">:</span> <span class="token number">0.3</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+TweenLite<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>$box<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token literal-property property">x</span><span class="token operator">:</span> <span class="token string">'+=100px'</span><span class="token punctuation">,</span> <span class="token literal-property property">scale</span><span class="token operator">:</span> <span class="token number">0.6</span><span class="token punctuation">,</span> <span class="token literal-property property">delay</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+TweenLite<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>$box<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token literal-property property">x</span><span class="token operator">:</span> <span class="token string">'-50%'</span><span class="token punctuation">,</span> <span class="token literal-property property">scale</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token literal-property property">delay</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<p>元素会从-200px 的位置开始执行以下的两步：放大和向右位移到x 为 -50% 的位置</p>
+<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/24-03-25_04.png" alt="img"></p>
+<p>元素只是单纯的在改变属性并没有动画效果。</p>
+<p><strong>delay</strong>这个属性来制定元素属性改变的延迟时间</p>
+<h4 id="④TweenLite-fromTo-方法"><a href="#④TweenLite-fromTo-方法" class="headerlink" title="④TweenLite.fromTo()方法"></a>④TweenLite.fromTo()方法</h4><p>这个方法我们可以定义元素的起始位置</p>
+<pre class="language-js" data-language="js"><code class="language-js">TweenLite<span class="token punctuation">.</span><span class="token function">fromTo</span><span class="token punctuation">(</span>$box<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token literal-property property">x</span><span class="token operator">:</span> <span class="token string">'-=200px'</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token literal-property property">x</span><span class="token operator">:</span> <span class="token number">300</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/24-03-25_05.png" alt="img"></p>
+<p>定义元素从左边200px的位置开始运动到指定的位置。</p>
+<p>x:300会覆盖在CSS中定义的transform: translate(–50%, –50%)的样式</p>
+<p>用新的transform: matrix(1, 0, 0, 1, 300, -50);样式来代替。</p>
+<h4 id="⑤GreenSock提供了各种的运动曲线"><a href="#⑤GreenSock提供了各种的运动曲线" class="headerlink" title="⑤GreenSock提供了各种的运动曲线"></a>⑤GreenSock提供了各种的运动曲线</h4><ul>
+<li>依靠的是缓动曲线函数</li>
+</ul>
+<p><strong>TweenMax的话，它已经包含了EasePack</strong></p>
+<p>EasePack包含下面的这些运动曲线：</p>
+<p>1、Back 2、SlowMo 3、StppedEase 4、RoughEase 5、Bounce 6、Circ 7、Elastic 8、Expo 9、Sine</p>
+<ul>
+<li>简单使用</li>
+</ul>
+<pre class="language-js" data-language="js"><code class="language-js">TweenLite<span class="token punctuation">.</span><span class="token function">fromTo</span><span class="token punctuation">(</span>$box<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token literal-property property">x</span><span class="token operator">:</span> <span class="token string">'-=200px'</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token literal-property property">x</span><span class="token operator">:</span> <span class="token number">150</span><span class="token punctuation">,</span> <span class="token literal-property property">ease</span><span class="token operator">:</span>Power4<span class="token punctuation">.</span>easeInOut<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<p>下面来添加ease:Power4.easeInOut来看看实际的效果</p>
+<pre class="language-js" data-language="js"><code class="language-js">TweenLite<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span>$box<span class="token punctuation">,</span> <span class="token number">0.4</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token literal-property property">top</span><span class="token operator">:</span> <span class="token string">'100px'</span><span class="token punctuation">,</span> <span class="token literal-property property">y</span><span class="token operator">:</span> <span class="token string">'-100%'</span><span class="token punctuation">,</span> <span class="token literal-property property">ease</span><span class="token operator">:</span>Bounce<span class="token punctuation">.</span>easeOut<span class="token punctuation">,</span> <span class="token literal-property property">delay</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    TweenLite<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span>$box<span class="token punctuation">,</span> <span class="token number">0.7</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token literal-property property">x</span><span class="token operator">:</span> <span class="token string">'-=200px'</span><span class="token punctuation">,</span> <span class="token literal-property property">y</span><span class="token operator">:</span> <span class="token string">'-100%'</span><span class="token punctuation">,</span> <span class="token literal-property property">ease</span><span class="token operator">:</span>Back<span class="token punctuation">.</span>easeInOut<span class="token punctuation">,</span> <span class="token literal-property property">delay</span><span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    TweenLite<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span>$box<span class="token punctuation">,</span> <span class="token number">0.8</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token literal-property property">x</span><span class="token operator">:</span> <span class="token string">'-=200px'</span><span class="token punctuation">,</span> <span class="token literal-property property">y</span><span class="token operator">:</span> <span class="token string">'-100%'</span><span class="token punctuation">,</span> <span class="token literal-property property">ease</span><span class="token operator">:</span>Back<span class="token punctuation">.</span>easeInOut<span class="token punctuation">,</span> <span class="token literal-property property">delay</span><span class="token operator">:</span> <span class="token number">4.2</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    TweenLite<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span>$box<span class="token punctuation">,</span> <span class="token number">2.5</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token literal-property property">top</span><span class="token operator">:</span> <span class="token string">'50%'</span><span class="token punctuation">,</span> <span class="token literal-property property">y</span><span class="token operator">:</span> <span class="token string">'-50%'</span><span class="token punctuation">,</span> <span class="token literal-property property">ease</span><span class="token operator">:</span>Power0<span class="token punctuation">.</span>easeNone<span class="token punctuation">,</span> <span class="token literal-property property">delay</span><span class="token operator">:</span> <span class="token number">5</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    TweenLite<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span>$box<span class="token punctuation">,</span> <span class="token number">2.5</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token literal-property property">x</span><span class="token operator">:</span> <span class="token string">'+=400px'</span><span class="token punctuation">,</span> <span class="token literal-property property">ease</span><span class="token operator">:</span>Elastic<span class="token punctuation">.</span>easeInOut<span class="token punctuation">,</span> <span class="token literal-property property">delay</span><span class="token operator">:</span> <span class="token number">7.7</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    TweenLite<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span>$box<span class="token punctuation">,</span> <span class="token number">2.5</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token literal-property property">x</span><span class="token operator">:</span> <span class="token string">'-=400px'</span><span class="token punctuation">,</span> <span class="token literal-property property">rotation</span><span class="token operator">:</span> <span class="token operator">-</span><span class="token number">720</span><span class="token punctuation">,</span> <span class="token literal-property property">ease</span><span class="token operator">:</span> SlowMo<span class="token punctuation">.</span>ease<span class="token punctuation">.</span><span class="token function">config</span><span class="token punctuation">(</span><span class="token number">0.1</span><span class="token punctuation">,</span> <span class="token number">0.7</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token literal-property property">delay</span><span class="token operator">:</span> <span class="token number">10.4</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<p>曲线函数地址：<a href="https://link.juejin.cn/?target=https://greensock.com/ease-visualizer">greensock.com/ease-visual…</a></p>
+<h4 id="⑥-回调函数"><a href="#⑥-回调函数" class="headerlink" title="⑥ 回调函数"></a>⑥ 回调函数</h4><p>GreenSock提供了丰富的回调函数来操作动画效果。</p>
+<p>以.fromTo()方法为例</p>
+<p>比如，我们想要在动画开始的时候触发回调函数。可以创建一个start的函数：</p>
+<ul>
+<li>分别在不同的状态的时候触发对应的回调函数</li>
+</ul>
+<p>onStart:start在动画开始的时候来触发回调函数</p>
+<p>onUpdate会在动画的每一帧触发</p>
+<p>onComplete会在动画结束的时候触发。</p>
+<p><img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/24-03-25_06.png" alt="img"></p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'start'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">function</span> <span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'animating'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">function</span> <span class="token function">complete</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'end'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+  
+TweenLite<span class="token punctuation">.</span><span class="token function">fromTo</span><span class="token punctuation">(</span>$box<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token literal-property property">x</span><span class="token operator">:</span> <span class="token string">'-=200px'</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token literal-property property">x</span><span class="token operator">:</span> <span class="token number">150</span><span class="token punctuation">,</span> <span class="token literal-property property">ease</span><span class="token operator">:</span>Power4<span class="token punctuation">.</span>easeInOut<span class="token punctuation">,</span> <span class="token literal-property property">onStart</span><span class="token operator">:</span> start<span class="token punctuation">,</span><span class="token literal-property property">onUpdate</span><span class="token operator">:</span>update<span class="token punctuation">,</span>onCo</code></pre>
+
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>GSAP 的强大不是一篇能阐述完的，感兴趣的朋友可以自行查看官网文档，不用造轮子，我们都是轮子的使用者。respect</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">feico</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://hth520.github.io/2024/03/25/240325.html">https://hth520.github.io/2024/03/25/240325.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">feico</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/GASP/">
+                                    <span class="chip bg-color">GASP</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'b9a2beda19f54d2b3323',
+        clientSecret: 'e19a9a6d3f23ecc943c5c7fbee9444a8f66fc8b3',
+        repo: 'hth520.github.io',
+        owner: 'hth520',
+        admin: ["hth520"],
+        id: '2024-03-25T09-14-13',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2024/03/25/240325.html">
+                    <div class="card-image">
+                        
+                        <img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/24-03-25_banner.png" class="responsive-img" alt="GSAP动画库使用">
+                        
+                        <span class="card-title">GSAP动画库使用</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-03-25
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/JS%E5%8A%A8%E7%94%BB/" class="post-category">
+                                    JS动画
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/GASP/">
+                        <span class="chip bg-color">GASP</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/02/14/240214.html">
+                    <div class="card-image">
+                        
+                        <img src="https://blog-1309278058.cos.ap-shanghai.myqcloud.com/24-02-14_banner.png" class="responsive-img" alt="iframe高度适配">
+                        
+                        <span class="card-title">iframe高度适配</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-02-14
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%B5%8C%E5%85%A5/" class="post-category">
+                                    嵌入
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/iframe/">
+                        <span class="chip bg-color">iframe</span>
+                    </a>
+                    
+                    <a href="/tags/%E9%AB%98%E5%BA%A6%E8%87%AA%E9%80%82%E5%BA%94/">
+                        <span class="chip bg-color">高度自适应</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2024</span>
+            
+            <a href="/about" target="_blank">feico</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+
+
+    <a href="mailto:1257184579@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="https://juejin.cn/user/4143387266268231" class="tooltipped" target="_blank" data-tooltip="关注我的掘金账号" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">掘</i>
+    </a>
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1257184579" class="tooltipped" target="_blank" data-tooltip="QQ联系我" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://www.weibo.com/5725912387/profile?rightmod=1&amp;wvr=6&amp;mod=personinfo&amp;is_all=1#_rnd1645576889132" class="tooltipped" target="_blank" data-tooltip="访问我的微博" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="cOkdS5zLg4HMRQRv9uD0PmhE-MdYXbMMI" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
